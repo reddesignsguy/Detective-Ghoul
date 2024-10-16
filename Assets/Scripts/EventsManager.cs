@@ -52,4 +52,14 @@ public class EventsManager : MonoBehaviour
             onUnlockAttempt(code);
         }
     }
+
+    public event Action<Item> onPickUpItem;
+
+    public void PickupItem(Item item)
+    {
+        if (onPickUpItem != null)
+        {
+            onPickUpItem(item);
+        }
+    }
 }
