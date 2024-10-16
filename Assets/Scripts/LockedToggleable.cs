@@ -7,6 +7,11 @@ public class LockedToggleable : Toggleable
     [SerializeField]
     private string code;
 
+    private void Awake()
+    {
+        code = "";
+    }
+
     private void OnEnable()
     {
         EventsManager.instance.onUnlockAttempt += OnHandleUnlockAttempt;
@@ -28,6 +33,7 @@ public class LockedToggleable : Toggleable
 
     public override void Interact()
     {
+        Debug.Log("Opening inventory");
         EventsManager.instance.StartKeySelection(this);
     }
 
