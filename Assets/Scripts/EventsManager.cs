@@ -20,6 +20,16 @@ public class EventsManager : MonoBehaviour
 
     }
 
+    public event Action<LockedToggleable> onStartUnlocking;
+
+    public void StartUnlocking(LockedToggleable toggleable)
+    {
+        if (onStartUnlocking != null)
+        {
+            onStartUnlocking(toggleable);
+        }
+    }
+
     public event Action<LockedToggleable> onAttemptUnlock;
 
     public void AttemptUnlock(LockedToggleable toggleable)
