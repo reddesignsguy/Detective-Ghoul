@@ -20,9 +20,10 @@ public class EventsManager : MonoBehaviour
 
     }
 
+    /* Marks the start of key selection when attempting to unlock a locked toggleable*/
     public event Action<LockedToggleable> onStartKeySelection;
 
-    public void StartItemSelectionForInteraction(LockedToggleable toggleable)
+    public void StartKeySelection(LockedToggleable toggleable)
     {
         if (onStartKeySelection != null)
         {
@@ -30,6 +31,18 @@ public class EventsManager : MonoBehaviour
         }
     }
 
+    /* Marks the end of key selection whether or not the player has chosen a key for unlocking a locked toggleable*/
+    public event Action<LockedToggleable> onEndKeySelection;
+
+    public void EndKeySelection(LockedToggleable toggleable)
+    {
+        if (onEndKeySelection != null)
+        {
+            onEndKeySelection(toggleable);
+        }
+    }
+
+    /* Called when the player has chosen a key for unlocking a locked toggleable*/
     public event Action<string> onUnlockAttempt;
 
     public void AttemptUnlock(string code)
