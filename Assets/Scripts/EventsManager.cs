@@ -20,19 +20,19 @@ public class EventsManager : MonoBehaviour
 
     }
 
-    public event Action<LockedToggleable> onStart;
+    public event Action<LockedToggleable> onStartKeySelection;
 
-    public void StartUnlocking(LockedToggleable toggleable)
+    public void StartItemSelectionForInteraction(LockedToggleable toggleable)
     {
-        if (onStart != null)
+        if (onStartKeySelection != null)
         {
-            onStart(toggleable);
+            onStartKeySelection(toggleable);
         }
     }
 
     public event Action<string> onUnlockAttempt;
 
-    public void AttemptUnlock(String code)
+    public void AttemptUnlock(string code)
     {
         if (onUnlockAttempt != null)
         {

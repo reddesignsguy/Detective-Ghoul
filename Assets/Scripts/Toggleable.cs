@@ -5,9 +5,11 @@ using UnityEngine;
 public class Toggleable : MonoBehaviour, Interactable
 {
     protected bool on;
+    Animator animator;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         on = false;
     }
 
@@ -19,5 +21,11 @@ public class Toggleable : MonoBehaviour, Interactable
     protected void Toggle()
     {
         Debug.Log("Toggling object");
+
+        if (animator)
+        {
+            bool curAnimationState = animator.GetBool("On");
+            animator.SetBool("On", !curAnimationState);
+        }
     }
 }

@@ -28,7 +28,7 @@ public class LockedToggleable : Toggleable
 
     public override void Interact()
     {
-        Debug.Log("Starting item selection");
+        EventsManager.instance.StartItemSelectionForInteraction(this);
     }
 
     
