@@ -11,10 +11,10 @@ public enum ItemType
 public class Item : MonoBehaviour, Interactable
 {
     [SerializeField] private ItemType itemID;
-    [SerializeField] private string codeID;
+    [SerializeField] private GameObject lockReference;
 
     public ItemType ItemID => itemID;
-    public string CodeID => codeID;
+    public int LockID => lockReference.GetInstanceID();
 
     public void Interact()
     {
