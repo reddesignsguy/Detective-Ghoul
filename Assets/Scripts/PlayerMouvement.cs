@@ -3,47 +3,38 @@ using UnityEngine.InputSystem;
 
 public class PlayerMouvement : MonoBehaviour
 {
-    private PlayerInputActions inputActions;
+    [SerializeField] public InputSystem inputSystem;
     private Vector2 moveInput;
-    public float moveSpeed = 5f;
+    [SerializeField]public float moveSpeed = 5f;
     private Rigidbody rb;
     private SpriteRenderer sr;
-    public float raycastDistance = 1.5f;
-    public LayerMask groundLayer;
+    [SerializeField]public float raycastDistance = 1.5f;
+    [SerializeField]public LayerMask groundLayer;
     private bool isMovementEnabled = true;
 
     private void Awake()
     {
-        inputActions = new PlayerInputActions();
         rb = GetComponent<Rigidbody>();
         sr = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnEnable()
     {
-        inputActions.Player.Enable();
-        inputActions.Player.Move.performed += OnMove;
-        inputActions.Player.Move.canceled += OnMove;
+
         EventsManager.instance.onStartKeySelection += DisableMovement;
         EventsManager.instance.onEndKeySelection += EnableMovement;
     }
 
     private void OnDisable()
     {
-        inputActions.Player.Disable();
         EventsManager.instance.onStartKeySelection -= DisableMovement;
         EventsManager.instance.onEndKeySelection -= EnableMovement;
     }
-
-    private void OnMove(InputAction.CallbackContext context)
-    {
-        moveInput = context.ReadValue<Vector2>();
-    }
-
     private void Update()
     {
          if (isMovementEnabled)
         {
+        Vector2 moveInput = inputSystem.moveInput;
         Vector2 moveX = new Vector3(moveInput.x, 0);
         rb.velocity = moveX * moveSpeed;
         if (moveInput.x != 0) sr.flipX = moveInput.x < 0;
