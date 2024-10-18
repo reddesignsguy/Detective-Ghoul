@@ -14,7 +14,7 @@ public class Item : MonoBehaviour, Interactable
     [SerializeField] private GameObject lockReference;
 
     public InventoryItem ItemInfo => itemInfo;
-    public int LockID => lockReference.GetInstanceID();
+    public string LockID => lockReference.GetInstanceID().ToString();
 
     public void Interact()
     {
