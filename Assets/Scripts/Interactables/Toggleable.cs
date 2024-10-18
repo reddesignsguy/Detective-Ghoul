@@ -29,7 +29,7 @@ public class Toggleable : MonoBehaviour, Interactable
         }
     }
 
-    public string GetMessage()
+    public string GetSuggestion()
     {
         return "Toggle";
     }

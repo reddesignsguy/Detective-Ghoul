@@ -23,7 +23,7 @@ public class Item : MonoBehaviour, Interactable
         return lockReference.GetInstanceID().ToString();
     }
 
-    public string GetMessage()
+    public string GetSuggestion()
     {
         return "Pick up " + itemInfo.name;
     }

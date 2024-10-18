@@ -5,5 +5,5 @@ using UnityEngine;
 public interface Interactable
 {
     public abstract void Interact();
-    public abstract string GetMessage();
+    public abstract string GetSuggestion();
 }
