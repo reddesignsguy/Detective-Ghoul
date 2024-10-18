@@ -14,11 +14,17 @@ public class Item : MonoBehaviour, Interactable
     [SerializeField] private GameObject lockReference;
 
     public InventoryItem ItemInfo => itemInfo;
-    public string LockID => lockReference.GetInstanceID().ToString();
+
+    public string GetLockID()
+    {
+        if (lockReference == null)
+            return null;
+
+        return lockReference.GetInstanceID().ToString();
+    }
 
     public void Interact()
     {
-        Debug.Log("Picking up item");
         EventsManager.instance.PickupItem(this);
     }
 }
