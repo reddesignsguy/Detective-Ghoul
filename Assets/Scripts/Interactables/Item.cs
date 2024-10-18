@@ -23,6 +23,11 @@ public class Item : MonoBehaviour, Interactable
         return lockReference.GetInstanceID().ToString();
     }
 
+    public string GetMessage()
+    {
+        return "Pick up " + itemInfo.name;
+    }
+
     public void Interact()
     {
         EventsManager.instance.PickupItem(this);

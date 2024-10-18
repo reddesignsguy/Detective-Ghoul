@@ -28,4 +28,9 @@ public class Toggleable : MonoBehaviour, Interactable
             animator.SetBool("On", !curAnimationState);
         }
     }
+
+    public string GetMessage()
+    {
+        return "Toggle";
+    }
 }
