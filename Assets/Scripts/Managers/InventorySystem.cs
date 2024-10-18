@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class InventorySystem : MonoBehaviour
 {
+    // todo -- possibly rename to something more intuitive
+    private struct ParsedInventoryItem
+    {
+        InventoryItem item;
+        string code;
+
+        public ParsedInventoryItem(InventoryItem item, string code)
+        {
+            this.item = item;
+            this.code = code;
+        }
+    }
 
     private void OnEnable()
     {
@@ -18,8 +30,11 @@ public class InventorySystem : MonoBehaviour
     private void HandlePickUpItem (Item item)
     {
         Debug.Log("Picking up item");
-        Destroy(item.transform.gameObject);
+        InventoryItem baseData = item.ItemInfo;
+        string unlockCode = item.LockID;
 
-        
+        ParsedInventoryItem finalData = new ParsedInventoryItem(baseData, unlockCode);
+
+        Destroy(item.transform.gameObject);
     }
 }
