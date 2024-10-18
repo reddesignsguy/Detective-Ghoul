@@ -18,6 +18,7 @@ public class Item : MonoBehaviour, Interactable
 
     public void Interact()
     {
+
         EventsManager.instance.PickupItem(this);
     }
 }

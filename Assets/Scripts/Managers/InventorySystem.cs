@@ -19,5 +19,7 @@ public class InventorySystem : MonoBehaviour
     {
         Debug.Log("Picking up item");
         Destroy(item.transform.gameObject);
+
+        
     }
 }
