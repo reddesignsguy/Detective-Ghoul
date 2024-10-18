@@ -10,10 +10,10 @@ public enum ItemType
 
 public class Item : MonoBehaviour, Interactable
 {
-    [SerializeField] private ItemType itemID;
+    [SerializeField] private InventoryItem itemInfo;
     [SerializeField] private GameObject lockReference;
 
-    public ItemType ItemID => itemID;
+    public InventoryItem ItemInfo => itemInfo;
     public int LockID => lockReference.GetInstanceID();
 
     public void Interact()
