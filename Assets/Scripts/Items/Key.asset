@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771b9dc059c374570812c2e45a589349, type: 3}
   m_Name: Key
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 2800000, guid: abea5db43834c400982b889f1e6eb0e5, type: 3}
   _name: Key
   description: This may unlock something..
