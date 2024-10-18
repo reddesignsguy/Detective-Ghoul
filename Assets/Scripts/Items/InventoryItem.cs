@@ -8,4 +8,3 @@ public class InventoryItem : ScriptableObject
     public string _name;
     public string description;
 }
-
