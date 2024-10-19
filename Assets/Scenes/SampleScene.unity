@@ -620,6 +620,7 @@ GameObject:
   m_Component:
   - component: {fileID: 395480187}
   - component: {fileID: 395480188}
+  - component: {fileID: 395480189}
   m_Layer: 0
   m_Name: EventsManager
   m_TagString: Untagged
@@ -654,6 +655,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0598ae5cc0ee42c9bcde77979dce324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &395480189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395480185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bb332e7d82242c0b437e7d0c74f14e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 0}
+  inventory: {fileID: 0}
+  interactableUIPrefab: {fileID: 1954115087329454554, guid: 2b1d93f32f52c3c45b7e997c385e8860, type: 3}
 --- !u!1 &454827684
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,6 +1432,7 @@ GameObject:
   - component: {fileID: 1948457995}
   - component: {fileID: 1948457993}
   - component: {fileID: 1948457994}
+  - component: {fileID: 1948457996}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1453,7 +1470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputSystem: {fileID: 1948457995}
   moveSpeed: 5
-  raycastDistance: 1.1
+  raycastDistance: 1.15
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1519,6 +1536,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e973a22558474b438052de2a7f06370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &1948457996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948457990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c062f0f4d1186418c61ae21a8458c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 2
   interactableLayer:
     serializedVersion: 2
     m_Bits: 64

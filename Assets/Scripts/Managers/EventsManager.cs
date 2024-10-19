@@ -60,4 +60,17 @@ public class EventsManager : MonoBehaviour
             onPickUpItem(item);
         }
     }
+
+    public event Action<bool, GameObject> OnToggleableDetect;
+
+    public void ToggleableDetect(bool show, GameObject interactableGameObject)
+    {
+        if (OnToggleableDetect != null)
+        {
+            OnToggleableDetect(show, interactableGameObject);
+        }
+    }
+
+
+
 }

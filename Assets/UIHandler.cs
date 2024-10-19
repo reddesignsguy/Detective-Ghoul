@@ -8,10 +8,13 @@ public class UIHandler : MonoBehaviour
 
     public GameObject inventoryPanel;
     public InventorySystem inventory;
+    public GameObject interactableUIPrefab;
+    private Dictionary<GameObject, GameObject> uiElements = new Dictionary<GameObject, GameObject>();
+
 
     private void Awake()
     {
-        inventoryPanel.SetActive(false);
+        //inventoryPanel.SetActive(false);
     }
     // Start is called before the first frame update
     void Start()
@@ -19,17 +22,69 @@ public class UIHandler : MonoBehaviour
         
     }
 
-    private void OnEnable()
+   private void OnEnable()
     {
         EventsManager.instance.onStartKeySelection += HandleStartKeySelection;
+        EventsManager.instance.OnToggleableDetect += HandleToggleableDetect;
+    }
+
+    private void OnDisable()
+    {
+        EventsManager.instance.onStartKeySelection -= HandleStartKeySelection;
+        EventsManager.instance.OnToggleableDetect -= HandleToggleableDetect;
     }
 
     private void HandleStartKeySelection(LockedToggleable toggleable)
     {
         Debug.Log("finding a key");
         inventoryPanel.SetActive(true);
-
     }
+
+    private void HandleToggleableDetect(bool show, GameObject interactableGameObject)
+    {
+        if (show)
+        {
+            ShowInteractableUI(interactableGameObject);
+        }
+        else
+        {
+            HideInteractableUI(interactableGameObject);
+        }
+    }
+
+    private void ShowInteractableUI(GameObject interactableGameObject)
+    {
+        if (!uiElements.ContainsKey(interactableGameObject))
+        {
+            GameObject uiElement = Instantiate(interactableUIPrefab, interactableGameObject.transform.position + Vector3.up * 2f, Quaternion.identity);
+            
+            RectTransform rectTransform = uiElement.GetComponent<RectTransform>();
+            if (rectTransform != null)
+            {
+                rectTransform.localScale = Vector3.one * 0.01f; 
+            }
+
+            Text uiText = uiElement.GetComponentInChildren<Text>();
+            
+            if (uiText != null)
+            {
+                uiText.text = interactableGameObject.name;
+            }
+            
+            uiElements[interactableGameObject] = uiElement;
+        }
+}
+
+
+        private void HideInteractableUI(GameObject interactableGameObject)
+        {
+            if (uiElements.TryGetValue(interactableGameObject, out GameObject uiElement))
+            {
+                Destroy(uiElement);
+                uiElements.Remove(interactableGameObject);
+            }
+        
+        }
 
     //private void MapImages()
     //{
