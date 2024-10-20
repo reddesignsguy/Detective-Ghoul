@@ -6,37 +6,44 @@ public class IntercablesDetect : MonoBehaviour
     public float detectionRadius = 5f;
     public LayerMask interactableLayer;
 
-    private HashSet<GameObject> detectedObjects = new HashSet<GameObject>();
+    private GameObject lastDetectedObject;
 
     private void Update()
     {
-        DetectInteractable();
+        DetectClosestInteractable();
     }
 
-    private void DetectInteractable()
+    private void DetectClosestInteractable()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius, interactableLayer);
-        HashSet<GameObject> currentHits = new HashSet<GameObject>();
+        GameObject closestObject = null;
+        float closestDistance = Mathf.Infinity;
 
         foreach (Collider hit in hits)
         {
-            currentHits.Add(hit.gameObject);
-
-            // Notify that an interactable object is detected
-            EventsManager.instance.ToggleableDetect(true, hit.gameObject);
-        }
-
-        // Check for objects that are no longer detected
-        foreach (var detectedObject in detectedObjects)
-        {
-            if (!currentHits.Contains(detectedObject))
+            float distance = Vector3.Distance(transform.position, hit.transform.position);
+            if (distance < closestDistance)
             {
-                // Notify that an interactable object is no longer detected
-                EventsManager.instance.ToggleableDetect(false, detectedObject);
+                closestDistance = distance;
+                closestObject = hit.gameObject;
             }
         }
 
-        detectedObjects = currentHits; // Update the set of detected objects
+        if (closestObject != null && closestObject != lastDetectedObject)
+        {
+            if (lastDetectedObject != null)
+            {
+                EventsManager.instance.ToggleableDetect(false, lastDetectedObject);
+            }
+
+            EventsManager.instance.ToggleableDetect(true, closestObject);
+            lastDetectedObject = closestObject;
+        }
+        else if (closestObject == null && lastDetectedObject != null)
+        {
+            EventsManager.instance.ToggleableDetect(false, lastDetectedObject);
+            lastDetectedObject = null;
+        }
     }
 
     private void OnDrawGizmosSelected()

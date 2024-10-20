@@ -57,18 +57,23 @@ public class UIHandler : MonoBehaviour
         if (!uiElements.ContainsKey(interactableGameObject))
         {
             GameObject uiElement = Instantiate(interactableUIPrefab, interactableGameObject.transform.position + Vector3.up * 2f, Quaternion.identity);
-            
+            string suggestion = interactableGameObject.GetComponent<Interactable>().GetSuggestion();
             RectTransform rectTransform = uiElement.GetComponent<RectTransform>();
             if (rectTransform != null)
             {
                 rectTransform.localScale = Vector3.one * 0.01f; 
+            }
+            Canvas canvas = uiElement.GetComponent<Canvas>();
+            if (canvas != null)
+            {
+                canvas.worldCamera = Camera.main; 
             }
 
             Text uiText = uiElement.GetComponentInChildren<Text>();
             
             if (uiText != null)
             {
-                uiText.text = interactableGameObject.name;
+                uiText.text = suggestion;
             }
             
             uiElements[interactableGameObject] = uiElement;
