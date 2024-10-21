@@ -11,10 +11,15 @@ public class UIHandler : MonoBehaviour
     public GameObject interactableUIPrefab;
     private Dictionary<GameObject, GameObject> uiElements = new Dictionary<GameObject, GameObject>();
 
+    public GameObject DialoguePanel;
+    public Text DialogueText;
+    public List<Button> OptionButtons;
+
 
     private void Awake()
     {
         //inventoryPanel.SetActive(false);
+         DialoguePanel.SetActive(false);
     }
     // Start is called before the first frame update
     void Start()
@@ -26,12 +31,14 @@ public class UIHandler : MonoBehaviour
     {
         EventsManager.instance.onStartKeySelection += HandleStartKeySelection;
         EventsManager.instance.OnToggleableDetect += HandleToggleableDetect;
+        EventsManager.instance.onStartDialogue += ShowDialogue;
     }
 
     private void OnDisable()
     {
         EventsManager.instance.onStartKeySelection -= HandleStartKeySelection;
         EventsManager.instance.OnToggleableDetect -= HandleToggleableDetect;
+        EventsManager.instance.onStartDialogue -= ShowDialogue;
     }
 
     private void HandleStartKeySelection(LockedToggleable toggleable)
@@ -109,6 +116,44 @@ public class UIHandler : MonoBehaviour
     //}
 
     // Update is called once per frame
+
+
+    private void ShowDialogue(Dialogue dialogue)
+    {
+        DialoguePanel.SetActive(true);
+        DialogueText.text = dialogue.DialogueText;
+        SetOptions(dialogue.options);
+    }
+
+
+    public void SetOptions(List<Option> options)
+    {
+        for (int i = 0; i < OptionButtons.Count; i++)
+        {
+            if (i < options.Count)
+            {
+                OptionButtons[i].gameObject.SetActive(true);
+                OptionButtons[i].GetComponentInChildren<Text>().text = options[i].OptionText;
+
+                int optionId = options[i].id;
+                OptionButtons[i].onClick.RemoveAllListeners();
+                OptionButtons[i].onClick.AddListener(() => OnOptionClicked(optionId));
+            }
+            else
+            {
+                OptionButtons[i].gameObject.SetActive(false);
+            }
+        }
+    }
+     private void OnOptionClicked(int optionId)
+    {
+        FindObjectOfType<DialogueManager>().OnOptionSelected(optionId);
+    }
+
+    public void HideDialogue()
+    {
+        DialoguePanel.SetActive(false);
+    }
     void Update()
     {
         

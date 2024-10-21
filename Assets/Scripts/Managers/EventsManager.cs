@@ -71,6 +71,15 @@ public class EventsManager : MonoBehaviour
         }
     }
 
+    public event Action<Dialogue> onStartDialogue;
+    public void StartDialogue(Dialogue dialogue)
+    {
+        if (onStartDialogue != null)
+        {
+            onStartDialogue(dialogue);
+        }
+    }
+
 
 
 }
