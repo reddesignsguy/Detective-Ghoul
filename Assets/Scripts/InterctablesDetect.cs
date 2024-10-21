@@ -5,7 +5,6 @@ public class IntercablesDetect : MonoBehaviour
 {
     public float detectionRadius = 5f;
     public LayerMask interactableLayer;
-
     private GameObject lastDetectedObject;
 
     private void Update()
@@ -44,6 +43,11 @@ public class IntercablesDetect : MonoBehaviour
             EventsManager.instance.ToggleableDetect(false, lastDetectedObject);
             lastDetectedObject = null;
         }
+    }
+
+    public GameObject GetLastDetectedObject()
+    {
+        return lastDetectedObject;
     }
 
     private void OnDrawGizmosSelected()
