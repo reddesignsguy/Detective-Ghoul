@@ -37,18 +37,12 @@ public class InventorySystem : MonoBehaviour
 
     private void HandlePickUpItem (Item item)
     {
-        Debug.Log("Picking up itemmmm");
-
         InventoryItem baseData = item.ItemInfo;
         string unlockCode = item.GetLockID();
 
         ParsedInventoryItem finalData = new ParsedInventoryItem(baseData, unlockCode);
 
         items.Add(finalData);
-
-        Debug.Log("test");
-
-        Debug.Log(items[0].item._name);
         Destroy(item.transform.gameObject);
     }
 }
