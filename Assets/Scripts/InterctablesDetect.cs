@@ -28,23 +28,7 @@ public class IntercablesDetect : MonoBehaviour
             }
         }
 
-        // New closest object
-        if (closestObject != null && closestObject != lastDetectedObject)
-        {
-            if (lastDetectedObject != null)
-            {
-                EventsManager.instance.ToggleableDetect(false, lastDetectedObject);
-            }
-
-            EventsManager.instance.ToggleableDetect(true, closestObject);
-            lastDetectedObject = closestObject;
-        }
-        // Not near any object
-        else if (closestObject == null && lastDetectedObject != null)
-        {
-            EventsManager.instance.ToggleableDetect(false, lastDetectedObject);
-            lastDetectedObject = null;
-        }
+        EventsManager.instance.ToggleableDetect(closestObject);
     }
 
     public GameObject GetLastDetectedObject()

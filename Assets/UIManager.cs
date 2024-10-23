@@ -8,9 +8,6 @@ public abstract class UIManager : MonoBehaviour
 
     public void SetUIActive(bool open)
     {
-        Initialize();
         panel.SetActive(open);
     }
-
-    public abstract void Initialize();
 }

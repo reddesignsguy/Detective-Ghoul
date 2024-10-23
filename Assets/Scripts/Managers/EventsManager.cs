@@ -61,13 +61,13 @@ public class EventsManager : MonoBehaviour
         }
     }
 
-    public event Action<bool, GameObject> OnToggleableDetect;
+    public event Action<GameObject> OnToggleableDetect;
 
-    public void ToggleableDetect(bool show, GameObject interactableGameObject)
+    public void ToggleableDetect( GameObject interactableGameObject)
     {
         if (OnToggleableDetect != null)
         {
-            OnToggleableDetect(show, interactableGameObject);
+            OnToggleableDetect(interactableGameObject);
         }
     }
 
