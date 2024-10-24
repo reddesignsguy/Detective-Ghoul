@@ -60,6 +60,20 @@ public class EventsManager : MonoBehaviour
         }
     }
 
+    public event Action onOpenPuzzle;
+
+    public void OpenPuzzle()
+    {
+        onOpenPuzzle?.Invoke();
+    }
+
+    public event Action onClosePuzzle;
+
+    public void ClosePuzzle()
+    {
+        onClosePuzzle?.Invoke();
+    }
+
     ////////////////////// ////////////////////// ////////////////////// ////////////////////// //////////////////////
 
     /* Called when the player has chosen a key for unlocking a locked toggleable*/
