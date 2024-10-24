@@ -15,30 +15,52 @@ public class EventsManager : MonoBehaviour
         {
             instance = this;
         }
-
     }
 
+    ////////////////////// ////////////////////// ////////////////////// ////////////////////// //////////////////////
+    //// UI
     /* Marks the start of key selection when attempting to unlock a locked toggleable*/
-    public event Action<LockedToggleable> onStartKeySelection;
+    public event Action onOpenInventory;
 
-    public void StartKeySelection(LockedToggleable toggleable)
+    public void OpenInventory()
     {
-        if (onStartKeySelection != null)
+        if (onOpenInventory != null)
         {
-            onStartKeySelection(toggleable);
+            onOpenInventory();
         }
     }
 
     /* Marks the end of key selection whether or not the player has chosen a key for unlocking a locked toggleable*/
-    public event Action<LockedToggleable> onEndKeySelection;
+    public event Action onCloseInventory;
 
-    public void EndKeySelection(LockedToggleable toggleable)
+    public void CloseInventory()
     {
-        if (onEndKeySelection != null)
+        if (onCloseInventory != null)
         {
-            onEndKeySelection(toggleable);
+            onCloseInventory();
         }
     }
+
+    public event Action<GameObject> OnToggleableDetect;
+
+    public void ToggleableDetect(GameObject interactableGameObject)
+    {
+        if (OnToggleableDetect != null)
+        {
+            OnToggleableDetect(interactableGameObject);
+        }
+    }
+
+    public event Action<Dialogue> onStartDialogue;
+    public void StartDialogue(Dialogue dialogue)
+    {
+        if (onStartDialogue != null)
+        {
+            onStartDialogue(dialogue);
+        }
+    }
+
+    ////////////////////// ////////////////////// ////////////////////// ////////////////////// //////////////////////
 
     /* Called when the player has chosen a key for unlocking a locked toggleable*/
     public event Action<string> onUnlockAttempt;
@@ -58,25 +80,6 @@ public class EventsManager : MonoBehaviour
         if (onPickUpItem != null)
         {
             onPickUpItem(item);
-        }
-    }
-
-    public event Action<GameObject> OnToggleableDetect;
-
-    public void ToggleableDetect( GameObject interactableGameObject)
-    {
-        if (OnToggleableDetect != null)
-        {
-            OnToggleableDetect(interactableGameObject);
-        }
-    }
-
-    public event Action<Dialogue> onStartDialogue;
-    public void StartDialogue(Dialogue dialogue)
-    {
-        if (onStartDialogue != null)
-        {
-            onStartDialogue(dialogue);
         }
     }
 
