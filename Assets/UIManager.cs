@@ -4,10 +4,13 @@ using UnityEngine;
 
 public abstract class UIManager : MonoBehaviour
 {
-    protected GameObject panel;
+    public GameObject panel;
 
     public void SetUIActive(bool open)
     {
-        panel.SetActive(open);
+        if (panel != null)
+            panel.SetActive(open);
     }
+
+    public virtual void Update() { return;  }
 }
