@@ -4,18 +4,31 @@ using UnityEngine.UI;
 
 public class DialogueUIManager : UIManager
 {
-    public Text dialogueText;
-    public List<Button> OptionButtons;
+    public Text dialogueText;              
+    public List<Button> OptionButtons;     
+    public Button SkipButton;
 
-
-    private void UpdateUI(Dialogue dialogue)
+    public void StartDialogueUI(Dialogue dialogue)
     {
-        dialogueText.text = dialogue.DialogueText;
-        SetOptions(dialogue.options);
+        SetUIActive(true);  
+        UpdateUI(dialogue);
+        Skip();
     }
 
+    public void UpdateUI(Dialogue dialogue)
+    {
+        dialogueText.text = dialogue.DialogueText;  
+        if(dialogue.options.Count > 0){
+            SetOptions(dialogue.options); 
+            SkipButton.gameObject.SetActive(false);
+        }else {
+            SetOptions(dialogue.options); 
+            SkipButton.gameObject.SetActive(true);
+        }
+                        
+    }
 
-    public void SetOptions(List<Option> options)
+    private void SetOptions(List<Option> options)
     {
         for (int i = 0; i < OptionButtons.Count; i++)
         {
@@ -35,8 +48,17 @@ public class DialogueUIManager : UIManager
         }
     }
 
+    private void Skip(){
+         SkipButton.onClick.RemoveAllListeners(); 
+         SkipButton.onClick.AddListener(() => FindObjectOfType<DialogueManager>().Skip());
+    }
+
     private void OnOptionClicked(int optionId)
     {
         FindObjectOfType<DialogueManager>().OnOptionSelected(optionId);
+    }
+
+    public void FinishDialogue(){
+         SetUIActive(false);  
     }
 }

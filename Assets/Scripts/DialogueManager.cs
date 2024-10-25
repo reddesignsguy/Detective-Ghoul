@@ -3,41 +3,77 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    public List<Dialogue> Dialogues;  
-    private int CurrentIndex = 0;     
-    private Dialogue currentDialogue;
+    public static DialogueManager Instance { get; private set; }
+    
+    private DialogueUIManager dialogueUIManager;
 
-    void Start()
+    private List<Dialogue> currentDialogues;
+    public int currentIndex = 0;
+
+    private void Awake()
     {
-        if (Dialogues.Count > 0)
+        if (Instance != null && Instance != this)
         {
-            currentDialogue = Dialogues[CurrentIndex];
-            StartDialogue(currentDialogue); 
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        dialogueUIManager = FindObjectOfType<DialogueUIManager>();
+
+    }
+
+    public void StartDialogueSequence(List<Dialogue> dialogues)
+    {
+        currentDialogues = dialogues;
+        currentIndex = 0;
+
+        if (currentDialogues.Count > 0)
+        {
+            StartDialogue(currentDialogues[currentIndex]);
         }
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    private void StartDialogue(Dialogue dialogue)
     {
-        currentDialogue = dialogue;
-        EventsManager.instance.StartDialogue(dialogue); 
+        if (dialogueUIManager != null)
+        {
+            dialogueUIManager.StartDialogueUI(dialogue); 
+        }
     }
 
     public void OnOptionSelected(int selectedOptionId)
     {
-        Option selectedOption = currentDialogue.options.Find(option => option.id == selectedOptionId);
+        Option selectedOption = currentDialogues[currentIndex].options.Find(option => option.id == selectedOptionId);
 
         if (selectedOption != null)
         {
-            CurrentIndex = selectedOption.NextDialogueIndex;
+            currentIndex = selectedOption.NextDialogueIndex;
 
-            if (CurrentIndex < Dialogues.Count)
+            if (currentIndex < currentDialogues.Count)
             {
-                StartDialogue(Dialogues[CurrentIndex]);
+                StartDialogue(currentDialogues[currentIndex]);
             }
             else
             {
-                Debug.Log("Dialogue sequence finished.");
+                dialogueUIManager.FinishDialogue();
             }
         }
     }
+
+    public void Skip()
+    {
+        currentIndex++;
+
+        if (currentIndex < currentDialogues.Count) 
+        {
+            StartDialogue(currentDialogues[currentIndex]);
+        }
+        else 
+        {
+            dialogueUIManager.FinishDialogue();
+        }
+    }
+
 }
