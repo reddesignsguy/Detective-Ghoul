@@ -7,24 +7,21 @@ public class DialogueUIManager : UIManager
     public Text dialogueText;              
     public List<Button> OptionButtons;     
     public Button SkipButton;
-
+     private void Start()
+    {
+        SkipButtonSetUp();
+    }
     public void StartDialogueUI(Dialogue dialogue)
     {
         SetUIActive(true);  
         UpdateUI(dialogue);
-        Skip();
     }
 
     public void UpdateUI(Dialogue dialogue)
     {
         dialogueText.text = dialogue.DialogueText;  
-        if(dialogue.options.Count > 0){
-            SetOptions(dialogue.options); 
-            SkipButton.gameObject.SetActive(false);
-        }else {
-            SetOptions(dialogue.options); 
-            SkipButton.gameObject.SetActive(true);
-        }
+        SetOptions(dialogue.options); 
+        SkipButton.gameObject.SetActive(dialogue.options.Count == 0 );
                         
     }
 
@@ -48,7 +45,7 @@ public class DialogueUIManager : UIManager
         }
     }
 
-    private void Skip(){
+    private void SkipButtonSetUp(){
          SkipButton.onClick.RemoveAllListeners(); 
          SkipButton.onClick.AddListener(() => FindObjectOfType<DialogueManager>().Skip());
     }
