@@ -8,9 +8,12 @@ public class InputSystem : MonoBehaviour
     private float interactRange = 1f;
 
     public LayerMask interactableLayer;
+    private IntercablesDetect intercablesDetect;
+
     private void Awake()
     {
         inputActions = new PlayerInputActions();
+        intercablesDetect = GetComponent<IntercablesDetect>();
     }
 
     private void OnEnable()
@@ -26,6 +29,7 @@ public class InputSystem : MonoBehaviour
         inputActions.Player.Disable();
         inputActions.Player.Move.performed -= OnMovePerformed;
         inputActions.Player.Move.canceled -= OnMoveCanceled;
+        inputActions.Player.Interact.performed -= OnInteract;
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -37,17 +41,16 @@ public class InputSystem : MonoBehaviour
     {
         moveInput = Vector2.zero;
     }
+
     private void OnInteract(InputAction.CallbackContext context)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactRange, interactableLayer);
-        
-        foreach (Collider hitCollider in hitColliders)
+        GameObject closestInteractable = intercablesDetect.GetLastDetectedObject();
+        if (closestInteractable != null)
         {
-            Interactable interactable = hitCollider.GetComponent<Interactable>();
+            Interactable interactable = closestInteractable.GetComponent<Interactable>();
             if (interactable != null)
             {
                 interactable.Interact();
-                break; 
             }
         }
     }

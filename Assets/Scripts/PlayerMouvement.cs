@@ -21,14 +21,13 @@ public class PlayerMouvement : MonoBehaviour
     private void OnEnable()
     {
 
-        EventsManager.instance.onStartKeySelection += DisableMovement;
-        EventsManager.instance.onEndKeySelection += EnableMovement;
+        EventsManager.instance.onSetMovement += SetMovement;
     }
 
     private void OnDisable()
     {
-        EventsManager.instance.onStartKeySelection -= DisableMovement;
-        EventsManager.instance.onEndKeySelection -= EnableMovement;
+        EventsManager.instance.onSetMovement -= SetMovement;
+
     }
     private void Update()
     {
@@ -61,13 +60,9 @@ public class PlayerMouvement : MonoBehaviour
         }
     }
 
-     private void DisableMovement(LockedToggleable toggleable)
+    private void SetMovement(bool on)
     {
-        isMovementEnabled = false;
-    }
+        isMovementEnabled = on;
 
-    private void EnableMovement(LockedToggleable toggleable)
-    {
-        isMovementEnabled = true;
     }
 }

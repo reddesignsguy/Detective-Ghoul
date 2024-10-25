@@ -34,7 +34,7 @@ public class LockedToggleable : Toggleable
     public override void Interact()
     {
         Debug.Log("Opening inventory");
-        EventsManager.instance.StartKeySelection(this);
+        EventsManager.instance.OpenInventory();
     }
 
     
