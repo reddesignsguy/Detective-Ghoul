@@ -11,7 +11,7 @@ public class DialogueUIManager : UIManager
     {
         SkipButton.onClick.AddListener(() => FindObjectOfType<DialogueManager>().Skip());
     }
-    //SingleDialogueSection
+    //SingleDialogueSectionEachTime
     public void StartDialogueUI(Dialogue dialogue)
     {
         SetUIActive(true);  
