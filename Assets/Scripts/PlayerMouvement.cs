@@ -21,14 +21,13 @@ public class PlayerMouvement : MonoBehaviour
     private void OnEnable()
     {
 
-        EventsManager.instance.onOpenInventory += DisableMovement;
-        EventsManager.instance.onCloseInventory += EnableMovement;
+        EventsManager.instance.onSetMovement += SetMovement;
     }
 
     private void OnDisable()
     {
-        EventsManager.instance.onOpenInventory -= DisableMovement;
-        EventsManager.instance.onCloseInventory -= EnableMovement;
+        EventsManager.instance.onSetMovement -= SetMovement;
+
     }
     private void Update()
     {
@@ -61,13 +60,9 @@ public class PlayerMouvement : MonoBehaviour
         }
     }
 
-     private void DisableMovement()
+    private void SetMovement(bool on)
     {
-        isMovementEnabled = false;
-    }
+        isMovementEnabled = on;
 
-    private void EnableMovement()
-    {
-        isMovementEnabled = true;
     }
 }

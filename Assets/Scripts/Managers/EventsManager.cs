@@ -60,18 +60,13 @@ public class EventsManager : MonoBehaviour
         }
     }
 
-    public event Action onOpenPuzzle;
-
-    public void OpenPuzzle()
+    public event Action<bool> onSetMovement;
+    public void SetMovement(bool on)
     {
-        onOpenPuzzle?.Invoke();
-    }
-
-    public event Action onClosePuzzle;
-
-    public void ClosePuzzle()
-    {
-        onClosePuzzle?.Invoke();
+        if (onSetMovement != null)
+        {
+            onSetMovement(on);
+        }
     }
 
     ////////////////////// ////////////////////// ////////////////////// ////////////////////// //////////////////////
