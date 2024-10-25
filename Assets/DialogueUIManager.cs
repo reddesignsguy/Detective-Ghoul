@@ -9,7 +9,7 @@ public class DialogueUIManager : UIManager
     public Button SkipButton;
      private void Start()
     {
-        SkipButtonSetUp();
+        SkipButton.onClick.AddListener(() => FindObjectOfType<DialogueManager>().Skip());
     }
     public void StartDialogueUI(Dialogue dialogue)
     {
@@ -44,12 +44,6 @@ public class DialogueUIManager : UIManager
             }
         }
     }
-
-    private void SkipButtonSetUp(){
-         SkipButton.onClick.RemoveAllListeners(); 
-         SkipButton.onClick.AddListener(() => FindObjectOfType<DialogueManager>().Skip());
-    }
-
     private void OnOptionClicked(int optionId)
     {
         FindObjectOfType<DialogueManager>().OnOptionSelected(optionId);
