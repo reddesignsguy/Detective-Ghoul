@@ -11,11 +11,13 @@ public class PlayerMouvement : MonoBehaviour
     [SerializeField]public float raycastDistance = 1.5f;
     [SerializeField]public LayerMask groundLayer;
     private bool isMovementEnabled = true;
+    private Animator animator ;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         sr = GetComponentInChildren<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
@@ -36,7 +38,14 @@ public class PlayerMouvement : MonoBehaviour
         Vector2 moveInput = inputSystem.moveInput;
         Vector2 moveX = new Vector3(moveInput.x, 0);
         rb.velocity = moveX * moveSpeed;
-        if (moveInput.x != 0) sr.flipX = moveInput.x < 0;
+        if (moveInput.x != 0){
+            sr.flipX = moveInput.x < 0;
+            animator.Play("Mouvement");
+        }else{
+            animator.Play("Idle");
+        }
+            
+            
         }
     }
 

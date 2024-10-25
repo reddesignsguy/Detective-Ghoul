@@ -37,9 +37,5 @@ public class IntercablesDetect : MonoBehaviour
         return lastDetectedObject;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
-    }
+  
 }
