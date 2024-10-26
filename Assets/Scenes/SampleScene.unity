@@ -1324,17 +1324,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues:
   - id: 0
-    DialogueText: dqwdwqdqwdwq
+    DialogueText: 
     options:
     - id: 0
-      OptionText: wqdwqd
-      NextDialogueIndex: 1
-  - id: 1
-    DialogueText: text2
-    options:
+      OptionText: 
+      NextDialogueIndex: 0
     - id: 0
-      OptionText: dwqdwq
-      NextDialogueIndex: 5
+      OptionText: 
+      NextDialogueIndex: 0
 --- !u!1 &535211352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,13 +1417,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 535211352}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10378769, y: 0.00000004466506, z: -0.000000004660854, w: 0.9945995}
-  m_LocalPosition: {x: 0, y: 2.1100001, z: -10}
+  m_LocalRotation: {x: 0.008115664, y: 0, z: 0, w: 0.99996704}
+  m_LocalPosition: {x: 0, y: 1.7, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1948457991}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.93, y: 0, z: 0}
 --- !u!1 &552109404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,7 +1873,7 @@ Transform:
   m_GameObject: {fileID: 1043099305}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: -0.79, y: 0.1, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2936,6 +2933,37 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!4 &543450652214310789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148491906367}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &919132148491906367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 543450652214310789}
+  m_Layer: 0
+  m_Name: swivel chair
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1001 &2976664699807865875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3052,3 +3080,4 @@ SceneRoots:
   - {fileID: 395480187}
   - {fileID: 293163801}
   - {fileID: 454827687}
+  - {fileID: 543450652214310789}
