@@ -16,6 +16,28 @@ MonoBehaviour:
   intensity:
     m_OverrideState: 1
     m_Value: 0.203
+--- !u!114 &-2731004257239151952
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70afe9e12c7a7ed47911bb608a23a8ff, type: 3}
+  m_Name: SplitToning
+  m_EditorClassIdentifier: 
+  active: 0
+  shadows:
+    m_OverrideState: 1
+    m_Value: {r: 0.745283, g: 0.3884954, b: 0.17225882, a: 1}
+  highlights:
+    m_OverrideState: 1
+    m_Value: {r: 0.4392157, g: 0.7529412, b: 0.69348246, a: 1}
+  balance:
+    m_OverrideState: 1
+    m_Value: 62
 --- !u!114 &-625448732414179358
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -62,6 +84,7 @@ MonoBehaviour:
   - {fileID: 815409561389413864}
   - {fileID: -625448732414179358}
   - {fileID: 5721951057099803050}
+  - {fileID: -2731004257239151952}
 --- !u!114 &815409561389413864
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -96,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   skipIterations:
     m_OverrideState: 0
     m_Value: 1
@@ -105,7 +128,7 @@ MonoBehaviour:
     m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.6
+    m_Value: 1.8
   scatter:
     m_OverrideState: 0
     m_Value: 0.7
