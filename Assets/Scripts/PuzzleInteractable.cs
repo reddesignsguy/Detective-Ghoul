@@ -51,6 +51,7 @@ public class PuzzleInteractable : MonoBehaviour
         }
         else if (obj.CompareTag("Key"))
         {
+
             Debug.Log("key!");
         }
     }

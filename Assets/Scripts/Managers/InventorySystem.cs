@@ -6,19 +6,19 @@ using UnityEngine;
 public struct ParsedInventoryItem
 {
     public InventoryItem item;
-    public string code;
+    //public string code;
 
     public ParsedInventoryItem(InventoryItem item, string code)
     {
         this.item = item;
-        this.code = code;
+        //this.code = code;
     }
 }
 
 public class InventorySystem : MonoBehaviour
 {
 
-    List<ParsedInventoryItem> items;
+    public List<ParsedInventoryItem> items;
 
     private void Awake()
     {
@@ -35,7 +35,7 @@ public class InventorySystem : MonoBehaviour
         EventsManager.instance.onPickUpItem -= HandlePickUpItem;
     }
 
-    private void HandlePickUpItem (Item item)
+    public void HandlePickUpItem (Item item)
     {
         InventoryItem baseData = item.ItemInfo;
         string unlockCode = item.GetLockID();
