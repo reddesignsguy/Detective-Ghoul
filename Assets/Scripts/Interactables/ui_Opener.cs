@@ -3,17 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class UIOpener : MonoBehaviour, Interactable
+public class UIOpener : Interactee
 {
     public GameObject panel;
 
-    public string GetSuggestion()
-    {
-        // todo - refactor: make all interactables have a abstract class that takes in an action suggestion
-        return "Puzzle";
-    }
-
-    public void Interact()
+    public override void Interact()
     {
         Debug.Log("Helol");
         panel.SetActive(true);

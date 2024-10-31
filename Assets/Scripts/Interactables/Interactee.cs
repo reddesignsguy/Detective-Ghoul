@@ -5,14 +5,11 @@ public abstract class Interactee : MonoBehaviour, Interactable
 {
     public string suggestion;
 
-    public string GetSuggestion()
+    public virtual string GetSuggestion()
     {
         return suggestion;
     }
 
-    public virtual void Interact()
-    {
-        return;
-    }
+    public abstract void Interact();
 }
 

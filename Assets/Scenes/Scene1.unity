@@ -5971,6 +5971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c01977029ef426f81f10d37721d3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  suggestion: Open
   keys:
   - {fileID: 11400000, guid: a776b5bb0a35747a1a810bd8382a2d0d, type: 2}
   - {fileID: 11400000, guid: d3a96b35cf0624760a68d48dd63eeb41, type: 2}
@@ -8555,6 +8556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e088c57bb30466689df68a9ac58678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  suggestion: Trash
   panel: {fileID: 111954614}
 --- !u!65 &1342129176
 BoxCollider:
@@ -12156,7 +12158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b69afa8f12e4b5aa047e919195538d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suggestion: Pick up
+  suggestion: Missing Boy
   affectsGameState: 1
   itemInfo: {fileID: 11400000, guid: cc4551a9d2c9a4417a50639f5821b149, type: 2}
   lockReference: {fileID: 0}
@@ -13468,6 +13470,10 @@ PrefabInstance:
     - target: {fileID: 825928096576395852, guid: 00df580423ceb4e96a9618dd69aaca56, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 982760450494361897, guid: 00df580423ceb4e96a9618dd69aaca56, type: 3}
+      propertyPath: suggestion
+      value: Car Keys
       objectReference: {fileID: 0}
     - target: {fileID: 8573590188973892245, guid: 00df580423ceb4e96a9618dd69aaca56, type: 3}
       propertyPath: m_Name
