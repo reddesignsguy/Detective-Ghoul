@@ -59,7 +59,17 @@ public class ClosestObjectUIManager : UIManager
     /* Attaches a UI to the closest object*/
     private GameObject GenerateUI(GameObject interactableGameObject)
     {
-        GameObject uiElement = Instantiate(interactableUIPrefab, interactableGameObject.transform.position + Vector3.up * 2f, Quaternion.identity);
+        Vector3 pos;
+        if (interactableGameObject.TryGetComponent(out Interactee interactee) && interactee.suggestionTransform != null)
+        {
+            pos = interactee.suggestionTransform.position;
+        }
+        else
+        {
+            pos = interactableGameObject.transform.position + Vector3.up * 2f;
+        }
+
+        GameObject uiElement = Instantiate(interactableUIPrefab, pos, Quaternion.identity);
         string suggestion = interactableGameObject.GetComponent<Interactable>().GetSuggestion();
         RectTransform rectTransform = uiElement.GetComponent<RectTransform>();
         if (rectTransform != null)

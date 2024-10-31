@@ -29,8 +29,14 @@ public class IntercablesDetect : MonoBehaviour
             }
         }
 
-        EventsManager.instance.ToggleableDetect(closestObject);
-        Debug.Log(closestObject);
+        if (closestObject != null && closestObject.TryGetComponent(out Interactable i) && i.GetSuggestion() == "")
+        {
+            EventsManager.instance.ToggleableDetect(null);
+        }
+        else
+        {
+            EventsManager.instance.ToggleableDetect(closestObject);
+        }
         lastDetectedObject = closestObject;
     }
 
