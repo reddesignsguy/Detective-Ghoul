@@ -8,7 +8,13 @@ public class LockedToggleable : Toggleable
     
     [SerializeField]
     public List<InventoryItem> keys;
+    private bool unlocked = false;
 
+
+    public override string GetSuggestion()
+    {
+        return unlocked ? "" : "Unlock";
+    }
     //private void Awake()
     //{
     //    code = "";
@@ -35,16 +41,21 @@ public class LockedToggleable : Toggleable
 
     public override void Interact()
     {
-        Debug.Log("Interaction");
+        if (unlocked)
+            return;
+
         List<string> codes = keys.Select(item => item.code).ToList();
 
         InventorySystem inventory = FindObjectOfType<InventorySystem>();
+
+        List<InventoryItem> itemsToBeRemoved = new List<InventoryItem>();
         foreach (InventoryItem requiredItem in keys)
         {
             string code = requiredItem.code;
-            Debug.Log("Need code: " + code);
             bool exists = inventory.items.Any(item => {
-                return item.item.code == code; });
+                itemsToBeRemoved.Add(item.item);
+                return item.item.code == code;
+            });
 
             if (!exists)
             {
@@ -53,10 +64,16 @@ public class LockedToggleable : Toggleable
                 // Show hint of what is needed
                 return;
             }
+
         }
 
-        Debug.Log("Toggled!");
-        // We have what is required
+        // Successfuly unlocked
+        foreach(InventoryItem item in itemsToBeRemoved)
+        {
+            inventory.Remove(item);
+        }
+
+        unlocked = true;
         Toggle();
     }
 

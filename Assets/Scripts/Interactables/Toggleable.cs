@@ -33,7 +33,7 @@ public class Toggleable : MonoBehaviour, Interactable
         }
     }
 
-    public string GetSuggestion()
+    public virtual string GetSuggestion()
     {
         return "Toggle";
     }

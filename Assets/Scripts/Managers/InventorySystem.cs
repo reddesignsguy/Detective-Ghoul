@@ -37,6 +37,9 @@ public class InventorySystem : MonoBehaviour
 
     public void HandlePickUpItem (Item item)
     {
+        if (item == null)
+            return;
+
         InventoryItem baseData = item.ItemInfo;
         string unlockCode = item.GetLockID();
 
@@ -44,5 +47,10 @@ public class InventorySystem : MonoBehaviour
 
         items.Add(finalData);
         Destroy(item.transform.gameObject);
+    }
+
+    public void Remove(InventoryItem item)
+    {
+        items.RemoveAll(candidate => candidate.item == item);
     }
 }

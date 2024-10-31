@@ -51,7 +51,7 @@ public class PuzzleInteractable : MonoBehaviour
         }
         else if (obj.CompareTag("Key"))
         {
-
+            EventsManager.instance.PickupItem(obj.GetComponent<Item>());
             Debug.Log("key!");
         }
     }

@@ -122,6 +122,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &17763851 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8247356131252073833, guid: 7f92730ff1f9342ce9880bf4bcef442d, type: 3}
+  m_PrefabInstance: {fileID: 147558952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &17763856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17763851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9b69afa8f12e4b5aa047e919195538d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfo: {fileID: 11400000, guid: d3a96b35cf0624760a68d48dd63eeb41, type: 2}
+  lockReference: {fileID: 0}
 --- !u!1 &26702123
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e088c57bb30466689df68a9ac58678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 0}
+  panel: {fileID: 85344631}
 --- !u!136 &26702125
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -483,7 +502,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8247356131252073833, guid: 7f92730ff1f9342ce9880bf4bcef442d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 17763856}
   m_SourcePrefab: {fileID: 100100000, guid: 7f92730ff1f9342ce9880bf4bcef442d, type: 3}
 --- !u!224 &147558953 stripped
 RectTransform:
@@ -611,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b69afa8f12e4b5aa047e919195538d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInfo: {fileID: 11400000, guid: d7ac2afa8e8a14302a06352b41ef7b78, type: 2}
+  itemInfo: {fileID: 11400000, guid: a776b5bb0a35747a1a810bd8382a2d0d, type: 2}
   lockReference: {fileID: 0}
 --- !u!1 &195023324
 GameObject:
@@ -1717,7 +1739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keys:
   - {fileID: 11400000, guid: d3a96b35cf0624760a68d48dd63eeb41, type: 2}
-  - {fileID: 11400000, guid: d7ac2afa8e8a14302a06352b41ef7b78, type: 2}
+  - {fileID: 11400000, guid: a776b5bb0a35747a1a810bd8382a2d0d, type: 2}
 --- !u!1 &1155657559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,6 +1997,50 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.7, y: 1.114, z: 2.92}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1203799225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1203799227}
+  - component: {fileID: 1203799226}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1203799226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203799225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12863f6fa16f74be09253dfdc45247a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1203799227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203799225}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.5938115, y: 2.7826378, z: 414.40182}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3611,6 +3677,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8994227831228043631, guid: 951277aa61d7fbe46afe8b275268d600, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3632,3 +3702,4 @@ SceneRoots:
   - {fileID: 454827687}
   - {fileID: 543450652214310789}
   - {fileID: 1771100705}
+  - {fileID: 1203799227}
