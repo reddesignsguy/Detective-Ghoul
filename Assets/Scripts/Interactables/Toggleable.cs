@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Toggleable : MonoBehaviour, Interactable
+public class Toggleable : Interactee
 {
     protected bool on;
     Animator animator;
@@ -16,7 +16,7 @@ public class Toggleable : MonoBehaviour, Interactable
         dialogueTrigger = GetComponent<DialogueTrigger>();
     }
 
-    public virtual void Interact()
+    public override void Interact()
     {
         Toggle();
         dialogueTrigger.TriggerDialogue();
@@ -33,8 +33,4 @@ public class Toggleable : MonoBehaviour, Interactable
         }
     }
 
-    public string GetSuggestion()
-    {
-        return "Toggle";
-    }
 }

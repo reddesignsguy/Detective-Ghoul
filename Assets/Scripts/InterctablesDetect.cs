@@ -20,6 +20,7 @@ public class IntercablesDetect : MonoBehaviour
 
         foreach (Collider hit in hits)
         {
+            //Debug.Log("hit" + hit.gameObject);
             float distance = Vector3.Distance(transform.position, hit.transform.position);
             if (distance < closestDistance)
             {
@@ -28,7 +29,14 @@ public class IntercablesDetect : MonoBehaviour
             }
         }
 
-        EventsManager.instance.ToggleableDetect(closestObject);
+        if (closestObject != null && closestObject.TryGetComponent(out Interactable i) && i.GetSuggestion() == "")
+        {
+            EventsManager.instance.ToggleableDetect(null);
+        }
+        else
+        {
+            EventsManager.instance.ToggleableDetect(closestObject);
+        }
         lastDetectedObject = closestObject;
     }
 

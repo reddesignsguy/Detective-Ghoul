@@ -28,6 +28,9 @@ public class PuzzleInteractable : MonoBehaviour
             Button capturedButton = button;
             capturedButton.onClick.AddListener(() => HandlePuzzleClicked(capturedButton.gameObject));
         }
+        Debug.Log("Setting up puzzle");
+
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -45,12 +48,15 @@ public class PuzzleInteractable : MonoBehaviour
 
     public void HandlePuzzleClicked(GameObject obj)
     {
+        Debug.Log("clicked");
         if (obj.CompareTag("Trash"))
         {
             StartCoroutine(MoveTrash(obj));
         }
         else if (obj.CompareTag("Key"))
         {
+            EventsManager.instance.PickupItem(obj.GetComponent<Item>());
+            Destroy(obj);
             Debug.Log("key!");
         }
     }
