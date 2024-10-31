@@ -61,6 +61,7 @@ public class LockedToggleable : Toggleable
             {
                 Debug.Log(requiredItem.hint);
 
+                EventsManager.instance.ProvideHint(requiredItem.hint);
                 // Show hint of what is needed
                 return;
             }

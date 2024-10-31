@@ -9,6 +9,7 @@ public class InputSystem : MonoBehaviour
 
     public LayerMask interactableLayer;
     private IntercablesDetect intercablesDetect;
+    public HintUIManager hintUIManager;
 
     private void Awake()
     {
@@ -44,6 +45,13 @@ public class InputSystem : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
+        if (hintUIManager.IsEnabled())
+        {
+            hintUIManager.CloseUI();
+        }
+        else
+        {
+
         GameObject closestInteractable = intercablesDetect.GetLastDetectedObject();
         if (closestInteractable != null)
         {
@@ -51,6 +59,7 @@ public class InputSystem : MonoBehaviour
             if (interactable != null)
             {
                 interactable.Interact();
+            }
             }
         }
     }

@@ -102,4 +102,15 @@ public class EventsManager : MonoBehaviour
         }
 
     }
+
+    public event Action<string> onHint;
+
+    public void ProvideHint(string s)
+    {
+        if (onHint != null)
+        {
+            onHint(s);
+        }
+
+    }
 }
