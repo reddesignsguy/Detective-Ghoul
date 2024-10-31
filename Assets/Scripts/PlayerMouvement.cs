@@ -13,6 +13,8 @@ public class PlayerMouvement : MonoBehaviour
     private bool isMovementEnabled = true;
     private Animator animator ;
 
+    public AudioSource footsteps;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,12 +40,21 @@ public class PlayerMouvement : MonoBehaviour
         Vector2 moveInput = inputSystem.moveInput;
         Vector2 moveX = new Vector3(moveInput.x, 0);
         rb.velocity = moveX * moveSpeed;
-        if (moveInput.x != 0){
+        if (moveInput.x != 0)
+            {
             sr.flipX = moveInput.x < 0;
             animator.Play("Mouvement");
-        }else{
+                if (!footsteps.isPlaying)
+                {
+                    footsteps.Play();
+                }
+            }
+            
+            else
+            {
             animator.Play("Idle");
-        }
+            footsteps.Stop();
+            }
             
             
         }

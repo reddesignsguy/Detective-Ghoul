@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioSource tenseMusic;
+    public AudioSource rain;
+
+
     public DialogueTrigger dialogueTrigger;
     public DialogueTrigger dialogueTrigger2;
 
@@ -38,6 +42,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rain.Play();
         dialogueTrigger.TriggerDialogue();
         inventoryBag.SetActive(false);;
         EventsManager.instance.SetMovement(false);
@@ -48,6 +53,8 @@ public class GameManager : MonoBehaviour
 
     void SetupSittingTutorial2()
     {
+        //rain.Stop();
+        //tenseMusic.Play();
         dialogueTrigger2.TriggerDialogue();
         player.transform.position = sittingSpawn;
         girlSprite.transform.position = girlSittingSpawn;
@@ -61,6 +68,8 @@ public class GameManager : MonoBehaviour
 
     void SetupStandingTutorial()
     {
+        //rain.Play();
+        //tenseMusic.Stop();
         detect.enabled = true;
 
         girlChair.transform.SetLocalPositionAndRotation(standingTutorial_ChairPosition, standingTutorial_ChairRotation);
