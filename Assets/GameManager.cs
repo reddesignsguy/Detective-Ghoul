@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public DialogueTrigger dialogues_Scene1;
+
+    public GameObject inventoryBag;
     public PlayerMouvement player;
+    public IntercablesDetect detect;
 
     public GameObject girlSprite;
     public GameObject girlChair;
@@ -28,14 +32,17 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        inventoryBag.SetActive(false);
         EventsManager.instance.SetMovement(false);
         player.transform.position = sittingSpawn;
+        detect.enabled = false;
         player.PlayAnimation("Sitting");
         state = GameState.SittingTutorial;
     }
 
     void SetupStandingTutorial()
     {
+        detect.enabled = true;
         girlSprite.SetActive(false);
         girlChair.transform.SetLocalPositionAndRotation(standingTutorial_ChairPosition, standingTutorial_ChairRotation);
         player.PlayAnimation("Idle");
@@ -45,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     void SetupFree()
     {
+        inventoryBag.SetActive(true);
         state = GameState.StandingTutorial;
         EventsManager.instance.SetMovement(true);
     }
