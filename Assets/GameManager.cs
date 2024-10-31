@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public PlayerMouvement player;
 
+    public GameObject girlSprite;
+    public GameObject girlChair;
+
     public enum GameState
     {
         SittingTutorial,
@@ -17,7 +20,8 @@ public class GameManager : MonoBehaviour
 
     public Vector3 sittingSpawn = new Vector3(-20.84f, -13.69f, 48.38f);
     public Vector3 standingSpawn = new Vector3(-18.85f, -13.4f, 41.29f);
-
+    public Vector3 standingTutorial_ChairPosition = new Vector3(20.34f,0.69f,-18.75f);
+    public Quaternion standingTutorial_ChairRotation = new Quaternion(0, 0.6f, 0, 0.79f);
 
     // Start is called before the first frame update
     void Start()
@@ -26,5 +30,31 @@ public class GameManager : MonoBehaviour
         player.transform.position = sittingSpawn;
         player.PlayAnimation("Sitting");
         state = GameState.SittingTutorial;
+    }
+
+    void SetupStandingTutorial()
+    {
+        girlSprite.SetActive(false);
+        girlChair.transform.SetLocalPositionAndRotation(standingTutorial_ChairPosition, standingTutorial_ChairRotation);
+        player.PlayAnimation("Idle");
+        player.transform.position = standingSpawn;
+        state = GameState.StandingTutorial;
+    }
+
+    private void Update()
+    {
+        // Debugging scene progression
+        if (Debug.isDebugBuild)
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                switch (state)
+                {
+                    case GameState.SittingTutorial:
+                        SetupStandingTutorial();
+                        break;
+                }
+            }
+        }
     }
 }
