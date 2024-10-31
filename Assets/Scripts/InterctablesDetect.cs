@@ -30,7 +30,7 @@ public class IntercablesDetect : MonoBehaviour
         }
 
         EventsManager.instance.ToggleableDetect(closestObject);
-        //Debug.Log(closestObject);
+        Debug.Log(closestObject);
         lastDetectedObject = closestObject;
     }
 
