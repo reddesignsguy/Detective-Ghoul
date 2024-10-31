@@ -4,7 +4,8 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
-    
+
+    public DialogueTrigger trigger;
     private DialogueUIManager dialogueUIManager;
 
     private List<Dialogue> currentDialogues;
@@ -24,7 +25,7 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    public void StartDialogueSequence(List<Dialogue> dialogues)
+    public void StartDialogueSequence(List<Dialogue> dialogues, DialogueTrigger instance)
     {
         currentDialogues = dialogues;
         currentIndex = 0;
@@ -33,6 +34,8 @@ public class DialogueManager : MonoBehaviour
         {
             StartDialogue(currentDialogues[currentIndex]);
         }
+
+        trigger = instance;
     }
 
     private void StartDialogue(Dialogue dialogue)
@@ -58,6 +61,8 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 dialogueUIManager.FinishDialogue();
+                EventsManager.instance.NotifyImportantDialogueEnded(trigger);
+
             }
         }
     }
@@ -73,6 +78,7 @@ public class DialogueManager : MonoBehaviour
         else 
         {
             dialogueUIManager.FinishDialogue();
+            EventsManager.instance.NotifyImportantDialogueEnded(trigger);
         }
     }
 

@@ -113,4 +113,15 @@ public class EventsManager : MonoBehaviour
         }
 
     }
+
+    public event Action<DialogueTrigger> onImportantDialogue;
+
+    public void NotifyImportantDialogueEnded(DialogueTrigger t)
+    {
+        if (onImportantDialogue != null)
+        {
+            onImportantDialogue(t);
+        }
+
+    }
 }
