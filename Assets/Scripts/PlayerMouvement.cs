@@ -74,4 +74,9 @@ public class PlayerMouvement : MonoBehaviour
         isMovementEnabled = on;
 
     }
+
+    public void PlayAnimation(string animation)
+    {
+        animator.Play(animation);
+    }
 }
