@@ -40,6 +40,7 @@ public class InventorySystem : MonoBehaviour
         if (item == null)
             return;
 
+        Debug.Log("Picking up");
         InventoryItem baseData = item.ItemInfo;
         string unlockCode = item.GetLockID();
 

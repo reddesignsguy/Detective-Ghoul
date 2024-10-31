@@ -8,8 +8,10 @@ public enum ItemType
     Key
 }
 
-public class Item : MonoBehaviour, Interactable
+public class Item : Interactee
 {
+    public bool affectsGameState;
+
     [SerializeField] private InventoryItem itemInfo;
     [SerializeField] private GameObject lockReference;
 
@@ -23,13 +25,15 @@ public class Item : MonoBehaviour, Interactable
         return lockReference.GetInstanceID().ToString();
     }
 
-    public string GetSuggestion()
+    public override void Interact()
     {
-        return "Pick up " + itemInfo.name;
+        Debug.Log("interacted with");
+        EventsManager.instance.PickupItem(this);
+
+        if (affectsGameState)
+        {
+            EventsManager.instance.NotifyImportantInteraction(this);
+        }
     }
 
-    public void Interact()
-    {
-        EventsManager.instance.PickupItem(this);
-    }
 }

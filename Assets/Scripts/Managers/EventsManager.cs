@@ -92,6 +92,14 @@ public class EventsManager : MonoBehaviour
         }
     }
 
+    public event Action<Interactee> onImportantInteraction;
 
+    public void NotifyImportantInteraction(Interactee Interactable)
+    {
+        if (onImportantInteraction != null)
+        {
+            onImportantInteraction(Interactable);
+        }
 
+    }
 }

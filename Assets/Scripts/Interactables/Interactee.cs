@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Interactee : MonoBehaviour
+public abstract class Interactee : MonoBehaviour, Interactable
 {
-	// Use this for initialization
-	void Start()
-	{
+    public string suggestion;
 
-	}
+    public string GetSuggestion()
+    {
+        return suggestion;
+    }
 
-	// Update is called once per frame
-	void Update()
-	{
-			
-	}
+    public virtual void Interact()
+    {
+        return;
+    }
 }
 

@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public GameObject girlSprite;
     public GameObject girlChair;
 
+    public GameObject boyPhotograph;
+
     public enum GameState
     {
         SittingTutorial,
@@ -41,6 +43,26 @@ public class GameManager : MonoBehaviour
         state = GameState.StandingTutorial;
     }
 
+    void SetupFree()
+    {
+        state = GameState.StandingTutorial;
+        EventsManager.instance.SetMovement(true);
+    }
+
+    private void OnEnable()
+    {
+        EventsManager.instance.onImportantInteraction += HandleImportantInteraction;
+    }
+
+    void HandleImportantInteraction(Interactee interactable)
+    {
+        if (interactable.gameObject == boyPhotograph && state == GameState.StandingTutorial)
+        {
+            SetupFree();
+        }
+
+    }
+
     private void Update()
     {
         // Debugging scene progression
@@ -55,6 +77,7 @@ public class GameManager : MonoBehaviour
                         break;
                 }
             }
+        
         }
     }
 }
