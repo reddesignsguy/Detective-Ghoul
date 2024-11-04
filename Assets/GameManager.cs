@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    public Camera cameraTutorial1;
+    public Camera cameraTutorial2;
+
     public AudioSource tenseMusic;
     public AudioSource rain;
 
@@ -30,8 +34,13 @@ public class GameManager : MonoBehaviour
 
     private GameState state;
 
+
     public Vector3 sittingSpawn = new Vector3(-18.5f, -13.69f, 48.38f);
     public Vector3 standingSpawn = new Vector3(-18.85f, -13.4f, 41.29f);
+
+    public Vector3 sittingTutorial_ChairPosition = new Vector3(-13.0360003f, 0.699999988f, -46.5460014f);
+    private Quaternion sittingTutorial_ChairRotation = new Quaternion(0, 0.999537826f, 0, 0.0303991847f);
+
     public Vector3 standingTutorial_ChairPosition = new Vector3(20.34f,0.69f,-18.75f);
     public Quaternion standingTutorial_ChairRotation = new Quaternion(0, 0.6f, 0, 0.79f);
 
@@ -42,6 +51,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        SetAsMainCamera(cameraTutorial1);
         rain.Play();
         dialogueTrigger.TriggerDialogue();
         inventoryBag.SetActive(false);;
@@ -53,8 +64,10 @@ public class GameManager : MonoBehaviour
 
     void SetupSittingTutorial2()
     {
+        SetAsMainCamera(cameraTutorial2);
         //rain.Stop();
         //tenseMusic.Play();
+        girlChair.transform.SetLocalPositionAndRotation(sittingTutorial_ChairPosition, sittingTutorial_ChairRotation);
         dialogueTrigger2.TriggerDialogue();
         player.transform.position = sittingSpawn;
         girlSprite.transform.position = girlSittingSpawn;
@@ -70,6 +83,7 @@ public class GameManager : MonoBehaviour
     {
         //rain.Play();
         //tenseMusic.Stop();
+        SetAsMainCamera(player.GetComponentInChildren<Camera>());
         detect.enabled = true;
 
         girlChair.transform.SetLocalPositionAndRotation(standingTutorial_ChairPosition, standingTutorial_ChairRotation);
@@ -142,4 +156,20 @@ public class GameManager : MonoBehaviour
         
         }
     }
+
+    void SetAsMainCamera(Camera newCamera)
+    {
+        Camera mainCamera = Camera.main;
+
+        if (mainCamera != null)
+        {
+            Debug.Log("disabling");
+            mainCamera.tag = "Untagged"; // Remove the tag from the old main camera
+            mainCamera.enabled = false;  // Disable the old main camera
+        }
+
+        newCamera.tag = "MainCamera";   // Set new camera as main
+        newCamera.enabled = true;       // Enable the new camera
+    }
+
 }

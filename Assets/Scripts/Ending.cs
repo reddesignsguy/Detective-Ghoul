@@ -10,6 +10,7 @@ public class Ending : MonoBehaviour
     {
         relaxingMusic.Play();
         endingPanel.SetActive(true);
+        EventsManager.instance.SetMovement(false);
     }
 }
 

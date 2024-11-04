@@ -84,6 +84,12 @@ public class PlayerMouvement : MonoBehaviour
     {
         isMovementEnabled = on;
 
+        if (!on)
+        {
+            animator.Play("Idle");
+            footsteps.Stop();
+        }
+
     }
 
     public void PlayAnimation(string animation)
