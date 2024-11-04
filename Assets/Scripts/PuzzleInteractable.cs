@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PuzzleInteractable : MonoBehaviour
 {
+    public AudioSource paperSlide;
     public float trashAnimationDuration = 5f;
     public float trashAnimationDistance;
 
@@ -51,6 +52,7 @@ public class PuzzleInteractable : MonoBehaviour
         Debug.Log("clicked");
         if (obj.CompareTag("Trash"))
         {
+            paperSlide.Play();
             StartCoroutine(MoveTrash(obj));
         }
         else if (obj.CompareTag("Key"))

@@ -8,6 +8,7 @@ public class LockedToggleable : Toggleable
     
     [SerializeField]
     public List<InventoryItem> keys;
+    public AudioSource unlockSound;
     private bool unlocked = false;
 
 
@@ -72,6 +73,7 @@ public class LockedToggleable : Toggleable
         // Successfuly unlocked
         foreach(InventoryItem item in itemsToBeRemoved)
         {
+            unlockSound.Play();
             inventory.Remove(item);
         }
 
