@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f262818b55b0f4418296bad0176bdab, type: 3}
+  m_Name: Start
+  m_EditorClassIdentifier: 
+  <DialogueName>k__BackingField: Start
+  <Text>k__BackingField: 
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: What's your name?
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 5efd5a1973a734d8a8f8cc37e73adacf, type: 2}
+  - <Text>k__BackingField: Where are you from?
+    <NextDialogue>k__BackingField: {fileID: 0}
+  <DialogueType>k__BackingField: 1
+  <IsStartingDialogue>k__BackingField: 0

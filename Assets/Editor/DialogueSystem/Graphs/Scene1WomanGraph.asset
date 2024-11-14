@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0202a3095b7477a4091d56344f0af6b3, type: 3}
+  m_Name: Scene1WomanGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Scene1Woman
+  <Groups>k__BackingField: []
+  <Nodes>k__BackingField:
+  - <ID>k__BackingField: 1b9b1419-ba98-43e9-a94f-c73166ba41d7
+    <Name>k__BackingField: 2
+    <Text>k__BackingField: My name is Veronica. My brother's name is Kevin.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 5cfaf030-e2c6-4c96-98ab-b5d1b1815950
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 487, y: -257.5}
+  - <ID>k__BackingField: 5cfaf030-e2c6-4c96-98ab-b5d1b1815950
+    <Name>k__BackingField: 3
+    <Text>k__BackingField: We were raised as orphans.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 1142, y: 89.5}
+  - <ID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
+    <Name>k__BackingField: Start
+    <Text>k__BackingField: 
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: What's your name?
+      <NodeID>k__BackingField: 1b9b1419-ba98-43e9-a94f-c73166ba41d7
+    - <Text>k__BackingField: Where are you from?
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 1
+    <Position>k__BackingField: {x: 806.5, y: 444.5}
+  <OldGroupNames>k__BackingField: []
+  <OldUngroupedNodeNames>k__BackingField:
+  - 2
+  - 3
+  - Start
+  <OldGroupedNodeNames>k__BackingField:
+    list: []
