@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   <DialogueName>k__BackingField: test
-  <Text>k__BackingField: saved text
+  <Text>k__BackingField: 
   <Choices>k__BackingField:
-  - <Text>k__BackingField: New Choice
-    <NextDialogue>k__BackingField: {fileID: 0}
+  - <Text>k__BackingField: Ask what gender. 2
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 51e02104180114ef982579b1bb9c68c4, type: 2}
+  - <Text>k__BackingField: Ask what race
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 9800eb39421c14c2fb4c23d6c0ce71dc, type: 2}
   <DialogueType>k__BackingField: 1
   <IsStartingDialogue>k__BackingField: 1
   <IsExitable>k__BackingField: 1

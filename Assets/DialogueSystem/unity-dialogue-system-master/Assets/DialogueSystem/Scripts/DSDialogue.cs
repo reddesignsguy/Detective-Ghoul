@@ -18,5 +18,12 @@ namespace DS
         /* Indexes */
         [SerializeField] private int selectedDialogueGroupIndex;
         [SerializeField] private int selectedDialogueIndex;
+
+
+       public DSDialogueSO GetStartingDialogue()
+        {
+            return dialogue;
+        }
     }
+
 }

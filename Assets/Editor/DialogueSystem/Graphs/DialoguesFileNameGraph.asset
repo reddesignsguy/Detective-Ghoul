@@ -15,18 +15,42 @@ MonoBehaviour:
   <FileName>k__BackingField: DialoguesFileName
   <Groups>k__BackingField: []
   <Nodes>k__BackingField:
-  - <ID>k__BackingField: 447208ef-7eb8-4a74-add7-61f4e53d49c9
-    <Name>k__BackingField: test
-    <Text>k__BackingField: saved text
+  - <ID>k__BackingField: 21cf254d-41cf-48a6-bd65-e6fdf227cd74
+    <Name>k__BackingField: Gender
+    <Text>k__BackingField: My gender is male.
     <Choices>k__BackingField:
-    - <Text>k__BackingField: New Choice
+    - <Text>k__BackingField: Next Dialogue
       <NodeID>k__BackingField: 
     <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 748, y: 148.5}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 7170092b-1cab-409e-b921-41fb2e31730c
+    <Name>k__BackingField: Race
+    <Text>k__BackingField: My race is blah.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 732.5, y: 404}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 447208ef-7eb8-4a74-add7-61f4e53d49c9
+    <Name>k__BackingField: test
+    <Text>k__BackingField: 
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Ask what gender. 2
+      <NodeID>k__BackingField: 21cf254d-41cf-48a6-bd65-e6fdf227cd74
+    - <Text>k__BackingField: Ask what race
+      <NodeID>k__BackingField: 7170092b-1cab-409e-b921-41fb2e31730c
+    <GroupID>k__BackingField: 
     <DialogueType>k__BackingField: 1
-    <Position>k__BackingField: {x: 231, y: 151.5}
+    <Position>k__BackingField: {x: 241.5, y: 220}
     <IsExitable>k__BackingField: 1
   <OldGroupNames>k__BackingField: []
   <OldUngroupedNodeNames>k__BackingField:
+  - Gender
+  - Race
   - test
   <OldGroupedNodeNames>k__BackingField:
     list: []
