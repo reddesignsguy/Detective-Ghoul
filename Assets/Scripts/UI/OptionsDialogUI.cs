@@ -17,8 +17,10 @@ public class OptionsDialogUI : MonoBehaviour
         optionPlaceholders = new List<Button>();
     }
 
-    public virtual void SetUp(List<DSDialogueSO> newDialogues)
+    public virtual void SetUp(DSDialogueSO optionsDialogue)
     {
+        List<DSDialogueSO> newDialogues = optionsDialogue.Choices.Select((DS.Data.DSDialogueChoiceData choice) => {return choice.NextDialogue; }).ToList();
+
         optionPlaceholders.Zip(newDialogues, (Button button, DSDialogueSO dialogue) => {
             if (button.TryGetComponent(out TextMeshProUGUI gui))
             {

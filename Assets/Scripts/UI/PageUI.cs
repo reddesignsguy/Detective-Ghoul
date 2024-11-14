@@ -4,14 +4,19 @@ using UnityEngine;
 using TMPro;
 using DS.ScriptableObjects;
 
-public class PageUI : OptionsDialogUI
+public class OptionsPageUI : OptionsDialogUI
 {
-    public int numPlaceholder;
+    private int numPlaceholder;
     public TextMeshProUGUI pageNumPlaceholder;
+    
 
-    public override void SetUp(List<DSDialogueSO> newDialogues)
+    public override void SetUp(DSDialogueSO optionsDialogue)
     {
-        base.SetUp(newDialogues);
+        base.SetUp(optionsDialogue);
+
+        // Get page of  book
+        numPlaceholder = -1;
+
         pageNumPlaceholder.text = numPlaceholder.ToString();
     }
 }
