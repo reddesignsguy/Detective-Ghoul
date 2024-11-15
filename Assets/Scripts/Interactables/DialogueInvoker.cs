@@ -9,6 +9,7 @@ public class DialogueInvoker : Interactee
 
     public override void Interact()
     {
-        EventsManager.DialogueEvents.instance.StartDialogue(dialogue);
+        DialogueEvents.instance.StartDialogue(dialogue);
+        print("Interacting w/ NPC");
     }
 }

@@ -6,6 +6,7 @@ using DS.ScriptableObjects;
 using DS.Enumerations;
 
 using UnityEngine.UI;
+using DS.Data;
 
 public class QuestionsPageUI : OptionsDialogUI
 {
@@ -14,12 +15,13 @@ public class QuestionsPageUI : OptionsDialogUI
 
     public List<TextMeshProUGUI> answerPlaceholders;
     
-
     public override void SetUp(DSDialogueSO optionsDialogue)
     {
-        if (optionsDialogue.DialogueType != DSDialogueType.MultipleChoice)
+        if (optionsDialogue == null)
             return;
 
+        if (optionsDialogue.DialogueType != DSDialogueType.MultipleChoice)
+            return;
 
         base.SetUp(optionsDialogue);
 
@@ -29,16 +31,16 @@ public class QuestionsPageUI : OptionsDialogUI
         // Which options asked?
         for (int i = 0; i < dialogues.Count; i ++)
         {
-            DSDialogueSO dialogue = dialogues[i];
+            DSDialogueChoiceData choice = dialogues[i];
 
             // Option asked
-            if (DialogHistory.Instance.HasVisited(dialogue))
+            if (DialogHistory.Instance.HasVisited(choice.NextDialogue))
             {
                 Button questionPlaceholder = optionPlaceholders[i];
                 questionPlaceholder.onClick.RemoveAllListeners();
 
                 // Show answer
-                answerPlaceholders[i].text = dialogue.Choices[0].Text;
+                answerPlaceholders[i].text = choice.Text;
 
                 if (questionPlaceholder.TryGetComponent(out TextMeshProUGUI gui))
                 {

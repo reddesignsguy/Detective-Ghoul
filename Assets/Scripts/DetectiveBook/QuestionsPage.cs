@@ -5,6 +5,7 @@ using UnityEngine;
 using DS.ScriptableObjects;
 using System;
 
+[CreateAssetMenu(fileName = "DetectiveBookPage", menuName = "DetectiveBook/QuestionsPage")]
 public class QuestionsPage : Page
 {
     public DSDialogueSO optionsDialogue;

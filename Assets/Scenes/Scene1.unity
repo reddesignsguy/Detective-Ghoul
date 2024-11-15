@@ -10511,6 +10511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1356807587}
   - component: {fileID: 1356807588}
+  - component: {fileID: 1356807598}
   - component: {fileID: 1356807589}
   - component: {fileID: 1356807590}
   - component: {fileID: 1356807591}
@@ -10519,6 +10520,8 @@ GameObject:
   - component: {fileID: 1356807595}
   - component: {fileID: 1356807594}
   - component: {fileID: 1356807596}
+  - component: {fileID: 1356807597}
+  - component: {fileID: 1356807599}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -10886,16 +10889,48 @@ MonoBehaviour:
   m_GameObject: {fileID: 1356807586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f70cf55b2086fe4e916735c1b64ee09, type: 3}
+  m_Script: {fileID: 11500000, guid: a5db220ce89f0490a805c57d5f7f7b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueContainer: {fileID: 11400000, guid: be81569a0a24c41e39d1a893cd47fc94, type: 2}
-  dialogueGroup: {fileID: 0}
-  dialogue: {fileID: 11400000, guid: 5cd006638250e4ff29165ec07b4d586b, type: 2}
-  groupedDialogues: 0
-  startingDialoguesOnly: 1
-  selectedDialogueGroupIndex: 0
-  selectedDialogueIndex: 0
+  optionsDialogUI: {fileID: 1941708034}
+--- !u!114 &1356807597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356807586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6806e57feebf44405af76a40a9c08717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pages:
+  - {fileID: 11400000, guid: 8515aac5339604be3a834993e7389a60, type: 2}
+--- !u!114 &1356807598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356807586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8343c37c6390e4528aae55bdcfdc27c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1356807599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356807586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225fba682d7814e959cc44006f2e62f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1358191300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13496,7 +13531,9 @@ GameObject:
   - component: {fileID: 1796969895}
   - component: {fileID: 1796969894}
   - component: {fileID: 1796969896}
-  m_Layer: 0
+  - component: {fileID: 1796969897}
+  - component: {fileID: 1796969898}
+  m_Layer: 6
   m_Name: GirlSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13591,6 +13628,42 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1796969897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796969892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae995f357ea34bd292ca65609989941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  suggestionTransform: {fileID: 1796969895}
+  suggestion: Talk
+  dialogue: {fileID: 11400000, guid: 07d66eba43f614c6e96e81fea1845045, type: 2}
+--- !u!65 &1796969898
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796969892}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.73, y: 5.61, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!43 &1831037381
 Mesh:
   m_ObjectHideFlags: 0
@@ -14714,12 +14787,12 @@ GameObject:
   - component: {fileID: 1941708032}
   - component: {fileID: 1941708034}
   m_Layer: 5
-  m_Name: DetectiveBook
+  m_Name: QuestionsPageUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1941708031
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14796,11 +14869,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6342294e5ded4426880b325b54498541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panel: {fileID: 1941708030}
   optionPlaceholders:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  pageNumPlaceholder: {fileID: 0}
+  - {fileID: 266373826}
+  - {fileID: 504459487}
+  - {fileID: 535604099}
+  pageNumPlaceholder: {fileID: 455799344}
+  answerPlaceholders:
+  - {fileID: 136233317}
+  - {fileID: 1456968698}
+  - {fileID: 926723608}
 --- !u!1 &1953679719
 GameObject:
   m_ObjectHideFlags: 0

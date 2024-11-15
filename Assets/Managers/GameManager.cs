@@ -65,9 +65,6 @@ public class GameManager : MonoBehaviour
         state = GameState.SittingTutorial;
 
         // todo: migrate to new dialogue system
-        
-
-
     }
 
     void SetupSittingTutorial2()

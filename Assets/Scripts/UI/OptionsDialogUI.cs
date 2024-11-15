@@ -5,33 +5,41 @@ using UnityEngine;
 using UnityEngine.UI;
 using DS.ScriptableObjects;
 using TMPro;
+using DS.Data;
 
 public class OptionsDialogUI : UIManager
 {
-    protected List<DSDialogueSO> dialogues;
+    protected List<DSDialogueChoiceData> dialogues;
     public List<Button> optionPlaceholders;
 
     private void Awake()
     {
-        dialogues = new List<DSDialogueSO>();
+        dialogues = new List<DSDialogueChoiceData>();
         optionPlaceholders = new List<Button>();
     }
 
     public virtual void SetUp(DSDialogueSO optionsDialogue)
     {
-        List<DSDialogueSO> options = optionsDialogue.Choices.Select((DS.Data.DSDialogueChoiceData choice) => {return choice.NextDialogue; }).ToList();
 
-        optionPlaceholders.Zip(options, (Button button, DSDialogueSO option) => {
+        print("Setting up w/ placeholders of size: " + optionPlaceholders.Count);
+
+        List<DSDialogueChoiceData> options = optionsDialogue.Choices;
+
+        optionPlaceholders.Zip(options, (Button button, DSDialogueChoiceData option) => {
+            print("Text: " + option.Text);
+
             // Option text
             if (button.TryGetComponent(out TextMeshProUGUI gui))
             {
                 gui.text = option.Text;
+
+                print("Inserting: " + option.Text);
             }
 
             // Notify listeners when option chosen
-            DSDialogueSO resultDialogue = option.Choices[0].NextDialogue;
-            button.onClick.AddListener(() => EventsManager.DialogueEvents.instance.StartDialogue(resultDialogue)) ;
-            return "";
+            DSDialogueSO resultDialogue = option.NextDialogue;
+            button.onClick.AddListener(() => DialogueEvents.instance.StartDialogue(resultDialogue)) ;
+            return button;
         });
 
         dialogues = options;

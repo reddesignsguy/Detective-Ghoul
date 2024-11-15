@@ -30,77 +30,35 @@ public class DialogueManagerV2 : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.DialogueEvents.instance.onDialogueStarted += HandleDialogueStarted;
+        DialogueEvents.instance.onDialogueStarted += HandleDialogueStarted;
     }
 
     private void OnDisable()
     {
-        EventsManager.DialogueEvents.instance.onDialogueStarted -= HandleDialogueStarted;
+        DialogueEvents.instance.onDialogueStarted -= HandleDialogueStarted;
     }
 
 
     private void HandleDialogueStarted(DSDialogueSO dialogue)
     {
+
+        print("DialogueManagerV2 received dialogue");
         switch(dialogue.DialogueType)
         {
             case DSDialogueType.SingleChoice:
-                
+                print("Single dialogue setup");
+
                 break;
             case DSDialogueType.MultipleChoice:
+                print("Multiple dialogue set up");
                 optionsDialogUI.SetUp(dialogue);
                 optionsDialogUI.SetUIActive(true);
                 break;
             default:
+                print("No dialogue");
                 // No dialogue (exited out of dialogue?)
                 optionsDialogUI.SetUIActive(false);
                 break;
         }
-    }
-}
-
-public class DialogHistory : MonoBehaviour
-{
-    public static DialogHistory Instance { get; private set; }
-
-    private HashSet<DSDialogueSO> visited;
-
-    private void Awake()
-    {
-        // Ensure that only one instance exists
-        if (Instance == null)
-        {
-            Instance = this;
-            visited = new HashSet<DSDialogueSO>();
-
-            // Optional: keep this instance persistent across scenes
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            // Destroy duplicate instances
-            Destroy(gameObject);
-            return;
-        }
-    }
-
-    private void OnEnable()
-    {
-        EventsManager.DialogueEvents.instance.onDialogueStarted += HandleDialogueStarted;
-    }
-
-    private void OnDisable()
-    {
-        EventsManager.DialogueEvents.instance.onDialogueStarted -= HandleDialogueStarted;
-    }
-
-    private void HandleDialogueStarted(DSDialogueSO dialogue)
-    {
-        visited.Add(dialogue);
-    }
-
-    // Optional method to check if a dialogue has been visited
-    public bool HasVisited(DSDialogueSO dialogue)
-    {
-        return visited.Contains(dialogue);
     }
 }
