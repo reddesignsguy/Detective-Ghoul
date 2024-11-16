@@ -5,7 +5,7 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
 
-    public DialogueTrigger trigger;
+    //public DialogueTrigger trigger;
     private DialogueUIManager dialogueUIManager;
 
     private List<Dialogue> currentDialogues;
@@ -35,7 +35,7 @@ public class DialogueManager : MonoBehaviour
             StartDialogue(currentDialogues[currentIndex]);
         }
 
-        trigger = instance;
+        //trigger = instance;
     }
 
     private void StartDialogue(Dialogue dialogue)
@@ -61,25 +61,33 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 dialogueUIManager.FinishDialogue();
-                EventsManager.instance.NotifyImportantDialogueEnded(trigger);
+                //EventsManager.instance.NotifyImportantDialogueEnded(trigger);
 
             }
         }
     }
 
-    public void Skip()
+    private void Update()
     {
-        currentIndex++;
-
-        if (currentIndex < currentDialogues.Count) 
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            StartDialogue(currentDialogues[currentIndex]);
-        }
-        else 
-        {
-            dialogueUIManager.FinishDialogue();
-            EventsManager.instance.NotifyImportantDialogueEnded(trigger);
+            //Skip();
         }
     }
+
+    //public void Skip()
+    //{
+    //    currentIndex++;
+
+    //    if (currentIndex < currentDialogues.Count) 
+    //    {
+    //        StartDialogue(currentDialogues[currentIndex]);
+    //    }
+    //    else 
+    //    {
+    //        dialogueUIManager.FinishDialogue();
+    //        EventsManager.instance.NotifyImportantDialogueEnded(trigger);
+    //    }
+    //}
 
 }

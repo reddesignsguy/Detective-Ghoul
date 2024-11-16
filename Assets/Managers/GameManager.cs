@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DS;
+using DS.ScriptableObjects;
 
 public class GameManager : MonoBehaviour
 {
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     public Vector3 girlSittingSpawn = new Vector3(-18.8799992f, -13.8900003f, 38.3699989f);
     public Vector3 girlWaiting = new Vector3(-12.5100002f, -13.5699997f, 41.0200005f);
 
-    public DSDialogue dialog;
+    public DSDialogueSO dialog;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +57,8 @@ public class GameManager : MonoBehaviour
 
         SetAsMainCamera(cameraTutorial1);
         rain.Play();
-        dialogueTrigger.TriggerDialogue();
+        //dialogueTrigger.TriggerDialogue();
+        DialogueEvents.instance.StartDialogue(dialog);
         inventoryBag.SetActive(false);;
         EventsManager.instance.SetMovement(false);
         detect.enabled = false;

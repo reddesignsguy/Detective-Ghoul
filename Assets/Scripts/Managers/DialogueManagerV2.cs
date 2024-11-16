@@ -9,6 +9,7 @@ public class DialogueManagerV2 : MonoBehaviour
 {
 
     public OptionsDialogUI optionsDialogUI;
+    public DialogueUIManager singleDialogueUI;
 
     public static DialogueManagerV2 Instance;
 
@@ -41,23 +42,25 @@ public class DialogueManagerV2 : MonoBehaviour
 
     private void HandleDialogueStarted(DSDialogueSO dialogue)
     {
+        if (dialogue == null)
+        {
+            optionsDialogUI.SetUIActive(false);
+            singleDialogueUI.SetUIActive(false);
+            return;
+        }
 
-        print("DialogueManagerV2 received dialogue");
         switch(dialogue.DialogueType)
         {
             case DSDialogueType.SingleChoice:
                 print("Single dialogue setup");
-
+                singleDialogueUI.SetUp(dialogue);
+                singleDialogueUI.SetUIActive(true);
                 break;
             case DSDialogueType.MultipleChoice:
                 print("Multiple dialogue set up");
                 optionsDialogUI.SetUp(dialogue);
                 optionsDialogUI.SetUIActive(true);
-                break;
-            default:
-                print("No dialogue");
-                // No dialogue (exited out of dialogue?)
-                optionsDialogUI.SetUIActive(false);
+                singleDialogueUI.SetUIActive(false);
                 break;
         }
     }

@@ -40,11 +40,11 @@ public class QuestionsPageUI : OptionsDialogUI
                 questionPlaceholder.onClick.RemoveAllListeners();
 
                 // Show answer
-                answerPlaceholders[i].text = choice.Text;
+                answerPlaceholders[i].text = choice.NextDialogue.Text;
 
                 if (questionPlaceholder.TryGetComponent(out TextMeshProUGUI gui))
                 {
-                    // todo: cross or grey out text, or use a checkbox to show option has been chosen before,
+                    // todo: cross or grey out text, or use a checkbox to show option has been chosen before,2
                 }
             }
         }
