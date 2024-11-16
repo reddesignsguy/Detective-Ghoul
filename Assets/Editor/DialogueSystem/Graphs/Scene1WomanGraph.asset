@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Scene1WomanGraph
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: Scene1Woman
-  <Groups>k__BackingField: []
+  <Groups>k__BackingField:
+  - <ID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <Name>k__BackingField: Scene1Woman
+    <Position>k__BackingField: {x: 57.5, y: -374.5}
   <Nodes>k__BackingField:
   - <ID>k__BackingField: 1b9b1419-ba98-43e9-a94f-c73166ba41d7
     <Name>k__BackingField: 2
@@ -21,18 +24,20 @@ MonoBehaviour:
     <Choices>k__BackingField:
     - <Text>k__BackingField: Next Dialogue
       <NodeID>k__BackingField: 5cfaf030-e2c6-4c96-98ab-b5d1b1815950
-    <GroupID>k__BackingField: 
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
     <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 487, y: -257.5}
+    <Position>k__BackingField: {x: 487, y: -316}
+    <IsExitable>k__BackingField: 0
   - <ID>k__BackingField: 5cfaf030-e2c6-4c96-98ab-b5d1b1815950
     <Name>k__BackingField: 3
     <Text>k__BackingField: We were raised as orphans.
     <Choices>k__BackingField:
     - <Text>k__BackingField: Next Dialogue
       <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
-    <GroupID>k__BackingField: 
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
     <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1142, y: 89.5}
+    <Position>k__BackingField: {x: 1142, y: 31}
+    <IsExitable>k__BackingField: 0
   - <ID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
     <Name>k__BackingField: Start
     <Text>k__BackingField: 
@@ -40,14 +45,54 @@ MonoBehaviour:
     - <Text>k__BackingField: What's your name?
       <NodeID>k__BackingField: 1b9b1419-ba98-43e9-a94f-c73166ba41d7
     - <Text>k__BackingField: Where are you from?
-      <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: 
+      <NodeID>k__BackingField: 25b09906-a832-4de1-a582-f20474a8da8c
+    - <Text>k__BackingField: Where did you last see your brother?
+      <NodeID>k__BackingField: f9696f14-0d48-4b6e-aaaa-0ffcab4499d6
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
     <DialogueType>k__BackingField: 1
-    <Position>k__BackingField: {x: 806.5, y: 444.5}
-  <OldGroupNames>k__BackingField: []
-  <OldUngroupedNodeNames>k__BackingField:
-  - 2
-  - 3
-  - Start
+    <Position>k__BackingField: {x: 82.5, y: 293.5}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 25b09906-a832-4de1-a582-f20474a8da8c
+    <Name>k__BackingField: answer2
+    <Text>k__BackingField: I'm from the west side of town.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: b702b9d4-a372-499e-b32d-61aa897231a9
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 722, y: 344}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: b702b9d4-a372-499e-b32d-61aa897231a9
+    <Name>k__BackingField: answer22
+    <Text>k__BackingField: You've probably heard about it through the murders on
+      the news...
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 1533.5, y: 339}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: f9696f14-0d48-4b6e-aaaa-0ffcab4499d6
+    <Name>k__BackingField: answer3
+    <Text>k__BackingField: I dorpped him and his friends off at the junkyard.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 702.5, y: 694}
+    <IsExitable>k__BackingField: 0
+  <OldGroupNames>k__BackingField:
+  - Scene1Woman
+  <OldUngroupedNodeNames>k__BackingField: []
   <OldGroupedNodeNames>k__BackingField:
-    list: []
+    list:
+    - Key: Scene1Woman
+      Value:
+      - 2
+      - 3
+      - Start
+      - answer2
+      - answer22
+      - answer3
