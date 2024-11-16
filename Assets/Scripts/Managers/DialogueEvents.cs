@@ -28,4 +28,17 @@ public class DialogueEvents : MonoBehaviour
         }
 
     }
+
+    public event Action<DSDialogueSO> onDialogueFinished;
+
+    public void FinishDialogue(DSDialogueSO d)
+    {
+        if (onDialogueFinished != null)
+        {
+            onDialogueFinished(d);
+        }
+
+    }
+
+
 }

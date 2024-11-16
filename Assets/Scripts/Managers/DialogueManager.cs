@@ -75,19 +75,4 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    //public void Skip()
-    //{
-    //    currentIndex++;
-
-    //    if (currentIndex < currentDialogues.Count) 
-    //    {
-    //        StartDialogue(currentDialogues[currentIndex]);
-    //    }
-    //    else 
-    //    {
-    //        dialogueUIManager.FinishDialogue();
-    //        EventsManager.instance.NotifyImportantDialogueEnded(trigger);
-    //    }
-    //}
-
 }

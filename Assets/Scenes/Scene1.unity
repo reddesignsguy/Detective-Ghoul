@@ -3539,7 +3539,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 142032571}
   dialogueText: {fileID: 1115433577}
-  OptionButtons: []
 --- !u!1001 &411087741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10379,6 +10378,7 @@ MonoBehaviour:
   girlSprite: {fileID: 1796969892}
   girlChair: {fileID: 899938378}
   boyPhotograph: {fileID: 2044825715}
+  startingScene: {fileID: 11400000, guid: 695182cc1e2524a81aff9e6b1bef2246, type: 2}
   sittingSpawn: {x: -20.84, y: -13.69, z: 48.38}
   standingSpawn: {x: -18.85, y: -13.4, z: 41.29}
   sittingTutorial_ChairPosition: {x: -10, y: 0, z: -46}
@@ -10386,7 +10386,8 @@ MonoBehaviour:
   standingTutorial_ChairRotation: {x: 0, y: 0.60042024, z: 0, w: 0.79968464}
   girlSittingSpawn: {x: -18.88, y: -13.89, z: 38.37}
   girlWaiting: {x: -12.51, y: -13.57, z: 41.02}
-  dialog: {fileID: 11400000, guid: 07d66eba43f614c6e96e81fea1845045, type: 2}
+  firstDialog: {fileID: 11400000, guid: 0a9f15ada2bed4764882d2bf76bee54f, type: 2}
+  questionsDialog: {fileID: 11400000, guid: fdf09e8719fa0434eb12736e50406c38, type: 2}
 --- !u!114 &1356807590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14358,7 +14359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2044825716
 Transform:
   m_ObjectHideFlags: 0

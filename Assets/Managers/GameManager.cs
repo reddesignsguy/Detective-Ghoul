@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DS.ScriptableObjects;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour
     public GameObject girlChair;
 
     public GameObject boyPhotograph;
+
+    public DSDialogueSO startingScene;
 
     public enum GameState
     {
@@ -49,7 +52,8 @@ public class GameManager : MonoBehaviour
     public Vector3 girlSittingSpawn = new Vector3(-18.8799992f, -13.8900003f, 38.3699989f);
     public Vector3 girlWaiting = new Vector3(-12.5100002f, -13.5699997f, 41.0200005f);
 
-    public DSDialogueSO dialog;
+    public DSDialogueSO firstDialog;
+    public DSDialogueSO questionsDialog;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +62,7 @@ public class GameManager : MonoBehaviour
         SetAsMainCamera(cameraTutorial1);
         rain.Play();
         //dialogueTrigger.TriggerDialogue();
-        DialogueEvents.instance.StartDialogue(dialog);
+        DialogueEvents.instance.StartDialogue(firstDialog);
         inventoryBag.SetActive(false);;
         EventsManager.instance.SetMovement(false);
         detect.enabled = false;
@@ -74,7 +78,9 @@ public class GameManager : MonoBehaviour
         //rain.Stop();
         //tenseMusic.Play();
         girlChair.transform.SetLocalPositionAndRotation(sittingTutorial_ChairPosition, sittingTutorial_ChairRotation);
-        dialogueTrigger2.TriggerDialogue();
+        //dialogueTrigger2.TriggerDialogue();
+        boyPhotograph.SetActive(true);
+        DialogueEvents.instance.StartDialogue(questionsDialog);
         player.transform.position = sittingSpawn;
         girlSprite.transform.position = girlSittingSpawn;
         player.PlayAnimation("Sitting");
@@ -83,6 +89,8 @@ public class GameManager : MonoBehaviour
             animator.Play("GirlSitting");
         }
         state = GameState.SittingTutorial2;
+
+
     }
 
     void SetupStandingTutorial()
@@ -114,15 +122,18 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.instance.onImportantInteraction += HandleImportantInteraction;
-        EventsManager.instance.onImportantDialogue += HandleImportantDialogue;
+        //EventsManager.instance.onImportantInteraction += HandleImportantInteraction;
+        //EventsManager.instance.onImportantDialogue += HandleImportantDialogue;
+        DialogueEvents.instance.onDialogueFinished += HandleDialogueFinished;
     }
 
 
     private void OnDisable()
     {
-        EventsManager.instance.onImportantInteraction -= HandleImportantInteraction;
-        EventsManager.instance.onImportantDialogue -= HandleImportantDialogue;
+        //EventsManager.instance.onImportantInteraction -= HandleImportantInteraction;
+        //EventsManager.instance.onImportantDialogue -= HandleImportantDialogue;
+        DialogueEvents.instance.onDialogueFinished -= HandleDialogueFinished;
+
     }
 
     void HandleImportantInteraction(Interactee interactable)
@@ -144,6 +155,16 @@ public class GameManager : MonoBehaviour
             SetupStandingTutorial();
         }
     }
+
+    private void HandleDialogueFinished(DSDialogueSO sO)
+    {
+        if (sO == startingScene && state == GameState.SittingTutorial)
+        {
+            // sitting tutorial 2
+            SetupSittingTutorial2();
+        }
+    }
+
 
     private void Update()
     {
