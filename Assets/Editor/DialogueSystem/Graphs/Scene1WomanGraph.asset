@@ -16,65 +16,24 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - <ID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
     <Name>k__BackingField: Scene1Woman
-    <Position>k__BackingField: {x: 58, y: -375}
+    <Position>k__BackingField: {x: 58, y: -355.99994}
   - <ID>k__BackingField: 33188896-155b-4066-b169-d90dec0d1b49
     <Name>k__BackingField: StartingScene
-    <Position>k__BackingField: {x: 84, y: 1020}
+    <Position>k__BackingField: {x: 84, y: 1019.9998}
   <Nodes>k__BackingField:
-  - <ID>k__BackingField: 1b9b1419-ba98-43e9-a94f-c73166ba41d7
-    <Name>k__BackingField: 2
-    <Text>k__BackingField: My name is Veronica. My brother's name is Kevin.
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 5cfaf030-e2c6-4c96-98ab-b5d1b1815950
-    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 487, y: -316}
-    <IsExitable>k__BackingField: 0
-  - <ID>k__BackingField: 5cfaf030-e2c6-4c96-98ab-b5d1b1815950
-    <Name>k__BackingField: 3
-    <Text>k__BackingField: We were raised as orphans.
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
-    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1142, y: 31}
-    <IsExitable>k__BackingField: 0
   - <ID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
     <Name>k__BackingField: Start
     <Text>k__BackingField: 
     <Choices>k__BackingField:
     - <Text>k__BackingField: What's your name?
       <NodeID>k__BackingField: 1b9b1419-ba98-43e9-a94f-c73166ba41d7
-    - <Text>k__BackingField: Where are you from?
+    - <Text>k__BackingField: What is your brother's name?
       <NodeID>k__BackingField: 25b09906-a832-4de1-a582-f20474a8da8c
     - <Text>k__BackingField: Where did you last see your brother?
       <NodeID>k__BackingField: f9696f14-0d48-4b6e-aaaa-0ffcab4499d6
     <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
     <DialogueType>k__BackingField: 1
     <Position>k__BackingField: {x: 83, y: 293}
-    <IsExitable>k__BackingField: 0
-  - <ID>k__BackingField: 25b09906-a832-4de1-a582-f20474a8da8c
-    <Name>k__BackingField: answer2
-    <Text>k__BackingField: I'm from the west side of town.
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: b702b9d4-a372-499e-b32d-61aa897231a9
-    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 722, y: 344}
-    <IsExitable>k__BackingField: 0
-  - <ID>k__BackingField: b702b9d4-a372-499e-b32d-61aa897231a9
-    <Name>k__BackingField: answer22
-    <Text>k__BackingField: You've probably heard about it through the murders on
-      the news...
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
-    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1534, y: 339}
     <IsExitable>k__BackingField: 0
   - <ID>k__BackingField: f9696f14-0d48-4b6e-aaaa-0ffcab4499d6
     <Name>k__BackingField: answer3
@@ -117,6 +76,47 @@ MonoBehaviour:
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: 847, y: 1079}
     <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 5cfaf030-e2c6-4c96-98ab-b5d1b1815950
+    <Name>k__BackingField: 3
+    <Text>k__BackingField: That's.. what people call me at least. I don't know my
+      real name.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 1142, y: 31}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 1b9b1419-ba98-43e9-a94f-c73166ba41d7
+    <Name>k__BackingField: 2
+    <Text>k__BackingField: 'My name is Emelia. '
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 5cfaf030-e2c6-4c96-98ab-b5d1b1815950
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 499, y: -297}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: b702b9d4-a372-499e-b32d-61aa897231a9
+    <Name>k__BackingField: answer22
+    <Text>k__BackingField: '*sniffs*'
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 1534, y: 339}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 25b09906-a832-4de1-a582-f20474a8da8c
+    <Name>k__BackingField: answer2
+    <Text>k__BackingField: My brother's name is Hans.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: b702b9d4-a372-499e-b32d-61aa897231a9
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 770, y: 407}
+    <IsExitable>k__BackingField: 0
   <OldGroupNames>k__BackingField:
   - Scene1Woman
   - StartingScene
@@ -125,12 +125,12 @@ MonoBehaviour:
     list:
     - Key: Scene1Woman
       Value:
-      - 2
-      - 3
       - Start
-      - answer2
-      - answer22
       - answer3
+      - 3
+      - 2
+      - answer22
+      - answer2
     - Key: StartingScene
       Value:
       - StartingScene

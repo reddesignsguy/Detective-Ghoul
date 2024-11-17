@@ -17,7 +17,7 @@ MonoBehaviour:
   <Choices>k__BackingField:
   - <Text>k__BackingField: What's your name?
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: 2e3837dabe35243d0a88e56e25cdd2d2, type: 2}
-  - <Text>k__BackingField: Where are you from?
+  - <Text>k__BackingField: What is your brother's name?
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: cc6b3eefb5f0b4f14b2a9ff2d055020f, type: 2}
   - <Text>k__BackingField: Where did you last see your brother?
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: bcb76736b7cab4b288970bd7cb4fdcbd, type: 2}

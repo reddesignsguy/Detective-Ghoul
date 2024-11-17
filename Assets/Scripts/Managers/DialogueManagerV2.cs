@@ -14,7 +14,7 @@ public class DialogueManagerV2 : MonoBehaviour
 
     public static DialogueManagerV2 Instance;
 
-    private DSDialogueSO currentDialogue;
+    private DSDialogueSO pastDialogue;
 
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class DialogueManagerV2 : MonoBehaviour
 
     private void Update()
     {
-        if (currentDialogue != null && currentDialogue.DialogueType == DSDialogueType.MultipleChoice && Input.GetKeyDown(KeyCode.Escape))
+        if (pastDialogue != null && pastDialogue.DialogueType == DSDialogueType.MultipleChoice && Input.GetKeyDown(KeyCode.Escape))
         {
             optionsDialogUI.SetUIActive(false);
             DialogueEvents.instance.ExitOptions();
@@ -55,15 +55,18 @@ public class DialogueManagerV2 : MonoBehaviour
     private void HandleDialogueStarted(DSDialogueSO dialogue)
     {
 
-        DSDialogueSO temp = currentDialogue;
-        currentDialogue = null;
+        print("Starting dialogue: " + dialogue);
+
+        DSDialogueSO temp = pastDialogue;
+        pastDialogue = null;
         DialogueEvents.instance.FinishDialogue(temp);
-        currentDialogue = dialogue;
+        pastDialogue = dialogue;
 
         if (dialogue == null)
         {
             optionsDialogUI.SetUIActive(false);
             singleDialogueUI.SetUIActive(false);
+            
             return;
         }
 

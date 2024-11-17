@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: answer22
   m_EditorClassIdentifier: 
   <DialogueName>k__BackingField: answer22
-  <Text>k__BackingField: You've probably heard about it through the murders on the
-    news...
+  <Text>k__BackingField: '*sniffs*'
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Dialogue
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: fdf09e8719fa0434eb12736e50406c38, type: 2}

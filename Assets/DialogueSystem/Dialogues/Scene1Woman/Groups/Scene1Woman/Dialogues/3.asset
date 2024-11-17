@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: 
   <DialogueName>k__BackingField: 3
-  <Text>k__BackingField: We were raised as orphans.
+  <Text>k__BackingField: That's.. what people call me at least. I don't know my real
+    name.
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Dialogue
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: fdf09e8719fa0434eb12736e50406c38, type: 2}

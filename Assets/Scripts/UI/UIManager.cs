@@ -12,6 +12,4 @@ public abstract class UIManager : MonoBehaviour
         if (panel != null)
             panel.SetActive(open);
     }
-
-    public virtual void Update() { return;  }
 }

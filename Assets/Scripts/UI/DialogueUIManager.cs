@@ -37,6 +37,7 @@ public class DialogueUIManager : UIManager
 
     private void Skip()
     {
+        print(dialogue.Choices[0].NextDialogue);
         DialogueEvents.instance.StartDialogue(dialogue.Choices[0].NextDialogue);
 
     }
