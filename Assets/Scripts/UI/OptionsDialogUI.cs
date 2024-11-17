@@ -11,7 +11,7 @@ public class OptionsDialogUI : UIManager
 {
     protected List<DSDialogueChoiceData> dialogues;
     public List<Button> optionPlaceholders;
-    public Button exitButton;
+    private bool exitable = false;
 
     private void Awake()
     {
@@ -22,15 +22,6 @@ public class OptionsDialogUI : UIManager
             optionPlaceholders = new List<Button>();
 
         }
-    }
-
-    private void Update()
-    {
-        if (panel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
-        {
-            SetUIActive(false);
-            DialogueEvents.instance.ExitOptions();
-        }    
     }
 
     public virtual void SetUp(DSDialogueSO optionsDialogue)
@@ -59,10 +50,6 @@ public class OptionsDialogUI : UIManager
 
         dialogues = options;
 
-
-        if (optionsDialogue.IsExitable && exitButton != null)
-        {
-            exitButton.gameObject.SetActive(true);
-        }
+        exitable = optionsDialogue.IsExitable;
     }
 }

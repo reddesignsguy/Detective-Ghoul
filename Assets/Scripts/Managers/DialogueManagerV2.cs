@@ -4,6 +4,7 @@ using UnityEngine;
 using DS.ScriptableObjects;
 using DS.Enumerations;
 using System;
+using static UnityEngine.Rendering.DebugUI;
 
 public class DialogueManagerV2 : MonoBehaviour
 {
@@ -29,6 +30,15 @@ public class DialogueManagerV2 : MonoBehaviour
         }
 
         DontDestroyOnLoad(this);
+    }
+
+    private void Update()
+    {
+        if (currentDialogue != null && currentDialogue.DialogueType == DSDialogueType.MultipleChoice && Input.GetKeyDown(KeyCode.Escape))
+        {
+            optionsDialogUI.SetUIActive(false);
+            DialogueEvents.instance.ExitOptions();
+        }
     }
 
     private void OnEnable()
