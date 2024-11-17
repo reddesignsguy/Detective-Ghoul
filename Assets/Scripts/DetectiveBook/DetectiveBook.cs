@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DS.ScriptableObjects;
 using System.Linq;
+using DS.Data;
+using TMPro;
 
 public class DetectiveBook : MonoBehaviour
 {

@@ -11,6 +11,7 @@ public class OptionsDialogUI : UIManager
 {
     protected List<DSDialogueChoiceData> dialogues;
     public List<Button> optionPlaceholders;
+    public Button exitButton;
 
     private void Awake()
     {
@@ -23,10 +24,17 @@ public class OptionsDialogUI : UIManager
         }
     }
 
+    private void Update()
+    {
+        if (panel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetUIActive(false);
+            DialogueEvents.instance.ExitOptions();
+        }    
+    }
+
     public virtual void SetUp(DSDialogueSO optionsDialogue)
     {
-
-        print("Setting up w/ placeholders of size: " + optionPlaceholders.Count);
 
         List<DSDialogueChoiceData> options = optionsDialogue.Choices;
 
@@ -36,16 +44,12 @@ public class OptionsDialogUI : UIManager
             Button button = optionPlaceholders[i];
             DSDialogueChoiceData option = options[i];
 
-            print("Text: " + option.Text);
-
             // Option text
             TextMeshProUGUI gui = button.GetComponentInChildren<TextMeshProUGUI>();
 
             if (gui)
             {
                 gui.text = option.Text;
-
-                print("Inserting: " + option.Text);
             }
 
             // Notify listeners when option chosen
@@ -54,5 +58,11 @@ public class OptionsDialogUI : UIManager
         }
 
         dialogues = options;
+
+
+        if (optionsDialogue.IsExitable && exitButton != null)
+        {
+            exitButton.gameObject.SetActive(true);
+        }
     }
 }

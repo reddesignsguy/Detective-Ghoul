@@ -31,7 +31,6 @@ public class DialogueUIManager : UIManager
     {
         if (panel.activeSelf && Input.GetKeyDown(KeyCode.F))
         {
-            DialogueEvents.instance.FinishDialogue(dialogue);
             Skip();
         }
     }
@@ -39,6 +38,7 @@ public class DialogueUIManager : UIManager
     private void Skip()
     {
         DialogueEvents.instance.StartDialogue(dialogue.Choices[0].NextDialogue);
+
     }
 
     public void FinishDialogue(){

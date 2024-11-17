@@ -40,5 +40,16 @@ public class DialogueEvents : MonoBehaviour
 
     }
 
+    public event Action onExitedOptions;
+
+    public void ExitOptions()
+    {
+        if (onExitedOptions != null)
+        {
+            onExitedOptions();
+        }
+
+    }
+
 
 }

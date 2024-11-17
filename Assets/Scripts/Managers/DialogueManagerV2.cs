@@ -13,6 +13,8 @@ public class DialogueManagerV2 : MonoBehaviour
 
     public static DialogueManagerV2 Instance;
 
+    private DSDialogueSO currentDialogue;
+
     private void Awake()
     {
 
@@ -42,6 +44,12 @@ public class DialogueManagerV2 : MonoBehaviour
 
     private void HandleDialogueStarted(DSDialogueSO dialogue)
     {
+
+        DSDialogueSO temp = currentDialogue;
+        currentDialogue = null;
+        DialogueEvents.instance.FinishDialogue(temp);
+        currentDialogue = dialogue;
+
         if (dialogue == null)
         {
             optionsDialogUI.SetUIActive(false);
@@ -49,19 +57,18 @@ public class DialogueManagerV2 : MonoBehaviour
             return;
         }
 
-        switch(dialogue.DialogueType)
+        switch (dialogue.DialogueType)
         {
             case DSDialogueType.SingleChoice:
-                print("Single dialogue setup");
                 singleDialogueUI.SetUp(dialogue);
                 singleDialogueUI.SetUIActive(true);
                 break;
             case DSDialogueType.MultipleChoice:
-                print("Multiple dialogue set up");
                 optionsDialogUI.SetUp(dialogue);
                 optionsDialogUI.SetUIActive(true);
                 singleDialogueUI.SetUIActive(false);
                 break;
         }
+
     }
 }
