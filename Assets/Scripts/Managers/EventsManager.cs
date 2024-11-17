@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+using DS.ScriptableObjects;
+
+
 public class EventsManager : MonoBehaviour
 {
     public static EventsManager instance { get; private set; }

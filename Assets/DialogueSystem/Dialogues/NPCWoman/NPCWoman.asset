@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa76378291a144d849f29230be0a5a, type: 3}
+  m_Name: NPCWoman
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: NPCWoman
+  <DialogueGroups>k__BackingField:
+    list: []
+  <UngroupedDialogues>k__BackingField:
+  - {fileID: 11400000, guid: fe169acc9f8e04348a12d8d16eff833e, type: 2}
+  - {fileID: 11400000, guid: 07d66eba43f614c6e96e81fea1845045, type: 2}
+  - {fileID: 11400000, guid: 3224c43ef47e9429d8a86f4b5562b352, type: 2}
+  - {fileID: 11400000, guid: 8386f8174c5c24260ad0d4fcb657d25b, type: 2}
+  - {fileID: 11400000, guid: 25f3a49b8192742a9b01409d474c2228, type: 2}

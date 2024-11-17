@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0202a3095b7477a4091d56344f0af6b3, type: 3}
+  m_Name: Scene1WomanGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Scene1Woman
+  <Groups>k__BackingField:
+  - <ID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <Name>k__BackingField: Scene1Woman
+    <Position>k__BackingField: {x: 58, y: -355.99994}
+  - <ID>k__BackingField: 33188896-155b-4066-b169-d90dec0d1b49
+    <Name>k__BackingField: StartingScene
+    <Position>k__BackingField: {x: 84, y: 1019.9998}
+  <Nodes>k__BackingField:
+  - <ID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
+    <Name>k__BackingField: Start
+    <Text>k__BackingField: 
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: What's your name?
+      <NodeID>k__BackingField: 1b9b1419-ba98-43e9-a94f-c73166ba41d7
+    - <Text>k__BackingField: What is your brother's name?
+      <NodeID>k__BackingField: 25b09906-a832-4de1-a582-f20474a8da8c
+    - <Text>k__BackingField: Where did you last see your brother?
+      <NodeID>k__BackingField: f9696f14-0d48-4b6e-aaaa-0ffcab4499d6
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 1
+    <Position>k__BackingField: {x: 83, y: 293}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: f9696f14-0d48-4b6e-aaaa-0ffcab4499d6
+    <Name>k__BackingField: answer3
+    <Text>k__BackingField: I dorpped him and his friends off at the junkyard.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 703, y: 694}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 0d176f9d-9935-4329-99f6-6ffdff9f5ff8
+    <Name>k__BackingField: StartingScene
+    <Text>k__BackingField: 'Girl: (voice shaky) E-E-Excuse me! Are you a detective?'
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 3f8cefc5-6884-4e5e-83b4-caa64ea44140
+    <GroupID>k__BackingField: 33188896-155b-4066-b169-d90dec0d1b49
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 109, y: 1238}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 473e1c13-d20e-4366-8712-33324739dbe6
+    <Name>k__BackingField: StartingScene3
+    <Text>k__BackingField: 'Girl: (wiping her tears) It''s my brother! He''s gone
+      missing. He was supposed to be home an hour ago! '
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: 33188896-155b-4066-b169-d90dec0d1b49
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 1168, y: 1309}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 3f8cefc5-6884-4e5e-83b4-caa64ea44140
+    <Name>k__BackingField: StartingScene2
+    <Text>k__BackingField: 'Detective: Yes, I am. What''s wrong?'
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 473e1c13-d20e-4366-8712-33324739dbe6
+    <GroupID>k__BackingField: 33188896-155b-4066-b169-d90dec0d1b49
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 847, y: 1079}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 5cfaf030-e2c6-4c96-98ab-b5d1b1815950
+    <Name>k__BackingField: 3
+    <Text>k__BackingField: That's.. what people call me at least. I don't know my
+      real name.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 1142, y: 31}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 1b9b1419-ba98-43e9-a94f-c73166ba41d7
+    <Name>k__BackingField: 2
+    <Text>k__BackingField: 'My name is Emelia. '
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 5cfaf030-e2c6-4c96-98ab-b5d1b1815950
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 499, y: -297}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: b702b9d4-a372-499e-b32d-61aa897231a9
+    <Name>k__BackingField: answer22
+    <Text>k__BackingField: '*sniffs*'
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 9d7ce6bf-9b25-4dff-bd33-a4355d136ac7
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 1534, y: 339}
+    <IsExitable>k__BackingField: 0
+  - <ID>k__BackingField: 25b09906-a832-4de1-a582-f20474a8da8c
+    <Name>k__BackingField: answer2
+    <Text>k__BackingField: My brother's name is Hans.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: b702b9d4-a372-499e-b32d-61aa897231a9
+    <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 770, y: 407}
+    <IsExitable>k__BackingField: 0
+  <OldGroupNames>k__BackingField:
+  - Scene1Woman
+  - StartingScene
+  <OldUngroupedNodeNames>k__BackingField: []
+  <OldGroupedNodeNames>k__BackingField:
+    list:
+    - Key: Scene1Woman
+      Value:
+      - Start
+      - answer3
+      - 3
+      - 2
+      - answer22
+      - answer2
+    - Key: StartingScene
+      Value:
+      - StartingScene
+      - StartingScene3
+      - StartingScene2

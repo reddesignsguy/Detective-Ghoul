@@ -1,54 +1,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DS.ScriptableObjects;
+using System;
 
 public class DialogueUIManager : UIManager
 {
+    private DSDialogueSO dialogue;
     public Text dialogueText;              
-    public List<Button> OptionButtons;     
-    public Button SkipButton;
-     private void Start()
-    {
-        SkipButton.onClick.AddListener(() => FindObjectOfType<DialogueManager>().Skip());
-    }
 
-    //SingleDialogueSectionEachTime
     public void StartDialogueUI(Dialogue dialogue)
     {
         SetUIActive(true);  
         UpdateUI(dialogue);
     }
 
+    public void SetUp(DSDialogueSO dialogue)
+    {
+        this.dialogue = dialogue;
+        dialogueText.text = dialogue.Text;
+    }
+
     public void UpdateUI(Dialogue dialogue)
     {
         dialogueText.text = dialogue.DialogueText;  
-        SetOptions(dialogue.options); 
-        SkipButton.gameObject.SetActive(dialogue.options.Count == 0 );
-                        
     }
 
-    private void SetOptions(List<Option> options)
-    {
-        for (int i = 0; i < OptionButtons.Count; i++)
-        {
-            if (i < options.Count)
-            {
-                OptionButtons[i].gameObject.SetActive(true);
-                OptionButtons[i].GetComponentInChildren<Text>().text = options[i].OptionText;
 
-                int optionId = options[i].id;
-                OptionButtons[i].onClick.RemoveAllListeners();
-                OptionButtons[i].onClick.AddListener(() => OnOptionClicked(optionId));
-            }
-            else
-            {
-                OptionButtons[i].gameObject.SetActive(false);
-            }
+    private void Update()
+    {
+        if (panel.activeSelf && Input.GetKeyDown(KeyCode.F))
+        {
+            Skip();
         }
     }
-    private void OnOptionClicked(int optionId)
+
+    private void Skip()
     {
-        FindObjectOfType<DialogueManager>().OnOptionSelected(optionId);
+        print(dialogue.Choices[0].NextDialogue);
+        DialogueEvents.instance.StartDialogue(dialogue.Choices[0].NextDialogue);
+
     }
 
     public void FinishDialogue(){

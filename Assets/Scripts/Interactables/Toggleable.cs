@@ -19,7 +19,7 @@ public class Toggleable : Interactee
     public override void Interact()
     {
         Toggle();
-        dialogueTrigger.TriggerDialogue();
+        dialogueTrigger?.TriggerDialogue();
     }
 
     protected void Toggle()
