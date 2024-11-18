@@ -95,6 +95,16 @@ public class EventsManager : MonoBehaviour
         }
     }
 
+    public event Action<Clue> onPickUpClue;
+
+    public void PickupClue(Clue clue)
+    {
+        if (onPickUpClue != null)
+        {
+            onPickUpClue(clue);
+        }
+    }
+
     public event Action<Interactee> onImportantInteraction;
 
     public void NotifyImportantInteraction(Interactee Interactable)
