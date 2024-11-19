@@ -6,10 +6,15 @@ using System.Linq;
 using DS.Data;
 using TMPro;
 using System;
+using DS;
+using static UnityEditor.Progress;
+using Unity.VisualScripting;
 
 public class DetectiveBook : MonoBehaviour
 {
     public List<Page> pages;
+
+    private HashSet<InventoryItem> pickupedItemClues;
 
     public static DetectiveBook Instance { get; private set; }
 
@@ -25,6 +30,7 @@ public class DetectiveBook : MonoBehaviour
             return;
         }
 
+        pickupedItemClues = new HashSet<InventoryItem>();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -70,10 +76,50 @@ public class DetectiveBook : MonoBehaviour
 
     private void HandlePickupClue(Clue clue)
     {
-        //List<> dialogPages = pages.OfType<QuestionsPage>().ToList();
+        InventoryItem item = clue.ItemInfo;
 
-        //for
-        //throw new NotImplementedException();
+        // Remember that we picked up this item
+        for (int i = 0; i < pages.Count; i++)
+        {
+            Page cur = pages[i];
+            if (cur.GetType() == typeof(PicturesPage))
+            {
+                PicturesPage page = (PicturesPage)cur;
+                foreach (InventoryItem needed in page.clues)
+                {
+                    if (item == needed)
+                    {
+                        pickupedItemClues.Add(item);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void turnToPage(int pageNum) // 0 indexed
+    {
+        Page cur = pages[pageNum];
+
+        if (cur.GetType() == typeof(PicturesPage))
+        {
+            PicturesPage page = (PicturesPage)cur;
+            SetupPicturesPage(page);
+        }
+    }
+
+    private void SetupPicturesPage(PicturesPage page)
+    {
+        List<Sprite> sprites = new List<Sprite>();
+        foreach (InventoryItem needed in page.clues)
+        {
+            if (pickupedItemClues.Contains(needed))
+            {
+                sprites.Add(needed.image);
+            }
+        }
+
+
     }
 }
 

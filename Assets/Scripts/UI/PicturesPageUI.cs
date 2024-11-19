@@ -8,35 +8,24 @@ using UnityEngine.UI;
 
 public class PicturesPageUI : UIManager
 {
-    public List<Image> imagePlaceholders;
+    public VerticalLayoutGroup layoutGroup;
 
-    public TextMeshProUGUI pageNumPlaceholder;
+    public TextMeshProUGUI numPlaceholder;
 
-    public void setUp()
+    public void setUp(List<Sprite> images, int pageNum)
     {
-        //// Get page of  book
-        //numPlaceholder = DetectiveBook.Instance.GetPageNumber(optionsDialogue);
+        // Get page of  book
+        numPlaceholder.text = "#" + pageNum.ToString();
 
-        //// Which options asked?
-        //for (int i = 0; i < dialogues.Count; i++)
-        //{
-        //    DSDialogueChoiceData choice = dialogues[i];
-
-        //    // Option asked
-        //    if (DialogHistory.Instance.HasVisited(choice.NextDialogue))
-        //    {
-        //        Button questionPlaceholder = optionPlaceholders[i];
-        //        questionPlaceholder.onClick.RemoveAllListeners();
-
-        //        // Show answer
-        //        answerPlaceholders[i].text = choice.NextDialogue.Text;
-
-        //        if (questionPlaceholder.TryGetComponent(out TextMeshProUGUI gui))
-        //        {
-        //            // todo: cross or grey out text, or use a checkbox to show option has been chosen before,2
-        //        }
-        //    }
-        //}
-        //pageNumPlaceholder.text = "Page" + numPlaceholder.ToString();
+        // Insert images
+        List<Image> imagePlaceholders = new List<Image>(layoutGroup.gameObject.GetComponentsInChildren<Image>());
+        IEnumerator<Image> it = imagePlaceholders.GetEnumerator();
+        foreach (Sprite sprite in images)
+        {
+            if (it.MoveNext())
+            {
+                it.Current.sprite = sprite;
+            }
+        }
     }
 }
