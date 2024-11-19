@@ -16,7 +16,11 @@ public class DetectiveBook : MonoBehaviour
 
     private HashSet<InventoryItem> pickupedItemClues;
 
+    public PicturesPageUI picturesUI;
+    public QuestionsPageUI questionsUI;
+
     public static DetectiveBook Instance { get; private set; }
+
 
     private void Awake()
     {
@@ -59,17 +63,6 @@ public class DetectiveBook : MonoBehaviour
                 }
             }
         }
-        //List<QuestionsPage> dialogPages = pages.OfType<QuestionsPage>().ToList();
-
-        //for (int i = 0; i < dialogPages.Count; i ++)
-        //{
-        //    QuestionsPage page = dialogPages[i];
-
-        //    if (page.optionsDialogue == dialogue)
-        //    {
-        //        return i + 1;
-        //    }
-        //}
 
         throw new System.Exception("Trying to get the page number of a dialog that doesn't exist");
     }
@@ -97,18 +90,24 @@ public class DetectiveBook : MonoBehaviour
         }
     }
 
-    private void turnToPage(int pageNum) // 0 indexed
+    private void OpenPage(int pageNum) // 0 indexed
     {
         Page cur = pages[pageNum];
 
-        if (cur.GetType() == typeof(PicturesPage))
+        switch (cur)
         {
-            PicturesPage page = (PicturesPage)cur;
-            SetupPicturesPage(page);
+            case PicturesPage page:
+                SetupPicturesPage(page, pageNum);
+                break;
+            case QuestionsPage page:
+                SetupQuestionsPage(page);
+                break;
+            default:
+                throw new InvalidOperationException($"Unsupported page type: {cur.GetType()}");
         }
     }
 
-    private void SetupPicturesPage(PicturesPage page)
+    private void SetupPicturesPage(PicturesPage page, int pageNum)
     {
         List<Sprite> sprites = new List<Sprite>();
         foreach (InventoryItem needed in page.clues)
@@ -119,7 +118,13 @@ public class DetectiveBook : MonoBehaviour
             }
         }
 
+        picturesUI.setUp(sprites, pageNum);
+    }
 
+    private void SetupQuestionsPage(QuestionsPage page)
+    {
+        DSDialogueSO dialogue = page.optionsDialogue;
+        questionsUI.SetUp(dialogue);
     }
 }
 

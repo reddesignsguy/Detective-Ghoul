@@ -11376,6 +11376,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pages:
   - {fileID: 11400000, guid: 8515aac5339604be3a834993e7389a60, type: 2}
+  picturesUI: {fileID: 0}
+  questionsUI: {fileID: 0}
 --- !u!114 &1356807598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15230,7 +15232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2044825716}
   - component: {fileID: 2044825717}
-  - component: {fileID: 2044825718}
+  - component: {fileID: 2044825720}
   - component: {fileID: 2044825719}
   m_Layer: 6
   m_Name: Photo
@@ -15306,23 +15308,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2044825718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044825715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9b69afa8f12e4b5aa047e919195538d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  suggestionTransform: {fileID: 0}
-  suggestion: Pick up
-  affectsGameState: 1
-  itemInfo: {fileID: 11400000, guid: cc4551a9d2c9a4417a50639f5821b149, type: 2}
-  lockReference: {fileID: 0}
 --- !u!65 &2044825719
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15344,6 +15329,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 9.649999, y: 9.02, z: 0.20000052}
   m_Center: {x: 0.000015258789, y: 0.000076293945, z: -0.000030517578}
+--- !u!114 &2044825720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044825715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86b299923fe43475d9c276eed2565728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  suggestionTransform: {fileID: 0}
+  suggestion: Pick up
+  affectsGameState: 1
+  itemInfo: {fileID: 11400000, guid: cc4551a9d2c9a4417a50639f5821b149, type: 2}
 --- !u!43 &2052366491
 Mesh:
   m_ObjectHideFlags: 0
@@ -15982,7 +15983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2119639031
 RectTransform:
   m_ObjectHideFlags: 0
