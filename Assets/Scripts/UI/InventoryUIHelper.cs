@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUIHelper : MonoBehaviour
+public class UIInvoker : MonoBehaviour
 {
-    public InventoryUIManager uiManager;
+    public UIManager uiManager;
     public Animator animator;
 
     private bool on = false;

@@ -6,7 +6,7 @@ public abstract class UIManager : MonoBehaviour
 {
     public GameObject panel;
 
-    public void SetUIActive(bool open)
+    public virtual void SetUIActive(bool open)
     {
         print("Opening: " + panel + "?: " + open);
         if (panel != null)

@@ -14,10 +14,7 @@ public class DetectiveBook : MonoBehaviour
 {
     public List<Page> pages;
 
-    private HashSet<InventoryItem> pickupedItemClues;
-
-    public PicturesPageUI picturesUI;
-    public QuestionsPageUI questionsUI;
+    public HashSet<InventoryItem> pickupedItemClues { get; private set; }
 
     public static DetectiveBook Instance { get; private set; }
 
@@ -90,42 +87,6 @@ public class DetectiveBook : MonoBehaviour
         }
     }
 
-    private void OpenPage(int pageNum) // 0 indexed
-    {
-        Page cur = pages[pageNum];
-
-        switch (cur)
-        {
-            case PicturesPage page:
-                SetupPicturesPage(page, pageNum);
-                break;
-            case QuestionsPage page:
-                SetupQuestionsPage(page);
-                break;
-            default:
-                throw new InvalidOperationException($"Unsupported page type: {cur.GetType()}");
-        }
-    }
-
-    private void SetupPicturesPage(PicturesPage page, int pageNum)
-    {
-        List<Sprite> sprites = new List<Sprite>();
-        foreach (InventoryItem needed in page.clues)
-        {
-            if (pickupedItemClues.Contains(needed))
-            {
-                sprites.Add(needed.image);
-            }
-        }
-
-        picturesUI.setUp(sprites, pageNum);
-    }
-
-    private void SetupQuestionsPage(QuestionsPage page)
-    {
-        DSDialogueSO dialogue = page.optionsDialogue;
-        questionsUI.SetUp(dialogue);
-    }
 }
 
 [CreateAssetMenu(fileName = "PicturesPage", menuName = "DetectiveBook/PicturesPage")]
