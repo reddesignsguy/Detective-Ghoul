@@ -9,9 +9,12 @@ public class UIInvoker : MonoBehaviour
 
     private bool on = false;
 
-    public void OnBagClick()
+    public void OnInvoke(bool onlyTurnOn = false)
     {
-        on = !on;
+        if (onlyTurnOn)
+            on = true;
+        else
+            on = !on;
 
         uiManager.SetUIActive(on);
         animator.SetBool("On", on);

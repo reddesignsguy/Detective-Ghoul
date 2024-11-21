@@ -14,21 +14,28 @@ public class DetectiveBookUIManager : UIManager
 
     public override void SetUIActive(bool open)
     {
-        Page page = SetupPage(curPageNum);
-        switch (page)
+        if (open)
         {
-            case PicturesPage:
-                panel = picturesUI.gameObject;
-                break;
-            case QuestionsPage:
-                panel = questionsUI.gameObject;
-                break;
-            default:
-                throw new InvalidOperationException($"Unsupported page type: {page.GetType()}");
-        }
-        numPages = DetectiveBook.Instance.pages.Count;
+            Page page = SetupPage(curPageNum);
+            switch (page)
+            {
+                case PicturesPage:
+                    panel = picturesUI.gameObject;
+                    break;
+                case QuestionsPage:
+                    panel = questionsUI.gameObject;
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unsupported page type: {page.GetType()}");
+            }
+            numPages = DetectiveBook.Instance.pages.Count;
 
-        base.SetUIActive(open);
+            base.SetUIActive(open);
+        }
+        else
+        {
+            base.SetUIActive(false);
+        }
     }
 
     private Page SetupPage(int pageNum) // 0 indexed
@@ -68,5 +75,25 @@ public class DetectiveBookUIManager : UIManager
     {
         DSDialogueSO dialogue = page.optionsDialogue;
         questionsUI.SetUp(dialogue);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            base.SetUIActive(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.Q) && curPageNum > 0)
+        {
+            base.SetUIActive(false);
+            //curPageNum -= 1;
+            //base.SetUIActive(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && curPageNum < numPages - 1)
+        {
+            base.SetUIActive(false);
+            //curPageNum += 1;
+            //base.SetUIActive(true);
+        }
     }
 }
