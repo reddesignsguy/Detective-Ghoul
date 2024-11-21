@@ -15,16 +15,25 @@ public class PicturesPageUI : UIManager
     public void setUp(List<Sprite> images, int pageNum)
     {
         // Get page of  book
-        numPlaceholder.text = "#" + pageNum.ToString();
+        numPlaceholder.text = "#" + (pageNum + 1).ToString();
 
         // Insert images
         List<Image> imagePlaceholders = new List<Image>(layoutGroup.gameObject.GetComponentsInChildren<Image>());
+
+        // Disable placeholders
+        foreach (Image placeholder in imagePlaceholders)
+        {
+            placeholder.enabled = false;
+        }
+
+        // Enable placeholders as needed
         IEnumerator<Image> it = imagePlaceholders.GetEnumerator();
         foreach (Sprite sprite in images)
         {
             if (it.MoveNext())
             {
                 it.Current.sprite = sprite;
+                it.Current.enabled = true;
             }
         }
     }

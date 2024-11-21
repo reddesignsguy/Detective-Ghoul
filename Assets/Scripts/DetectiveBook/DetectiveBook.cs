@@ -88,9 +88,3 @@ public class DetectiveBook : MonoBehaviour
     }
 
 }
-
-[CreateAssetMenu(fileName = "PicturesPage", menuName = "DetectiveBook/PicturesPage")]
-public class PicturesPage : Page
-{
-    public List<InventoryItem> clues;
-}

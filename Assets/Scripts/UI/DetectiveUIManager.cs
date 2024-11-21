@@ -10,11 +10,10 @@ public class DetectiveBookUIManager : UIManager
     public QuestionsPageUI questionsUI;
 
     private int numPages = -1;
-    private int curPageNum = -1;
+    private int curPageNum = 0;
 
     public override void SetUIActive(bool open)
     {
-        curPageNum = 1;
         Page page = SetupPage(curPageNum);
         switch (page)
         {
