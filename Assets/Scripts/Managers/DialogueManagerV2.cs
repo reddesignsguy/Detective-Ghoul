@@ -37,6 +37,7 @@ public class DialogueManagerV2 : MonoBehaviour
         if (pastDialogue != null && pastDialogue.DialogueType == DSDialogueType.MultipleChoice && Input.GetKeyDown(KeyCode.Escape))
         {
             optionsDialogUI.SetUIActive(false);
+            pastDialogue = null;
             DialogueEvents.instance.ExitOptions();
         }
     }
