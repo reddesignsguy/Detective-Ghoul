@@ -15,7 +15,7 @@ public class PicturesPageUI : UIManager
     public void setUp(List<Sprite> images, int pageNum)
     {
         // Get page of  book
-        numPlaceholder.text = "#" + (pageNum + 1).ToString();
+        numPlaceholder.text = "Page " + (pageNum + 1).ToString();
 
         // Insert images
         List<Image> imagePlaceholders = new List<Image>(layoutGroup.gameObject.GetComponentsInChildren<Image>());

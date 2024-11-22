@@ -37,6 +37,7 @@ public class DetectiveBookUIManager : UIManager
         if (open)
         {
             isOpen = true;
+            SetBulletPointsEnabled(true);
             Page page = SetupPage(curPageNum);
             switch (page)
             {
@@ -54,6 +55,7 @@ public class DetectiveBookUIManager : UIManager
         else
         {
             isOpen = false;
+            SetBulletPointsEnabled(false);
             base.SetUIActive(false);
         }
     }
@@ -149,19 +151,17 @@ public class DetectiveBookUIManager : UIManager
 
     private void Close()
     {
-        SetBulletPointsEnabled(false);
         SetUIActive(false);
     }
 
     private void Open()
     {
-        SetBulletPointsEnabled(true);
         SetUIActive(true);
     }
 
     private void SetBulletPointsEnabled(bool enable)
     {
-        List<BulletPoint> bulletPoints = new List<BulletPoint>(GetComponentsInChildren<BulletPoint>());
+        List<BulletPoint> bulletPoints = new List<BulletPoint>(GetComponentsInChildren<BulletPoint>(true));
         foreach(BulletPoint point in bulletPoints)
         {
             if (enable)

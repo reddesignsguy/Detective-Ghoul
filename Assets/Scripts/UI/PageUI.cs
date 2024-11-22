@@ -48,6 +48,6 @@ public class QuestionsPageUI : OptionsDialogUI
                 }
             }
         }
-        pageNumPlaceholder.text = "Page" + numPlaceholder.ToString();
+        pageNumPlaceholder.text = "Page " + numPlaceholder.ToString();
     }
 }
