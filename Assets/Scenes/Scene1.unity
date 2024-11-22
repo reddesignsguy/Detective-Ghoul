@@ -9968,7 +9968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suggestionTransform: {fileID: 0}
   suggestion: 
-  affectsGameState: 0
+  affectsGameState: 1
   itemInfo: {fileID: 11400000, guid: d3a96b35cf0624760a68d48dd63eeb41, type: 2}
   lockReference: {fileID: 0}
 --- !u!224 &1259134544 stripped
@@ -11087,6 +11087,7 @@ MonoBehaviour:
   girlChair: {fileID: 899938378}
   boyPhotograph: {fileID: 2044825715}
   carKey: {fileID: 130340183}
+  doorKey: {fileID: 1243850840}
   startingScene: {fileID: 11400000, guid: 695182cc1e2524a81aff9e6b1bef2246, type: 2}
   sittingSpawn: {x: -20.84, y: -13.69, z: 48.38}
   standingSpawn: {x: -18.85, y: -13.4, z: 41.29}

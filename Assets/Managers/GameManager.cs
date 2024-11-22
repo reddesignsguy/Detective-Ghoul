@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject boyPhotograph;
     public GameObject carKey;
+    public GameObject doorKey;
 
     public DSDialogueSO startingScene;
 
@@ -150,7 +151,7 @@ public class GameManager : MonoBehaviour
         {
             SetupFree();
         }
-        else if (interactable.gameObject == carKey)
+        else if (interactable.gameObject == carKey || interactable.gameObject == doorKey)
         {
             SetupInventoryInvoker();
         }
