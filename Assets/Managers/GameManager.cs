@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public DialogueTrigger dialogueTrigger2;
 
     public GameObject inventoryBag;
+    public GameObject detectiveBook;
     public PlayerMouvement player;
     public IntercablesDetect detect;
 
@@ -26,6 +27,8 @@ public class GameManager : MonoBehaviour
     public GameObject girlChair;
 
     public GameObject boyPhotograph;
+    public GameObject carKey;
+    public GameObject doorKey;
 
     public DSDialogueSO startingScene;
 
@@ -64,7 +67,8 @@ public class GameManager : MonoBehaviour
         rain.Play();
         //dialogueTrigger.TriggerDialogue();
         DialogueEvents.instance.StartDialogue(firstDialog);
-        inventoryBag.SetActive(false);;
+        inventoryBag.SetActive(false);
+        detectiveBook.SetActive(false);
         EventsManager.instance.SetMovement(false);
         detect.enabled = false;
         player.PlayAnimation("Standing");
@@ -91,6 +95,8 @@ public class GameManager : MonoBehaviour
 
     void SetupStandingTutorial()
     {
+        detectiveBook.SetActive(true);
+
         //rain.Play();
         //tenseMusic.Stop();
         SetAsMainCamera(player.GetComponentInChildren<Camera>());
@@ -111,9 +117,15 @@ public class GameManager : MonoBehaviour
 
     void SetupFree()
     {
-        inventoryBag.SetActive(true);
+        detectiveBook.SetActive(true);
+
         state = GameState.StandingTutorial;
         EventsManager.instance.SetMovement(true);
+    }
+
+    void SetupInventoryInvoker()
+    {
+        inventoryBag.SetActive(true);
     }
 
     private void OnEnable()
@@ -131,8 +143,6 @@ public class GameManager : MonoBehaviour
         EventsManager.instance.onImportantDialogue -= HandleImportantDialogue;
         DialogueEvents.instance.onDialogueFinished -= HandleDialogueFinished;
         DialogueEvents.instance.onExitedOptions -= HandleDialogueUIClosed;
-
-
     }
 
     void HandleImportantInteraction(Interactee interactable)
@@ -140,6 +150,10 @@ public class GameManager : MonoBehaviour
         if (interactable.gameObject == boyPhotograph && state == GameState.StandingTutorial)
         {
             SetupFree();
+        }
+        else if (interactable.gameObject == carKey || interactable.gameObject == doorKey)
+        {
+            SetupInventoryInvoker();
         }
     }
 
@@ -169,20 +183,8 @@ public class GameManager : MonoBehaviour
         if (state == GameState.SittingTutorial2)
         {
             List<DSDialogueChoiceData> dialogues = questionsDialog.Choices;
-
-            int questionsAnswered = 0;
-            for (int i = 0; i < dialogues.Count; i++)
-            {
-                DSDialogueChoiceData choice = dialogues[i];
-
-                // Option asked
-                if (DialogHistory.Instance.HasVisited(choice.NextDialogue))
-                {
-                    questionsAnswered++;
-                }
-            }
-
-            bool tutorialQuestionsAnswered = questionsAnswered == 3;
+            DSDialogueChoiceData choice = dialogues[2];
+            bool tutorialQuestionsAnswered = DialogHistory.Instance.HasVisited(choice.NextDialogue);
             if (tutorialQuestionsAnswered)
             {
                 SetupStandingTutorial();

@@ -57,7 +57,9 @@ public class PuzzleInteractable : MonoBehaviour
         }
         else if (obj.CompareTag("Key"))
         {
-            EventsManager.instance.PickupItem(obj.GetComponent<Item>());
+            Item item = obj.GetComponent<Item>();
+            item?.Interact();
+
             Destroy(obj);
             Debug.Log("key!");
         }

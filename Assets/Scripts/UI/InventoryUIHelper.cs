@@ -1,19 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUIHelper : MonoBehaviour
+public class UIInvoker : MonoBehaviour
 {
-    public InventoryUIManager uiManager;
+    public UIManager uiManager;
     public Animator animator;
 
     private bool on = false;
 
-    public void OnBagClick()
+    //private void OnEnable()
+    //{
+    //    EventsManager.instance.onExclusiveUIOpened += HandleExclusiveUIOpen;
+
+    //}
+
+    //private void HandleExclusiveUIOpen(GameObject go)
+    //{
+    //    if (go != gameObject)
+    //    {
+    //        gameObject.
+    //    }
+    //}
+
+    public void OnInvoke(bool onlyTurnOn = false)
     {
-        on = !on;
+        if (onlyTurnOn)
+            on = true;
+        else
+            on = !on;
 
         uiManager.SetUIActive(on);
         animator.SetBool("On", on);
+
+        
     }
 }

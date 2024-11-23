@@ -95,6 +95,16 @@ public class EventsManager : MonoBehaviour
         }
     }
 
+    public event Action<Clue> onPickUpClue;
+
+    public void PickupClue(Clue clue)
+    {
+        if (onPickUpClue != null)
+        {
+            onPickUpClue(clue);
+        }
+    }
+
     public event Action<Interactee> onImportantInteraction;
 
     public void NotifyImportantInteraction(Interactee Interactable)
@@ -125,6 +135,25 @@ public class EventsManager : MonoBehaviour
         {
             onImportantDialogue(t);
         }
+    }
 
+    public event Action<QuestionUIEvent> onQuestionUIEvent;
+
+    public void NotifyQuestionUIEvent(QuestionUIEvent e)
+    {
+        if (onQuestionUIEvent != null)
+        {
+            onQuestionUIEvent(e);
+        }
+    }
+
+    public event Action<GameObject> onExclusiveUIOpened;
+
+    public void OpenUIExclusively(GameObject go)
+    {
+        if (onExclusiveUIOpened != null)
+        {
+            onExclusiveUIOpened(go);
+        }
     }
 }
