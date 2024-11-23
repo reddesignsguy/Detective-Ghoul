@@ -146,4 +146,14 @@ public class EventsManager : MonoBehaviour
             onQuestionUIEvent(e);
         }
     }
+
+    public event Action<GameObject> onExclusiveUIOpened;
+
+    public void OpenUIExclusively(GameObject go)
+    {
+        if (onExclusiveUIOpened != null)
+        {
+            onExclusiveUIOpened(go);
+        }
+    }
 }
