@@ -135,6 +135,15 @@ public class EventsManager : MonoBehaviour
         {
             onImportantDialogue(t);
         }
+    }
 
+    public event Action<QuestionUIEvent> onQuestionUIEvent;
+
+    public void NotifyQuestionUIEvent(QuestionUIEvent e)
+    {
+        if (onQuestionUIEvent != null)
+        {
+            onQuestionUIEvent(e);
+        }
     }
 }

@@ -5,6 +5,7 @@ using DS.ScriptableObjects;
 using DS.Enumerations;
 using System;
 using static UnityEngine.Rendering.DebugUI;
+using DS.Data;
 
 public class DialogueManagerV2 : MonoBehaviour
 {
@@ -42,21 +43,42 @@ public class DialogueManagerV2 : MonoBehaviour
         }
     }
 
+
     private void OnEnable()
     {
         DialogueEvents.instance.onDialogueStarted += HandleDialogueStarted;
+        EventsManager.instance.onQuestionUIEvent += HandleQuestionUIEvent;
+
     }
 
     private void OnDisable()
     {
         DialogueEvents.instance.onDialogueStarted -= HandleDialogueStarted;
+        EventsManager.instance.onQuestionUIEvent -= HandleQuestionUIEvent;
+
+    }
+
+    private void HandleQuestionUIEvent(QuestionUIEvent e)
+    {
+        if (pastDialogue && pastDialogue.DialogueType != DSDialogueType.MultipleChoice)
+        {
+            return;
+        }
+
+        switch (e)
+        {
+            case QuestionUIEvent.Entered:
+                DialogueEvents.instance.SingleDialogueFocused();
+                break;
+            case QuestionUIEvent.Exited:
+                DialogueEvents.instance.MultipleChoiceFocused();
+                break;
+        }
     }
 
 
     private void HandleDialogueStarted(DSDialogueSO dialogue)
     {
-
-        print("Starting dialogue: " + dialogue);
 
         DSDialogueSO temp = pastDialogue;
         pastDialogue = null;
@@ -76,13 +98,18 @@ public class DialogueManagerV2 : MonoBehaviour
             case DSDialogueType.SingleChoice:
                 singleDialogueUI.SetUp(dialogue);
                 singleDialogueUI.SetUIActive(true);
+                DialogueEvents.instance.SingleDialogueFocused();
                 break;
             case DSDialogueType.MultipleChoice:
+                optionsDialogUI.SetUIActive(false);
                 optionsDialogUI.SetUp(dialogue);
                 optionsDialogUI.SetUIActive(true);
+
                 singleDialogueUI.SetUIActive(false);
+                DialogueEvents.instance.MultipleChoiceFocused();
                 break;
         }
-
     }
+
+
 }

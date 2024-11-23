@@ -7,6 +7,8 @@ using DS.Enumerations;
 
 using UnityEngine.UI;
 using DS.Data;
+using UnityEngine.EventSystems;
+using System;
 
 public class QuestionsPageUI : OptionsDialogUI
 {
@@ -14,7 +16,37 @@ public class QuestionsPageUI : OptionsDialogUI
     public TextMeshProUGUI pageNumPlaceholder;
 
     public List<TextMeshProUGUI> answerPlaceholders;
-    
+
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        DialogueEvents.instance.onSingleDialogueFocused += HandleSingleDialogueFocused;
+        DialogueEvents.instance.onMultipleChoiceFocused += HandleMultipleChoiceFocused;
+    }
+
+
+    private void OnDisable()
+    {
+        DialogueEvents.instance.onSingleDialogueFocused -= HandleSingleDialogueFocused;
+        DialogueEvents.instance.onMultipleChoiceFocused -= HandleMultipleChoiceFocused;
+    }
+
+    private void HandleMultipleChoiceFocused()
+    {
+        animator.SetBool("Dim", false);
+    }
+
+    private void HandleSingleDialogueFocused()
+    {
+        animator.SetBool("Dim", true);
+    }
+
     public override void SetUp(DSDialogueSO optionsDialogue)
     {
         if (optionsDialogue == null)
@@ -34,18 +66,28 @@ public class QuestionsPageUI : OptionsDialogUI
             DSDialogueChoiceData choice = dialogues[i];
 
             // Option asked
+            Button questionPlaceholder = optionPlaceholders[i];
             if (DialogHistory.Instance.HasVisited(choice.NextDialogue))
             {
-                Button questionPlaceholder = optionPlaceholders[i];
                 questionPlaceholder.onClick.RemoveAllListeners();
 
                 // Show answer
-                answerPlaceholders[i].text = choice.NextDialogue.Text;
+                answerPlaceholders[i].text = '"' + choice.NextDialogue.Text + '"';
 
-                if (questionPlaceholder.TryGetComponent(out TextMeshProUGUI gui))
+                questionPlaceholder.transition = Selectable.Transition.None;
+
+                // Remove button color
+                Image image = questionPlaceholder.GetComponent<Image>();
+                if (image)
                 {
-                    // todo: cross or grey out text, or use a checkbox to show option has been chosen before,2
+                    Color color = image.color;
+                    color.a = 0;
+                    image.color = color;
                 }
+            }
+            else
+            {
+
             }
         }
         pageNumPlaceholder.text = "Page " + numPlaceholder.ToString();

@@ -51,5 +51,23 @@ public class DialogueEvents : MonoBehaviour
 
     }
 
+    public event Action onSingleDialogueFocused;
 
+    public void SingleDialogueFocused()
+    {
+        if (onSingleDialogueFocused != null)
+        {
+            onSingleDialogueFocused();
+        }
+    }
+
+    public event Action onMultipleChoiceFocused;
+
+    public void MultipleChoiceFocused()
+    {
+        if (onMultipleChoiceFocused != null)
+        {
+            onMultipleChoiceFocused();
+        }
+    }
 }

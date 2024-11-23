@@ -26,9 +26,7 @@ public class OptionsDialogUI : UIManager
 
     public virtual void SetUp(DSDialogueSO optionsDialogue)
     {
-
         List<DSDialogueChoiceData> options = optionsDialogue.Choices;
-
 
         for (int i = 0; i < optionPlaceholders.Count && i < options.Count; i++)
         {
