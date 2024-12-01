@@ -3925,6 +3925,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 142032571}
   dialogueText: {fileID: 1115433577}
+  fillOutRate: 50
 --- !u!1001 &411087741
 PrefabInstance:
   m_ObjectHideFlags: 0
