@@ -7,8 +7,9 @@ using System;
 public class DialogueUIManager : UIManager
 {
     private DSDialogueSO dialogue;
-    public Text dialogueText;              
+    public Text dialogueText;
 
+    [Obsolete]
     public void StartDialogueUI(Dialogue dialogue)
     {
         SetUIActive(true);  
@@ -21,6 +22,7 @@ public class DialogueUIManager : UIManager
         dialogueText.text = dialogue.Text;
     }
 
+    [Obsolete]
     public void UpdateUI(Dialogue dialogue)
     {
         dialogueText.text = dialogue.DialogueText;  
