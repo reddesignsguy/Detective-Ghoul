@@ -79,17 +79,13 @@ public class DialogueManagerV2 : MonoBehaviour
 
     private void HandleDialogueStarted(DSDialogueSO dialogue)
     {
-
-        DSDialogueSO temp = pastDialogue;
-        pastDialogue = null;
-        DialogueEvents.instance.FinishDialogue(temp);
-        pastDialogue = dialogue;
+        UpdatePastDialogue(dialogue);
 
         if (dialogue == null)
         {
             optionsDialogUI.SetUIActive(false);
             singleDialogueUI.SetUIActive(false);
-            
+
             return;
         }
 
@@ -111,5 +107,11 @@ public class DialogueManagerV2 : MonoBehaviour
         }
     }
 
-
+    private void UpdatePastDialogue(DSDialogueSO dialogue)
+    {
+        DSDialogueSO temp = pastDialogue;
+        pastDialogue = null;
+        DialogueEvents.instance.FinishDialogue(temp);
+        pastDialogue = dialogue;
+    }
 }
