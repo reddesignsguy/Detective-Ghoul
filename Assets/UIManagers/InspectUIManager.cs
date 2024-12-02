@@ -7,6 +7,7 @@ public class InspectUIManager : UIManager
 {
     private Animator animator;
     private InventoryItem item = null;
+    private GameObject go = null;
 
     private void Awake()
     {
@@ -42,17 +43,18 @@ public class InspectUIManager : UIManager
         EventsManager.instance.onInspect -= HandleInspect;
     }
 
-    private void HandleInspect(InventoryItem item)
+    private void HandleInspect(InventoryItem item, GameObject go)
     {
-        SetUp(item);
+        SetUp(item, go);
         animator.SetBool("Open", true);
     }
 
 
-    private void SetUp(InventoryItem item)
+    private void SetUp(InventoryItem item, GameObject go)
     {
         // set up photo, name, and description
-        
+
+        this.go = go;
         this.item = item;
     }
 }

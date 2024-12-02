@@ -38,12 +38,17 @@ public class DetectiveBook : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.instance.onPickUpClue += HandlePickupClue;
+        EventsManager.instance.onPickUpInventoryItem += HandlePickupInventoryItem;
+
     }
 
     private void OnDisable()
     {
         EventsManager.instance.onPickUpClue -= HandlePickupClue;
+        EventsManager.instance.onPickUpInventoryItem -= HandlePickupInventoryItem;
+
     }
+
 
     public int GetPageNumber(DSDialogueSO dialogue) // 1-indexed
     {
@@ -67,15 +72,15 @@ public class DetectiveBook : MonoBehaviour
 
     private void HandlePickupClue(Clue clue)
     {
-        InventoryItem item = clue.ItemInfo;
-        EventsManager.instance.Inspect(clue.GetInventoryItem());
+
     }
 
-    private void StoreClue(Clue clue)
+    private void HandlePickupInventoryItem(InventoryItem item)
     {
-        clue.gameObject.SetActive(false);
-
-        InventoryItem item = clue.ItemInfo;
+        if (!item.isClue)
+        {
+            return;
+        }
 
         // Store clue by setting it as visited in a hashmap
         for (int i = 0; i < pages.Count; i++)

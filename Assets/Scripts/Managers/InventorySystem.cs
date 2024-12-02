@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,28 +28,43 @@ public class InventorySystem : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.instance.onPickUpItem += HandlePickUpItem;
+        //EventsManager.instance.onPickUpItem += HandlePickUpItem;
+        EventsManager.instance.onPickUpInventoryItem += HandlePickUpInventoryItem;
+
     }
+
 
     private void OnDisable()
     {
-        EventsManager.instance.onPickUpItem -= HandlePickUpItem;
+        //EventsManager.instance.onPickUpItem -= HandlePickUpItem;
+        EventsManager.instance.onPickUpInventoryItem -= HandlePickUpInventoryItem;
+
     }
 
-    public void HandlePickUpItem (Item item)
+    private void HandlePickUpInventoryItem(InventoryItem item)
     {
-        if (item == null)
+        if (item == null || item.isClue)
             return;
 
-        Debug.Log("Picking up");
-        InventoryItem baseData = item.ItemInfo;
-        string unlockCode = item.GetLockID();
-
-        ParsedInventoryItem finalData = new ParsedInventoryItem(baseData, unlockCode);
+        ParsedInventoryItem finalData = new ParsedInventoryItem(item, "Obsolete");
 
         items.Add(finalData);
-        Destroy(item.transform.gameObject);
     }
+
+    //public void HandlePickUpItem (Item item)
+    //{
+    //    if (item == null)
+    //        return;
+
+    //    Debug.Log("Picking up");
+    //    InventoryItem baseData = item.ItemInfo;
+    //    string unlockCode = item.GetLockID();
+
+    //    ParsedInventoryItem finalData = new ParsedInventoryItem(baseData, unlockCode);
+
+    //    items.Add(finalData);
+    //    Destroy(item.transform.gameObject);
+    //}
 
     public void Remove(InventoryItem item)
     {
