@@ -8,7 +8,7 @@ public enum ItemType
     Key
 }
 
-public class Item : Interactee
+public class Item : Interactee, InventoryItemHolder
 {
     public bool affectsGameState;
 
@@ -16,6 +16,11 @@ public class Item : Interactee
     [SerializeField] private GameObject lockReference;
 
     public InventoryItem ItemInfo => itemInfo;
+
+    public InventoryItem GetInventoryItem()
+    {
+        return itemInfo;
+    }
 
     public string GetLockID()
     {

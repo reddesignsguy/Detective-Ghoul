@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         // todo: migrate to new dialogue system
     }
 
-    void SetupSittingTutorial2()
+    void SetupSittingTutorial()
     {
         SetAsMainCamera(cameraTutorial2);
         detect.enabled = true;
@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
         if (trigger == dialogueTrigger && state == GameState.SittingTutorial)
         {
             // sitting tutorial 2
-            SetupSittingTutorial2();
+            SetupSittingTutorial();
         } else if (trigger == dialogueTrigger2 && state == GameState.SittingTutorial2)
         {
             SetupStandingTutorial();
@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
     {
         if (sO == startingScene && state == GameState.SittingTutorial)
         {
-            SetupSittingTutorial2();
+            SetupSittingTutorial();
         }
 
     }

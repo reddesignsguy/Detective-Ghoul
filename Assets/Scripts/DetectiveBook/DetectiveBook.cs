@@ -64,11 +64,20 @@ public class DetectiveBook : MonoBehaviour
         throw new System.Exception("Trying to get the page number of a dialog that doesn't exist");
     }
 
+
     private void HandlePickupClue(Clue clue)
     {
         InventoryItem item = clue.ItemInfo;
+        EventsManager.instance.Inspect(clue.GetInventoryItem());
+    }
 
-        // Remember that we picked up this item
+    private void StoreClue(Clue clue)
+    {
+        clue.gameObject.SetActive(false);
+
+        InventoryItem item = clue.ItemInfo;
+
+        // Store clue by setting it as visited in a hashmap
         for (int i = 0; i < pages.Count; i++)
         {
             Page cur = pages[i];
@@ -86,5 +95,4 @@ public class DetectiveBook : MonoBehaviour
             }
         }
     }
-
 }

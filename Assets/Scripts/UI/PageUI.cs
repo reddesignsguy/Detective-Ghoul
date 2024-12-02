@@ -89,7 +89,7 @@ public class QuestionsPageUI : OptionsDialogUI
             }
             else
             {
-
+                answerPlaceholders[i].text = "";
             }
         }
         pageNumPlaceholder.text = "Page " + numPlaceholder.ToString();
