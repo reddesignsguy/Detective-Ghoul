@@ -32,19 +32,6 @@ public class PuzzleInteractable : MonoBehaviour
         Debug.Log("Setting up puzzle");
     }
 
-    //private void OnEnable()
-    //{
-
-    //    Debug.Log("Limit player movement");
-    //    EventsManager.instance.SetMovement(false);
-    //}
-
-    //private void OnDisable()
-    //{
-    //    Debug.Log("Allow player movement");
-    //    EventsManager.instance.SetMovement(true);
-    //}
-
     public void HandlePuzzleClicked(GameObject obj)
     {
         if (obj.CompareTag("Trash"))

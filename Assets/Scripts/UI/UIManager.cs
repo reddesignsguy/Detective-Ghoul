@@ -5,6 +5,13 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public GameObject panel;
+    private static HashSet<GameObject> openPanels;
+
+    private void Awake()
+    {
+        if (openPanels == null)
+            openPanels = new HashSet<GameObject>();
+    }
 
     public virtual void SetUIActive(bool open)
     {
@@ -16,13 +23,24 @@ public class UIManager : MonoBehaviour
             if (open)
             {
                 // disable interactable detect
+                openPanels.Add(panel);
                 GameContext.Instance.SetContextState(ContextState.UI);
             }
             else
             {
                 // enable
-                GameContext.Instance.SetContextState(ContextState.FreeRoam);
+                openPanels.Remove(panel);
             }
         }
+
+        if (openPanels.Count == 0)
+            GameContext.Instance.SetContextState(ContextState.FreeRoam);
+
+        print("Panels open: ");
+        foreach (GameObject panel in openPanels)
+            print(panel);
+
+        print("-------------");
+
     }
 }
