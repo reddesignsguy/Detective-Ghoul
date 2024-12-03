@@ -60,6 +60,8 @@ public class QuestionsPageUI : OptionsDialogUI
         // Get page of  book
         numPlaceholder = DetectiveBook.Instance.GetPageNumber(optionsDialogue);
 
+        SetQuestionsClickable(true);
+
         // Which options asked?
         for (int i = 0; i < dialogues.Count; i ++)
         {
@@ -87,9 +89,29 @@ public class QuestionsPageUI : OptionsDialogUI
             }
             else
             {
-
+                answerPlaceholders[i].text = "";
             }
         }
         pageNumPlaceholder.text = "Page " + numPlaceholder.ToString();
+    }
+
+    public void SetQuestionsClickable(bool clickable)
+    {
+        foreach (Button button in optionPlaceholders)
+        {
+            button.interactable = clickable;
+
+            QuestionUIBehavior behavior = button.gameObject.GetComponent<QuestionUIBehavior>();
+            if (behavior)
+            {
+                behavior.enabled = clickable;
+            }
+
+            Image background = button.gameObject.GetComponent<Image>();
+            if (background)
+            {
+                background.enabled = clickable;
+            }
+        }
     }
 }

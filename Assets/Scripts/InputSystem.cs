@@ -48,8 +48,14 @@ public class InputSystem : MonoBehaviour
 
     private void OnMovePerformed(InputAction.CallbackContext context)
     {
-        if (mouvementEnabled)
+        Debug.Log("Moving");
+        Debug.Log("Moving?" + (GameContext.Instance.state == ContextState.FreeRoam ? "yes ": "no"));
+        Debug.Log("State is: " + GameContext.Instance.state);
+        if (GameContext.Instance.state == ContextState.FreeRoam)
+        {
             moveInput = context.ReadValue<Vector2>();
+            Debug.Log("Moving");
+        }
         else
             moveInput = Vector2.zero;
     }
@@ -65,9 +71,9 @@ public class InputSystem : MonoBehaviour
         {
             hintUIManager.CloseUI();
         }
-        else if (detectEnabled)
+        else if (GameContext.Instance.state == ContextState.FreeRoam || GameContext.Instance.state == ContextState.SittingTutorial || GameContext.Instance.state == ContextState.StandingTutorial)
         {
-        
+            Debug.Log("Interacting with game object");
             GameObject closestInteractable = intercablesDetect.GetLastDetectedObject();
             if (closestInteractable != null)
             {

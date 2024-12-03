@@ -30,26 +30,10 @@ public class PuzzleInteractable : MonoBehaviour
             capturedButton.onClick.AddListener(() => HandlePuzzleClicked(capturedButton.gameObject));
         }
         Debug.Log("Setting up puzzle");
-
-        gameObject.SetActive(false);
-    }
-
-    private void OnEnable()
-    {
-
-        Debug.Log("Limit player movement");
-        EventsManager.instance.SetMovement(false);
-    }
-
-    private void OnDisable()
-    {
-        Debug.Log("Allow player movement");
-        EventsManager.instance.SetMovement(true);
     }
 
     public void HandlePuzzleClicked(GameObject obj)
     {
-        Debug.Log("clicked");
         if (obj.CompareTag("Trash"))
         {
             paperSlide.Play();

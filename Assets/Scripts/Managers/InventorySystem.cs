@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,13 +29,28 @@ public class InventorySystem : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.instance.onPickUpItem += HandlePickUpItem;
+        EventsManager.instance.onPickUpInventoryItem += HandlePickUpInventoryItem;
     }
+
 
     private void OnDisable()
     {
         EventsManager.instance.onPickUpItem -= HandlePickUpItem;
+        EventsManager.instance.onPickUpInventoryItem -= HandlePickUpInventoryItem;
+
     }
 
+    private void HandlePickUpInventoryItem(InventoryItem item)
+    {
+        if (item == null || item.isClue)
+            return;
+
+        ParsedInventoryItem finalData = new ParsedInventoryItem(item, "Obsolete");
+
+        items.Add(finalData);
+    }
+
+    [Obsolete]
     public void HandlePickUpItem (Item item)
     {
         if (item == null)

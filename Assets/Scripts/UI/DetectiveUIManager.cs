@@ -98,6 +98,7 @@ public class DetectiveBookUIManager : UIManager
     {
         DSDialogueSO dialogue = page.optionsDialogue;
         questionsUI.SetUp(dialogue);
+        questionsUI.SetQuestionsClickable(false);
     }
 
     private void Update()

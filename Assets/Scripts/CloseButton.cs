@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CloseButton : MonoBehaviour
 {
-    public GameObject panel;
+    public UIManager manager;
     public void onClick()
     {
-        panel.SetActive(false);
+        manager.SetUIActive(false);
     }
 }

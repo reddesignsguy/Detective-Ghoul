@@ -27,6 +27,7 @@ public class HintUIManager : MonoBehaviour
         tmp.text = hint;
         //animator.SetTrigger("Show");
 
+        
         EventsManager.instance.SetMovement(false);
     }
 

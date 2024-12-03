@@ -9,4 +9,5 @@ public class InventoryItem : ScriptableObject
     public string description;
     public string code;
     public string hint;
+    public bool isClue = false;
 }

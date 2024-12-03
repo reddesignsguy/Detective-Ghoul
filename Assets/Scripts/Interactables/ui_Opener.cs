@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class UIOpener : Interactee
 {
-    public GameObject panel;
+    public UIManager manager;
 
     public override void Interact()
     {
-        Debug.Log("Helol");
-        panel.SetActive(true);
+        manager.SetUIActive(true);
     }
 }

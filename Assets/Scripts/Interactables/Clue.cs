@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Clue : Interactee
+[Obsolete]
+public class Clue : Interactee, InventoryItemHolder
 {
     public bool affectsGameState;
 
@@ -10,17 +12,21 @@ public class Clue : Interactee
 
     public InventoryItem ItemInfo => itemInfo;
 
+    public InventoryItem GetInventoryItem()
+    {
+        return itemInfo;
+    }
 
     public override void Interact()
     {
-        transform.gameObject.SetActive(false);
-
-        EventsManager.instance.PickupClue(this);
+        EventsManager.instance.Inspect(itemInfo, gameObject);
 
         if (affectsGameState)
         {
             EventsManager.instance.NotifyImportantInteraction(this);
         }
     }
+
+
 
 }

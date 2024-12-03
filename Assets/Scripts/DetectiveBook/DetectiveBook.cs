@@ -37,13 +37,15 @@ public class DetectiveBook : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.instance.onPickUpClue += HandlePickupClue;
+        EventsManager.instance.onPickUpInventoryItem += HandlePickupInventoryItem;
+
     }
 
     private void OnDisable()
     {
-        EventsManager.instance.onPickUpClue -= HandlePickupClue;
+        EventsManager.instance.onPickUpInventoryItem -= HandlePickupInventoryItem;
     }
+
 
     public int GetPageNumber(DSDialogueSO dialogue) // 1-indexed
     {
@@ -64,11 +66,17 @@ public class DetectiveBook : MonoBehaviour
         throw new System.Exception("Trying to get the page number of a dialog that doesn't exist");
     }
 
-    private void HandlePickupClue(Clue clue)
-    {
-        InventoryItem item = clue.ItemInfo;
 
-        // Remember that we picked up this item
+    private void HandlePickupInventoryItem(InventoryItem item)
+    {
+        Debug.Log("Detective book received: " + item);
+        Debug.Log("Checking if clue: " + item.isClue);
+        if (item == null || !item.isClue)
+        {
+            return;
+        }
+
+        // Store clue by setting it as visited in a hashmap
         for (int i = 0; i < pages.Count; i++)
         {
             Page cur = pages[i];
@@ -86,5 +94,4 @@ public class DetectiveBook : MonoBehaviour
             }
         }
     }
-
 }

@@ -156,4 +156,24 @@ public class EventsManager : MonoBehaviour
             onExclusiveUIOpened(go);
         }
     }
+
+    public event Action<InventoryItem, GameObject> onInspect;
+
+    public void Inspect(InventoryItem inventoryItem, GameObject obj)
+    {
+        if (onInspect != null)
+        {
+            onInspect(inventoryItem, obj);
+        }
+    }
+
+    public event Action<InventoryItem> onPickUpInventoryItem;
+
+    public void PickUpInventoryItem(InventoryItem item)
+    {
+        if (onPickUpInventoryItem != null)
+        {
+            onPickUpInventoryItem(item);
+        }
+    }
 }
