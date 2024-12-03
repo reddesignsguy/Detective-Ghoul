@@ -33,9 +33,10 @@ public class PlayerMouvement : MonoBehaviour
         EventsManager.instance.onSetMovement -= SetMovement;
 
     }
+
     private void Update()
     {
-         if (isMovementEnabled)
+         if (GameContext.Instance.state == ContextState.FreeRoam)
         {
         Vector2 moveInput = inputSystem.moveInput;
         Vector2 moveX = new Vector3(moveInput.x, 0);
@@ -62,7 +63,7 @@ public class PlayerMouvement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isMovementEnabled)
+        if (GameContext.Instance.state == ContextState.FreeRoam)
         {
         RaycastHit hit;
         Vector3 castPos = transform.position;

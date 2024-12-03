@@ -37,16 +37,13 @@ public class DetectiveBook : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.instance.onPickUpClue += HandlePickupClue;
         EventsManager.instance.onPickUpInventoryItem += HandlePickupInventoryItem;
 
     }
 
     private void OnDisable()
     {
-        EventsManager.instance.onPickUpClue -= HandlePickupClue;
         EventsManager.instance.onPickUpInventoryItem -= HandlePickupInventoryItem;
-
     }
 
 
@@ -70,14 +67,11 @@ public class DetectiveBook : MonoBehaviour
     }
 
 
-    private void HandlePickupClue(Clue clue)
-    {
-
-    }
-
     private void HandlePickupInventoryItem(InventoryItem item)
     {
-        if (!item.isClue)
+        Debug.Log("Detective book received: " + item);
+        Debug.Log("Checking if clue: " + item.isClue);
+        if (item == null || !item.isClue)
         {
             return;
         }

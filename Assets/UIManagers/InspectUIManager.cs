@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class InspectUIManager : UIManager
 {
@@ -9,25 +11,37 @@ public class InspectUIManager : UIManager
     private InventoryItem item = null;
     private GameObject go = null;
 
+    public Image image;
+    public TextMeshProUGUI title;
+    public TextMeshProUGUI description;
+
+    // prevents bug where F automatically closes the UI
+    private float creationTime;
+    private float cooldownTime = 1f;
+
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = panel.GetComponent<Animator>();
     }
+
 
     private void Update()
     {
         if (panel.activeSelf)
         {
+
             // pick up
-            if ( Input.GetKeyDown(KeyCode.F))
+            if ( (Input.GetKeyDown(KeyCode.F)) && Time.time - creationTime > cooldownTime)
             {
+                Debug.Log("Picked up");
                 EventsManager.instance.PickUpInventoryItem(item);
-                panel.SetActive(false);
+                Destroy(go);
+                SetUIActive(false);
             }
             // put down
             else if (Input.GetKeyDown(KeyCode.Escape))
             {
-                panel.SetActive(false);
+                SetUIActive(false);
             }
 
         }
@@ -52,7 +66,13 @@ public class InspectUIManager : UIManager
 
     private void SetUp(InventoryItem item, GameObject go)
     {
+        SetUIActive(true);
+        creationTime = Time.time;
+
         // set up photo, name, and description
+        image.sprite = item.image;
+        title.text = item.name;
+        description.text = item.description;
 
         this.go = go;
         this.item = item;

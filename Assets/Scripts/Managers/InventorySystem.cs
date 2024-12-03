@@ -28,15 +28,14 @@ public class InventorySystem : MonoBehaviour
 
     private void OnEnable()
     {
-        //EventsManager.instance.onPickUpItem += HandlePickUpItem;
+        EventsManager.instance.onPickUpItem += HandlePickUpItem;
         EventsManager.instance.onPickUpInventoryItem += HandlePickUpInventoryItem;
-
     }
 
 
     private void OnDisable()
     {
-        //EventsManager.instance.onPickUpItem -= HandlePickUpItem;
+        EventsManager.instance.onPickUpItem -= HandlePickUpItem;
         EventsManager.instance.onPickUpInventoryItem -= HandlePickUpInventoryItem;
 
     }
@@ -51,20 +50,21 @@ public class InventorySystem : MonoBehaviour
         items.Add(finalData);
     }
 
-    //public void HandlePickUpItem (Item item)
-    //{
-    //    if (item == null)
-    //        return;
+    [Obsolete]
+    public void HandlePickUpItem (Item item)
+    {
+        if (item == null)
+            return;
 
-    //    Debug.Log("Picking up");
-    //    InventoryItem baseData = item.ItemInfo;
-    //    string unlockCode = item.GetLockID();
+        Debug.Log("Picking up");
+        InventoryItem baseData = item.ItemInfo;
+        string unlockCode = item.GetLockID();
 
-    //    ParsedInventoryItem finalData = new ParsedInventoryItem(baseData, unlockCode);
+        ParsedInventoryItem finalData = new ParsedInventoryItem(baseData, unlockCode);
 
-    //    items.Add(finalData);
-    //    Destroy(item.transform.gameObject);
-    //}
+        items.Add(finalData);
+        Destroy(item.transform.gameObject);
+    }
 
     public void Remove(InventoryItem item)
     {

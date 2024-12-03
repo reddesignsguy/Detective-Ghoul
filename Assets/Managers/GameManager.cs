@@ -32,15 +32,15 @@ public class GameManager : MonoBehaviour
 
     public DSDialogueSO startingScene;
 
-    public enum GameState
-    {
-        SittingTutorial,
-        SittingTutorial2,
-        StandingTutorial,
-        Free
-    }
+    //public enum GameState
+    //{
+    //    SittingTutorial,
+    //    SittingTutorial2,
+    //    StandingTutorial,
+    //    Free
+    //}
 
-    private GameState state;
+    //private GameState state;
 
 
     public Vector3 sittingSpawn = new Vector3(-18.5f, -13.69f, 48.38f);
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         EventsManager.instance.SetMovement(false);
         detect.enabled = false;
         player.PlayAnimation("Standing");
-        state = GameState.SittingTutorial;
+        GameContext.Instance.SetContextState(ContextState.IntroTutorial);
 
         // todo: migrate to new dialogue system
     }
@@ -90,15 +90,14 @@ public class GameManager : MonoBehaviour
         {
             animator.Play("GirlSitting");
         }
-        state = GameState.SittingTutorial2;
+        GameContext.Instance.SetContextState(ContextState.SittingTutorial);
+
     }
 
     void SetupStandingTutorial()
     {
         detectiveBook.SetActive(true);
 
-        //rain.Play();
-        //tenseMusic.Stop();
         SetAsMainCamera(player.GetComponentInChildren<Camera>());
         boyPhotograph.SetActive(true);
 
@@ -112,15 +111,13 @@ public class GameManager : MonoBehaviour
 
         player.PlayAnimation("Idle");
         player.transform.position = standingSpawn;
-        state = GameState.StandingTutorial;
+        GameContext.Instance.SetContextState(ContextState.StandingTutorial);
+
     }
 
     void SetupFree()
     {
         detectiveBook.SetActive(true);
-
-        state = GameState.StandingTutorial;
-        EventsManager.instance.SetMovement(true);
     }
 
     void SetupInventoryInvoker()
@@ -147,7 +144,8 @@ public class GameManager : MonoBehaviour
 
     void HandleImportantInteraction(Interactee interactable)
     {
-        if (interactable.gameObject == boyPhotograph && state == GameState.StandingTutorial)
+        if (interactable.gameObject == boyPhotograph && GameContext.Instance.state == ContextState.StandingTutorial)
+
         {
             SetupFree();
         }
@@ -157,13 +155,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [Obsolete]
     void HandleImportantDialogue(DialogueTrigger trigger)
     {
-        if (trigger == dialogueTrigger && state == GameState.SittingTutorial)
+        if (trigger == dialogueTrigger && GameContext.Instance.state == ContextState.IntroTutorial)
         {
             // sitting tutorial 2
             SetupSittingTutorial();
-        } else if (trigger == dialogueTrigger2 && state == GameState.SittingTutorial2)
+        } else if (trigger == dialogueTrigger2 && GameContext.Instance.state == ContextState.SittingTutorial)
         {
             SetupStandingTutorial();
         }
@@ -171,8 +170,11 @@ public class GameManager : MonoBehaviour
 
     private void HandleDialogueFinished(DSDialogueSO sO)
     {
-        if (sO == startingScene && state == GameState.SittingTutorial)
+        Debug.Log(sO);
+        Debug.Log(GameContext.Instance.state);
+        if (sO == startingScene && GameContext.Instance.state == ContextState.IntroTutorial)
         {
+            Debug.Log("sitting tutorial");
             SetupSittingTutorial();
         }
 
@@ -180,7 +182,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleDialogueUIClosed()
     {
-        if (state == GameState.SittingTutorial2)
+        if (GameContext.Instance.state == ContextState.SittingTutorial)
         {
             List<DSDialogueChoiceData> dialogues = questionsDialog.Choices;
             DSDialogueChoiceData choice = dialogues[2];
@@ -200,9 +202,9 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                switch (state)
+                switch (GameContext.Instance.state)
                 {
-                    case GameState.SittingTutorial:
+                    case ContextState.IntroTutorial:
                         SetupStandingTutorial();
                         break;
                 }

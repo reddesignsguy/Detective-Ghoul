@@ -17,3 +17,4 @@ MonoBehaviour:
   description: This is the missing boy huh?
   code: Scene1_MissingBoy
   hint: Gotta bring the photo of that boy with me if I'mma look for him..
+  isClue: 1

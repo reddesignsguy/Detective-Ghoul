@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // todo - potentially move this into an inventory manager
+[Obsolete]
 public enum ItemType
 {
     Key
@@ -13,7 +15,7 @@ public class Item : Interactee, InventoryItemHolder
     public bool affectsGameState;
 
     [SerializeField] private InventoryItem itemInfo;
-    [SerializeField] private GameObject lockReference;
+    [Obsolete] [SerializeField] private GameObject lockReference;
 
     public InventoryItem ItemInfo => itemInfo;
 
@@ -22,6 +24,7 @@ public class Item : Interactee, InventoryItemHolder
         return itemInfo;
     }
 
+    [Obsolete]
     public string GetLockID()
     {
         if (lockReference == null)
@@ -32,7 +35,7 @@ public class Item : Interactee, InventoryItemHolder
 
     public override void Interact()
     {
-        EventsManager.instance.PickupItem(this);
+        EventsManager.instance.Inspect(itemInfo, gameObject);
 
         if (affectsGameState)
         {
