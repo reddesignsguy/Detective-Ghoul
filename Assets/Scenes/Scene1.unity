@@ -1760,8 +1760,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.73648214, y: 0.16499361, z: 0.34729}
+  m_Center: {x: 2.1854537, y: 0.12478049, z: 0.6602435}
 --- !u!1 &136233315
 GameObject:
   m_ObjectHideFlags: 0
@@ -7551,7 +7551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4827346912139289156, guid: 951277aa61d7fbe46afe8b275268d600, type: 3}
       propertyPath: field of view
-      value: 38
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4866160592204669931, guid: 951277aa61d7fbe46afe8b275268d600, type: 3}
       propertyPath: detectionRadius
@@ -8830,6 +8830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suggestionTransform: {fileID: 490864573}
   suggestion: Open
+  isHidden: 0
   keys:
   - {fileID: 11400000, guid: a776b5bb0a35747a1a810bd8382a2d0d, type: 2}
   - {fileID: 11400000, guid: d3a96b35cf0624760a68d48dd63eeb41, type: 2}
@@ -11885,6 +11886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suggestionTransform: {fileID: 0}
   suggestion: 
+  isHidden: 0
   affectsGameState: 1
   itemInfo: {fileID: 11400000, guid: d3a96b35cf0624760a68d48dd63eeb41, type: 2}
   lockReference: {fileID: 0}
@@ -12835,6 +12837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suggestionTransform: {fileID: 0}
   suggestion: Trash
+  isHidden: 0
   manager: {fileID: 396392654}
 --- !u!65 &1342129176
 BoxCollider:
@@ -16282,6 +16285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suggestionTransform: {fileID: 656952621}
   suggestion: Talk
+  isHidden: 0
   dialogue: {fileID: 11400000, guid: fdf09e8719fa0434eb12736e50406c38, type: 2}
 --- !u!65 &1796969898
 BoxCollider:
@@ -17728,6 +17732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suggestionTransform: {fileID: 0}
   suggestion: Boy Photograph
+  isHidden: 0
   affectsGameState: 1
   itemInfo: {fileID: 11400000, guid: cc4551a9d2c9a4417a50639f5821b149, type: 2}
   lockReference: {fileID: 0}
@@ -18915,6 +18920,10 @@ PrefabInstance:
     - target: {fileID: 825928096576395852, guid: 00df580423ceb4e96a9618dd69aaca56, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 982760450494361897, guid: 00df580423ceb4e96a9618dd69aaca56, type: 3}
+      propertyPath: isHidden
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 982760450494361897, guid: 00df580423ceb4e96a9618dd69aaca56, type: 3}
       propertyPath: suggestion

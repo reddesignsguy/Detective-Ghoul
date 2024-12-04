@@ -5,6 +5,7 @@ public abstract class Interactee : MonoBehaviour, Interactable
 {
     public Transform suggestionTransform;
     public string suggestion;
+    public bool isHidden = false;
 
     public virtual string GetSuggestion()
     {
@@ -12,5 +13,10 @@ public abstract class Interactee : MonoBehaviour, Interactable
     }
 
     public abstract void Interact();
+
+    public bool IsHidden()
+    {
+        return isHidden;
+    }
 }
 
