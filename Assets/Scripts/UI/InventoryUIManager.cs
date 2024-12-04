@@ -68,10 +68,12 @@ public class InventoryUIManager : UIManager
 
     private void SelectItem(int index)
     {
+        Debug.Log("Click detected. Selecting item at index: " + index + " when there are " + GetNumberOfItems() + " items");
         if (index >= GetNumberOfItems())
         {
             return;
         }
+        Debug.Log("Should be selecting item");
 
         GameObject placeholder = refs.placeholderImages[index].gameObject;
         SetShadow(refs.viewedItemPlaceholder, false);
@@ -99,11 +101,10 @@ public class InventoryUIManager : UIManager
 
     private void SetupButtons()
     {
-        int i = 0;
-        foreach (Button button in refs.buttons)
+        for (int i = 0; i < refs.buttons.Count; i++)
         {
-            button.onClick.AddListener(() => SelectItem(i));
-            i++;
+            int index = i;
+            refs.buttons[i].onClick.AddListener(() => SelectItem(index));
         }
     }
 
