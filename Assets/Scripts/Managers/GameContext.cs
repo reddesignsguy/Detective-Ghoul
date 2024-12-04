@@ -52,5 +52,6 @@ public enum ContextState
     SittingTutorial,
     StandingTutorial,
     FreeRoam,
-    UI
+    UI,
+    Zoomed
 }
