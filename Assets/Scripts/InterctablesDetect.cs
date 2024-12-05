@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ public class IntercablesDetect : MonoBehaviour
 
     public Canvas canvas;
     public RectTransform magnifyingGlass;
-    public RectTransform identifierBounds;
+    public RectTransform identifierRect;
 
     private void Update()
     {
@@ -55,12 +56,15 @@ public class IntercablesDetect : MonoBehaviour
         lastDetectedObject = closestObject;
     }
 
+    public int gridStep = 10;
     private void DetectClosestHiddenInteractable()
     {
+        float scaleFactor = canvas.GetComponent<CanvasScaler>().scaleFactor;
+
         // shoot a boxcast encompassing screen
         Camera cam = Camera.main; // Assign the main camera or another camera
         float rayDistance = 100f; // Max distance of the raycast
-        int gridStep = 10; // Reduce the number of rays (smaller = more rays)
+        Debug.Log("Scale factor: " + scaleFactor);
 
         if (cam == null) cam = Camera.main;
 
@@ -127,6 +131,7 @@ public class IntercablesDetect : MonoBehaviour
             Rect bounds = GetScreenBounds();
             Debug.Log("# of points " + allPointsOfClosestObject.Count);
 
+            ShowInteractableBounds(allPointsOfClosestObject);
             if (ContainsAllPoints(allPointsOfClosestObject, bounds))
             {
                 ShowInteractableBounds(allPointsOfClosestObject);
@@ -170,18 +175,28 @@ public class IntercablesDetect : MonoBehaviour
         Vector2 size = new Vector2(maxX - minX, maxY - minY);
 
         SetInteractableBounds(position, size.x, size.y);
-        identifierBounds.gameObject.SetActive(true);
+        identifierRect.gameObject.SetActive(true);
     }
 
     private void SetInteractableBounds(Vector2 position, float width, float height)
     {
-        identifierBounds.position = position;
-        identifierBounds.sizeDelta = new Vector2(width, height);
+        Vector2 normalizedPosition = new Vector2(position.x / Screen.width, position.y / Screen.height);
+        Vector2 normalizedSize = new Vector2(width / Screen.width, height / Screen.height);
+
+        // Set anchors to normalized coordinates
+        identifierRect.anchorMin = new Vector2(normalizedPosition.x - (normalizedSize.x / 2.0f),
+                                              normalizedPosition.y - (normalizedSize.y / 2.0f));
+        identifierRect.anchorMax = new Vector2(normalizedPosition.x + (normalizedSize.x / 2.0f),
+                                              normalizedPosition.y + (normalizedSize.y / 2.0f));
+
+        // Set position and size
+        identifierRect.anchoredPosition = Vector2.zero; // Position is handled by anchors
+        identifierRect.sizeDelta = Vector2.zero;        // Size is handled by anchors
     }
 
     private void HideInteractableBounds()
     {
-        identifierBounds.gameObject.SetActive(false);
+        identifierRect.gameObject.SetActive(false);
     }
 
     private bool ContainsAllPoints(HashSet<Vector2> points, Rect bounds)
