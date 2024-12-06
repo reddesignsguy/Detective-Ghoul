@@ -7,6 +7,7 @@ public class InputSystem : MonoBehaviour
 {
     private PlayerInputActions inputActions;
     public Vector2 moveInput { get; private set; }
+
     private float interactRange = 1f;
 
     public LayerMask interactableLayer;
@@ -22,6 +23,7 @@ public class InputSystem : MonoBehaviour
     public float zoomSetting1 = 15f;
     public float sensitivity = 0.5f;
     public float lerpSpeed = 5f; // Adjust for how fast it reaches the target
+    public float zoomSensitivity = 5f;
 
     private void Awake()
     {
@@ -71,6 +73,22 @@ public class InputSystem : MonoBehaviour
     private void Update()
     {
         mouseDelta = inputActions.Player.PanCamera.ReadValue<Vector2>();
+
+        if (GameContext.Instance.state == ContextState.Zoomed)
+        {
+            float z = inputActions.Player.AdjustZoom.ReadValue<float>();
+            if (z > 0)
+            {
+                Camera.main.fieldOfView += zoomSensitivity;
+
+            }
+            else if (z < 0)
+            {
+                Camera.main.fieldOfView -= zoomSensitivity;
+            }
+
+        }
+        
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)

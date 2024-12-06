@@ -62,6 +62,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""AdjustZoom"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""1bfb5c2e-3659-4b9b-993b-ef2c32cff861"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -174,6 +183,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""PanCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff369653-b876-453c-ae2b-6cbfc65dbfa4"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdjustZoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -192,6 +212,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
         m_Player_PanCamera = m_Player.FindAction("PanCamera", throwIfNotFound: true);
+        m_Player_AdjustZoom = m_Player.FindAction("AdjustZoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -257,6 +278,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Zoom;
     private readonly InputAction m_Player_PanCamera;
+    private readonly InputAction m_Player_AdjustZoom;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -265,6 +287,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
         public InputAction @PanCamera => m_Wrapper.m_Player_PanCamera;
+        public InputAction @AdjustZoom => m_Wrapper.m_Player_AdjustZoom;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -286,6 +309,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @PanCamera.started += instance.OnPanCamera;
             @PanCamera.performed += instance.OnPanCamera;
             @PanCamera.canceled += instance.OnPanCamera;
+            @AdjustZoom.started += instance.OnAdjustZoom;
+            @AdjustZoom.performed += instance.OnAdjustZoom;
+            @AdjustZoom.canceled += instance.OnAdjustZoom;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -302,6 +328,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @PanCamera.started -= instance.OnPanCamera;
             @PanCamera.performed -= instance.OnPanCamera;
             @PanCamera.canceled -= instance.OnPanCamera;
+            @AdjustZoom.started -= instance.OnAdjustZoom;
+            @AdjustZoom.performed -= instance.OnAdjustZoom;
+            @AdjustZoom.canceled -= instance.OnAdjustZoom;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -334,5 +363,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnPanCamera(InputAction.CallbackContext context);
+        void OnAdjustZoom(InputAction.CallbackContext context);
     }
 }

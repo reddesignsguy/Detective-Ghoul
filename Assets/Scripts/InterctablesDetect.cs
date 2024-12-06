@@ -12,12 +12,21 @@ public class IntercablesDetect : MonoBehaviour
     public LayerMask interactableLayer;
     private GameObject lastDetectedObject;
 
-    // Zooming in interactables
+    // Zooming in interactables todo -- refactor
     public Canvas canvas;
     public RectTransform magnifyingGlass;
     public RectTransform identifierRect;
     public int gridStep = 10; // the smaller, the more raycasts (expensive)
 
+    public float completelyIdentifiedThreshold = 95f;
+    public float partiallyIdentifiedThreshold = 50f;
+
+    private HashSet<Interactee> visitedHiddenInteractees;
+
+    private void Awake()
+    {
+        visitedHiddenInteractees = new HashSet<Interactee>();
+    }
     private void Update()
     {
         if (GameContext.Instance.state == ContextState.FreeRoam || GameContext.Instance.state == ContextState.SittingTutorial || GameContext.Instance.state == ContextState.StandingTutorial)
@@ -89,15 +98,25 @@ public class IntercablesDetect : MonoBehaviour
         {
             Rect bounds = GetScreenBounds();
             HashSet<Vector2> pointsOfClosestObject = HiddenObjectsAndRaycastHits[closestObject];
-            if (ContainsAllPoints(pointsOfClosestObject, bounds))
-            {
-                ShowInteractableBounds(pointsOfClosestObject);
-                SetupInteractableHint(closestObject.GetComponent<Interactable>()?.GetSuggestion());
-            }
-            else if (ContainsAtLeastOnePoint(pointsOfClosestObject, bounds))
+
+            ModifyIdentifierRect(pointsOfClosestObject, identifierRect);
+            float percentage = GetPercentageOfBoundsCovered(identifierRect, magnifyingGlass);
+            bool visitedClosestObject = closestObject != null && closestObject.TryGetComponent(out Interactee i) && visitedHiddenInteractees.Contains(i);
+            if (visitedClosestObject || (percentage > completelyIdentifiedThreshold && ContainsAllPoints(pointsOfClosestObject, bounds)))
             {
                 RemoveOutOfBoundPoints(pointsOfClosestObject, bounds);
-                ShowInteractableBounds(pointsOfClosestObject);
+                ModifyIdentifierRect(pointsOfClosestObject, identifierRect);
+                ShowInteractableBounds(identifierRect);
+                SetupInteractableHint(closestObject.GetComponent<Interactable>()?.GetSuggestion());
+
+                if (closestObject.TryGetComponent(out Interactee interactee))
+                    visitedHiddenInteractees.Add(interactee);
+            }
+            else if (percentage > partiallyIdentifiedThreshold)
+            {
+                RemoveOutOfBoundPoints(pointsOfClosestObject, bounds);
+                ModifyIdentifierRect(pointsOfClosestObject, identifierRect);
+                ShowInteractableBounds(identifierRect);
                 SetupInteractableHint("???");
             }
             else
@@ -109,6 +128,22 @@ public class IntercablesDetect : MonoBehaviour
         lastDetectedObject = closestObject;
     }
 
+    private bool CompletelyOverlaps(Rect rect, Rect thatRect)
+    {
+        // Check if the edges of rect are all within thatRect
+        return rect.xMin >= thatRect.xMin &&
+               rect.xMax <= thatRect.xMax &&
+               rect.yMin >= thatRect.yMin &&
+               rect.yMax <= thatRect.yMax;
+    }
+
+    private float GetPercentageOfBoundsCovered(RectTransform subject, RectTransform area)
+    {
+        float areaSize = area.rect.width * area.rect.height;
+        float subjectSize = subject.rect.width * subject.rect.height;
+        Debug.Log(subjectSize / areaSize);
+        return subjectSize / areaSize;
+    }
 
     private void UpdateObjectsAndTheirHits(Dictionary<GameObject, HashSet<Vector2>> objectsAndTheirHits, FrustrumRaycastInfo info, GameObject hitObject)
     {
@@ -140,7 +175,14 @@ public class IntercablesDetect : MonoBehaviour
         return hits;
     }
 
-    private void ShowInteractableBounds(HashSet<Vector2> points)
+    private void ShowInteractableBounds(RectTransform rect)
+    {
+        identifierRect = rect;
+        identifierRect.gameObject.SetActive(true);
+    }
+
+  
+    private RectTransform ModifyIdentifierRect(HashSet<Vector2> points, RectTransform rect)
     {
         float minX = float.MaxValue;
         float maxX = float.MinValue;
@@ -158,24 +200,23 @@ public class IntercablesDetect : MonoBehaviour
         Vector2 position = new Vector2((minX + maxX) / 2.0f, (minY + maxY) / 2.0f);
         Vector2 size = new Vector2(maxX - minX, maxY - minY);
 
-        SetInteractableBounds(position, size.x, size.y);
-        identifierRect.gameObject.SetActive(true);
+        ModifyRect(position, size.x, size.y, rect);
+        return rect;
+
     }
-
-    private void SetInteractableBounds(Vector2 position, float width, float height)
+    private void ModifyRect(Vector2 position, float width, float height, RectTransform rect)
     {
-
         Vector2 normalizedPosition = new Vector2(position.x / Screen.width, position.y / Screen.height);
         Vector2 normalizedSize = new Vector2(width / Screen.width, height / Screen.height);
 
         // Uses normalized coordinates
-        identifierRect.anchorMin = new Vector2(normalizedPosition.x - (normalizedSize.x / 2.0f),
+        rect.anchorMin = new Vector2(normalizedPosition.x - (normalizedSize.x / 2.0f),
                                               normalizedPosition.y - (normalizedSize.y / 2.0f));
-        identifierRect.anchorMax = new Vector2(normalizedPosition.x + (normalizedSize.x / 2.0f),
+        rect.anchorMax = new Vector2(normalizedPosition.x + (normalizedSize.x / 2.0f),
                                               normalizedPosition.y + (normalizedSize.y / 2.0f));
 
-        identifierRect.anchoredPosition = Vector2.zero; // Position is handled by anchors
-        identifierRect.sizeDelta = Vector2.zero;        // Size is handled by anchors
+        rect.anchoredPosition = Vector2.zero; // Position is handled by anchors
+        rect.sizeDelta = Vector2.zero;        // Size is handled by anchors
     }
 
     private void SetupInteractableHint(String s)
