@@ -4,6 +4,7 @@ using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class IntercablesDetect : MonoBehaviour
 {
@@ -91,11 +92,13 @@ public class IntercablesDetect : MonoBehaviour
             if (ContainsAllPoints(pointsOfClosestObject, bounds))
             {
                 ShowInteractableBounds(pointsOfClosestObject);
+                SetupInteractableHint(closestObject.GetComponent<Interactable>()?.GetSuggestion());
             }
             else if (ContainsAtLeastOnePoint(pointsOfClosestObject, bounds))
             {
                 RemoveOutOfBoundPoints(pointsOfClosestObject, bounds);
                 ShowInteractableBounds(pointsOfClosestObject);
+                SetupInteractableHint("???");
             }
             else
             {
@@ -106,7 +109,7 @@ public class IntercablesDetect : MonoBehaviour
         lastDetectedObject = closestObject;
     }
 
-    
+
     private void UpdateObjectsAndTheirHits(Dictionary<GameObject, HashSet<Vector2>> objectsAndTheirHits, FrustrumRaycastInfo info, GameObject hitObject)
     {
         if (!objectsAndTheirHits.ContainsKey(hitObject))
@@ -173,6 +176,12 @@ public class IntercablesDetect : MonoBehaviour
 
         identifierRect.anchoredPosition = Vector2.zero; // Position is handled by anchors
         identifierRect.sizeDelta = Vector2.zero;        // Size is handled by anchors
+    }
+
+    private void SetupInteractableHint(String s)
+    {
+        TextMeshProUGUI UGUI = identifierRect.GetComponentInChildren<TextMeshProUGUI>();
+        UGUI.text = s;
     }
 
     private void HideInteractableBounds()
