@@ -100,6 +100,7 @@ public class IntercablesDetect : MonoBehaviour
             }
             else
             {
+                Debug.Log("This should be calling");
                 EventsManager.instance.ZoomInObject(null, rect, "???");
                 lastDetectedObject = null;
             }

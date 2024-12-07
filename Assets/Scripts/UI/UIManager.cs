@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour
 
     public virtual void SetUIActive(bool open)
     {
-        print("Opening: " + panel + "?: " + open);
         if (panel != null)
         {
             panel.SetActive(open);
@@ -34,13 +33,11 @@ public class UIManager : MonoBehaviour
         }
 
         if (openPanels.Count == 0)
-            GameContext.Instance.SetContextState(ContextState.FreeRoam);
+            GameContext.Instance.BackOutOfUI();
 
-        print("Panels open: ");
         foreach (GameObject panel in openPanels)
             print(panel);
 
-        print("-------------");
 
     }
 }
