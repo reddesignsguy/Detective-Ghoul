@@ -202,7 +202,6 @@ public class IntercablesDetect : MonoBehaviour
     {
         float areaSize = area.rect.width * area.rect.height;
         float subjectSize = subject.rect.width * subject.rect.height;
-        Debug.Log(subjectSize / areaSize);
         return subjectSize / areaSize;
     }
 

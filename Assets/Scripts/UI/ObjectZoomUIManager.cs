@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -5,23 +6,40 @@ using UnityEngine;
 public class ObjectZoomUIManager : MonoBehaviour
 {
     public RectTransform identifierRect;
+    public GameObject identifyBounds;
 
     private void OnEnable()
     {
-        EventsManager.instance.onZoomInObject += OnHandleZoomIn;
+        EventsManager.instance.onToggleZoom += HandleToggleZoom;
+        EventsManager.instance.onHighlightArea += OnHandleHighlight;
     }
+
 
     private void OnDisable()
     {
-        EventsManager.instance.onZoomInObject -= OnHandleZoomIn;
+        EventsManager.instance.onToggleZoom -= HandleToggleZoom;
+        EventsManager.instance.onHighlightArea -= OnHandleHighlight;
 
     }
 
-    private void OnHandleZoomIn(HashSet<Vector2> points, Rect bounds, string hint)
+    private void HandleToggleZoom(bool toggle)
+    {
+        if (toggle)
+        {
+            identifyBounds.SetActive(true);
+        }
+        else
+        {
+            identifyBounds.SetActive(false);
+            identifierRect.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnHandleHighlight(HashSet<Vector2> points, Rect bounds, string hint)
     {
         if (points == null)
         {
-            HideInteractableBounds();
+            HideHighlightArea();
         }
         else
         {
@@ -38,7 +56,7 @@ public class ObjectZoomUIManager : MonoBehaviour
         identifierRect.gameObject.SetActive(true);
     }
 
-    private void HideInteractableBounds()
+    private void HideHighlightArea()
     {
         identifierRect.gameObject.SetActive(false);
     }

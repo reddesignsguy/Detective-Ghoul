@@ -14,8 +14,6 @@ public class InputSystem : MonoBehaviour
     private IntercablesDetect intercablesDetect;
     public HintUIManager hintUIManager;
     private Vector2 mouseDelta = Vector2.zero;
-    private bool detectEnabled;
-    private bool mouvementEnabled;
 
     // Smooth panning
     private Vector3 freeRoamCameraReturnPos;
@@ -38,9 +36,7 @@ public class InputSystem : MonoBehaviour
         inputActions.Player.Move.canceled += OnMoveCanceled;
         inputActions.Player.Interact.performed += OnInteract;
         inputActions.Player.Zoom.performed += OnZoomIn;
-        inputActions.Player.Zoom.canceled += OnZoomOut;
-        DialogueEvents.instance.onDialogueStarted += HandleDialogueStarted;
-        DialogueEvents.instance.onExitedOptions += EnableMobility;
+        inputActions.Player.ZoomOut.performed += OnZoomOut;
     }
 
 
@@ -51,9 +47,7 @@ public class InputSystem : MonoBehaviour
         inputActions.Player.Move.canceled -= OnMoveCanceled;
         inputActions.Player.Interact.performed -= OnInteract;
         inputActions.Player.Zoom.performed -= OnZoomIn;
-        inputActions.Player.Zoom.canceled -= OnZoomOut;
-        DialogueEvents.instance.onDialogueStarted -= HandleDialogueStarted;
-        DialogueEvents.instance.onExitedOptions -= EnableMobility;
+        inputActions.Player.ZoomOut.canceled += OnZoomOut;
 
 
     }
@@ -150,9 +144,8 @@ public class InputSystem : MonoBehaviour
         {
             hintUIManager.CloseUI();
         }
-        else if (GameContext.Instance.state == ContextState.FreeRoam || GameContext.Instance.state == ContextState.SittingTutorial || GameContext.Instance.state == ContextState.StandingTutorial)
+        else if (GameContext.Instance.state == ContextState.FreeRoam || GameContext.Instance.state == ContextState.SittingTutorial || GameContext.Instance.state == ContextState.StandingTutorial || GameContext.Instance.state == ContextState.Zoomed)
         {
-            Debug.Log("Interacting with game object");
             GameObject closestInteractable = intercablesDetect.GetLastDetectedObject();
             if (closestInteractable != null)
             {
@@ -165,29 +158,6 @@ public class InputSystem : MonoBehaviour
         }
     }
 
-    private void HandleDialogueStarted(DSDialogueSO sO)
-    {
-        if (sO == null)
-        {
-            EnableMobility();
-        }
-        else
-        {
-            DisableMobility();
-        }
-    }
-
-    private void EnableMobility()
-    {
-        detectEnabled = true;
-        mouvementEnabled = true;
-    }
-
-    private void DisableMobility()
-    {
-        detectEnabled = false;
-        mouvementEnabled = false;
-    }
 
     // Custom Lerp with ease-in/ease-out
     private Vector3 SmoothLerp(Vector3 start, Vector3 end, float t)

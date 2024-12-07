@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameContext : MonoBehaviour
 {
+
     public static GameContext Instance { get; private set; }
     public ContextState state { get; private set; } = ContextState.UI;
+    private ContextState lastState = ContextState.UI;
     
     private void Awake()
     {
@@ -22,16 +24,36 @@ public class GameContext : MonoBehaviour
 
     public void SetContextState(ContextState newState)
     {
-        Debug.Log("Trying to set state to: " + newState);
         bool tryingToExitTutorial = newState == ContextState.FreeRoam || newState == ContextState.UI;
         if (tryingToExitTutorial && inTutorialState() && !inFinalTutorialState())
         {
-            Debug.Log("State change failed");
             return;
         }
 
-        Debug.Log("State change success");
+        if (newState == state)
+        {
+            return;
+        }
+
+        HandleTransition(newState);
+
+        lastState = state;
         state = newState;
+    }
+
+    private void HandleTransition(ContextState newState)
+    {
+        bool anyToZoom = state != ContextState.Zoomed && newState == ContextState.Zoomed;
+        if (anyToZoom)
+        {
+            EventsManager.instance.ToggleZoom(true);
+        }
+
+        bool zoomToAny = state == ContextState.Zoomed && newState != ContextState.Zoomed;
+        if (zoomToAny)
+        {
+            EventsManager.instance.ToggleZoom(false);
+        }
     }
 
     private bool inTutorialState()

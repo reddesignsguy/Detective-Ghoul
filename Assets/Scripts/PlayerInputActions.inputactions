@@ -33,6 +33,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "ZoomOut",
+                    "type": "Button",
+                    "id": "c0790c3c-6211-477f-9873-b40bb4d94551",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "PanCamera",
                     "type": "Value",
                     "id": "6a24b18a-35bd-4573-9aa7-6e0e4d6918ed",
@@ -170,6 +179,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "AdjustZoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c4e9b62-08b4-4424-aaaf-28398aff37c3",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ZoomOut",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
