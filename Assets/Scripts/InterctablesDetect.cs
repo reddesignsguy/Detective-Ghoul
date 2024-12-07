@@ -74,11 +74,11 @@ public class IntercablesDetect : MonoBehaviour
         Interactee potentialClosest;
         Dictionary<Interactee, HashSet<Vector2>> raycastHitsByInteractee;
         ProcessHits(hits, out potentialClosest, out raycastHitsByInteractee);
+        Debug.Log("Detecting closest: " + potentialClosest);
 
-        // Handle potentialCk
+        Rect rect = GetMagnifyingGlassRect();
         if (potentialClosest != null)
         {
-            Rect rect = GetMagnifyingGlassRect();
             HashSet<Vector2> hitPositions = raycastHitsByInteractee[potentialClosest];
             RectHelper.ModifyRect(hitPositions, identifierRect);
 
@@ -101,9 +101,14 @@ public class IntercablesDetect : MonoBehaviour
             else
             {
                 Debug.Log("This should be calling");
-                EventsManager.instance.ZoomInObject(null, rect, "???");
+                EventsManager.instance.ZoomInObject(null, Rect.zero, "???");
                 lastDetectedObject = null;
             }
+        }
+        else
+        {
+            EventsManager.instance.ZoomInObject(null, Rect.zero, "???");
+            lastDetectedObject = null;
         }
     }
 
