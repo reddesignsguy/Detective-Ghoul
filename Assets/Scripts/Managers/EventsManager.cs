@@ -2,10 +2,11 @@ using System;
 using UnityEngine;
 
 using DS.ScriptableObjects;
-
+using System.Collections.Generic;
 
 public class EventsManager : MonoBehaviour
 {
+
     public static EventsManager instance { get; private set; }
 
     private void Awake()
@@ -174,6 +175,26 @@ public class EventsManager : MonoBehaviour
         if (onPickUpInventoryItem != null)
         {
             onPickUpInventoryItem(item);
+        }
+    }
+
+    public event Action<HashSet<Vector2>, Rect, string> onHighlightArea;
+
+    public void ZoomInObject(HashSet<Vector2> points, Rect bounds, string hint)
+    {
+        if (onHighlightArea != null)
+        {
+            onHighlightArea(points, bounds, hint);
+        }
+    }
+
+    public event Action<bool> onToggleZoom;
+
+    public void ToggleZoom(bool toggle)
+    {
+        if (onToggleZoom != null)
+        {
+            onToggleZoom(toggle);
         }
     }
 }

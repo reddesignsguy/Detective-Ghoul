@@ -55,6 +55,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""ZoomOut"",
+                    ""type"": ""Button"",
+                    ""id"": ""c0790c3c-6211-477f-9873-b40bb4d94551"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""PanCamera"",
                     ""type"": ""Value"",
                     ""id"": ""6a24b18a-35bd-4573-9aa7-6e0e4d6918ed"",
@@ -62,6 +71,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""AdjustZoom"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""1bfb5c2e-3659-4b9b-993b-ef2c32cff861"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -174,6 +192,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""PanCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff369653-b876-453c-ae2b-6cbfc65dbfa4"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdjustZoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c4e9b62-08b4-4424-aaaf-28398aff37c3"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ZoomOut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -191,7 +231,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
+        m_Player_ZoomOut = m_Player.FindAction("ZoomOut", throwIfNotFound: true);
         m_Player_PanCamera = m_Player.FindAction("PanCamera", throwIfNotFound: true);
+        m_Player_AdjustZoom = m_Player.FindAction("AdjustZoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -256,7 +298,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Zoom;
+    private readonly InputAction m_Player_ZoomOut;
     private readonly InputAction m_Player_PanCamera;
+    private readonly InputAction m_Player_AdjustZoom;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -264,7 +308,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
+        public InputAction @ZoomOut => m_Wrapper.m_Player_ZoomOut;
         public InputAction @PanCamera => m_Wrapper.m_Player_PanCamera;
+        public InputAction @AdjustZoom => m_Wrapper.m_Player_AdjustZoom;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -283,9 +329,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Zoom.started += instance.OnZoom;
             @Zoom.performed += instance.OnZoom;
             @Zoom.canceled += instance.OnZoom;
+            @ZoomOut.started += instance.OnZoomOut;
+            @ZoomOut.performed += instance.OnZoomOut;
+            @ZoomOut.canceled += instance.OnZoomOut;
             @PanCamera.started += instance.OnPanCamera;
             @PanCamera.performed += instance.OnPanCamera;
             @PanCamera.canceled += instance.OnPanCamera;
+            @AdjustZoom.started += instance.OnAdjustZoom;
+            @AdjustZoom.performed += instance.OnAdjustZoom;
+            @AdjustZoom.canceled += instance.OnAdjustZoom;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -299,9 +351,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Zoom.started -= instance.OnZoom;
             @Zoom.performed -= instance.OnZoom;
             @Zoom.canceled -= instance.OnZoom;
+            @ZoomOut.started -= instance.OnZoomOut;
+            @ZoomOut.performed -= instance.OnZoomOut;
+            @ZoomOut.canceled -= instance.OnZoomOut;
             @PanCamera.started -= instance.OnPanCamera;
             @PanCamera.performed -= instance.OnPanCamera;
             @PanCamera.canceled -= instance.OnPanCamera;
+            @AdjustZoom.started -= instance.OnAdjustZoom;
+            @AdjustZoom.performed -= instance.OnAdjustZoom;
+            @AdjustZoom.canceled -= instance.OnAdjustZoom;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -333,6 +391,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+        void OnZoomOut(InputAction.CallbackContext context);
         void OnPanCamera(InputAction.CallbackContext context);
+        void OnAdjustZoom(InputAction.CallbackContext context);
     }
 }

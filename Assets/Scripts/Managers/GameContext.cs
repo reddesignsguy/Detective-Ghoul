@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameContext : MonoBehaviour
 {
+
     public static GameContext Instance { get; private set; }
     public ContextState state { get; private set; } = ContextState.UI;
+    private ContextState stateBeforeLastUI = ContextState.UI;
     
     private void Awake()
     {
@@ -22,16 +24,56 @@ public class GameContext : MonoBehaviour
 
     public void SetContextState(ContextState newState)
     {
-        Debug.Log("Trying to set state to: " + newState);
         bool tryingToExitTutorial = newState == ContextState.FreeRoam || newState == ContextState.UI;
         if (tryingToExitTutorial && inTutorialState() && !inFinalTutorialState())
         {
-            Debug.Log("State change failed");
             return;
         }
 
-        Debug.Log("State change success");
+        if (newState == state)
+        {
+            return;
+        }
+
+        HandleTransition(newState);
         state = newState;
+    }
+
+    // Go back to state before the ui state
+    // except if in tutorial
+    public void BackOutOfUI()
+    {
+        Debug.Log("State before last UI" + stateBeforeLastUI);
+        if (stateBeforeLastUI == ContextState.StandingTutorial)
+        {
+            SetContextState(ContextState.FreeRoam);
+        }
+
+        else if (state == ContextState.UI)
+        {
+            state = stateBeforeLastUI;
+        }
+    }
+
+    private void HandleTransition(ContextState newState)
+    {
+        bool anyToUI = state != ContextState.UI && newState == ContextState.UI;
+        if (anyToUI)
+        {
+            stateBeforeLastUI = state;
+        }
+
+        bool anyToZoom = state != ContextState.Zoomed && newState == ContextState.Zoomed;
+        if (anyToZoom)
+        {
+            EventsManager.instance.ToggleZoom(true);
+        }
+
+        bool zoomToAny = state == ContextState.Zoomed && newState != ContextState.Zoomed;
+        if (zoomToAny)
+        {
+            EventsManager.instance.ToggleZoom(false);
+        }
     }
 
     private bool inTutorialState()
