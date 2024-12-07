@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 using DS.ScriptableObjects;
-
+using System.Collections.Generic;
 
 public class EventsManager : MonoBehaviour
 {
@@ -174,6 +174,16 @@ public class EventsManager : MonoBehaviour
         if (onPickUpInventoryItem != null)
         {
             onPickUpInventoryItem(item);
+        }
+    }
+
+    public event Action<HashSet<Vector2>, Rect, string> onZoomInObject;
+
+    public void ZoomInObject(HashSet<Vector2> points, Rect bounds, string hint)
+    {
+        if (onZoomInObject != null)
+        {
+            onZoomInObject(points, bounds, hint);
         }
     }
 }

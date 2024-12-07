@@ -72,38 +72,35 @@ public class IntercablesDetect : MonoBehaviour
         List<FrustrumRaycastInfo> hits = FindInteracteesInView(Screen.width, Screen.height, rayDistance: 100f, hidden: true);
 
         Interactee potentialClosest;
-        Dictionary<Interactee, HashSet<Vector2>> hiddenObjectsAndRaycastHits;
-        ProcessHits(hits, out potentialClosest, out hiddenObjectsAndRaycastHits);
+        Dictionary<Interactee, HashSet<Vector2>> raycastHitsByInteractee;
+        ProcessHits(hits, out potentialClosest, out raycastHitsByInteractee);
 
-        // Highlight the closest interactable
+        // Handle potentialCk
         if (potentialClosest != null)
         {
-            Rect bounds = GetMagnifyingGlassBounds();
-            HashSet<Vector2> pointsOfClosestObject = hiddenObjectsAndRaycastHits[potentialClosest];
-            RectHelper.ModifyRect(pointsOfClosestObject, identifierRect);
+            Rect rect = GetMagnifyingGlassRect();
+            HashSet<Vector2> hitPositions = raycastHitsByInteractee[potentialClosest];
+            RectHelper.ModifyRect(hitPositions, identifierRect);
 
             float percentage = GetPercentageOfBoundsCovered(identifierRect, magnifyingGlass);
-            bool closestObjectInView = ContainsAtLeastOnePoint(pointsOfClosestObject, bounds);
+            bool closestObjectInView = ContainsAtLeastOnePoint(hitPositions, rect);
             bool visitedClosestInteractable = visitedHiddenInteractees.Contains(potentialClosest);
-            if ((visitedClosestInteractable && closestObjectInView) || (percentage > completelyIdentifiedThreshold && ContainsAllPoints(pointsOfClosestObject, bounds)))
+            if ((visitedClosestInteractable && closestObjectInView) || (percentage > completelyIdentifiedThreshold && ContainsAllPoints(hitPositions, rect)))
             {
-                ShowInteractableBounds(pointsOfClosestObject, bounds);
-                SetupInteractableHint(potentialClosest.GetSuggestion());
-
                 if (!visitedClosestInteractable)
                     visitedHiddenInteractees.Add(potentialClosest);
 
+                EventsManager.instance.ZoomInObject(hitPositions, rect, potentialClosest.GetSuggestion());
                 lastDetectedObject = potentialClosest.gameObject;
             }
             else if (percentage > partiallyIdentifiedThreshold && closestObjectInView)
             {
-                ShowInteractableBounds(pointsOfClosestObject, bounds);
-                SetupInteractableHint("???");
+                EventsManager.instance.ZoomInObject(hitPositions, rect, "???");
                 lastDetectedObject = null;
             }
             else
             {
-                HideInteractableBounds();
+                EventsManager.instance.ZoomInObject(null, rect, "???");
                 lastDetectedObject = null;
             }
         }
@@ -162,66 +159,6 @@ public class IntercablesDetect : MonoBehaviour
         return hits;
     }
 
-    private void ShowInteractableBounds(HashSet<Vector2> points, Rect bounds)
-    {
-        RemoveOutOfBoundPoints(points, bounds);
-        RectHelper.ModifyRect(points, identifierRect);
-        identifierRect.gameObject.SetActive(true);
-    }
-
-  
-    //private void ModifyRect(HashSet<Vector2> points, RectTransform rect)
-    //{
-    //    float minX = float.MaxValue;
-    //    float maxX = float.MinValue;
-    //    float minY = float.MaxValue;
-    //    float maxY = float.MinValue;
-
-    //    foreach (var point in points)
-    //    {
-    //        minX = Mathf.Min(minX, point.x);
-    //        maxX = Mathf.Max(maxX, point.x);
-    //        minY = Mathf.Min(minY, point.y);
-    //        maxY = Mathf.Max(maxY, point.y);
-    //    }
-
-    //    // Ensure width and height have a minimum value
-    //    const float minSizeThreshold = 0.01f;
-    //    float width = Mathf.Max(maxX - minX, minSizeThreshold);
-    //    float height = Mathf.Max(maxY - minY, minSizeThreshold);
-
-    //    Vector2 position = new Vector2((minX + maxX) / 2.0f, (minY + maxY) / 2.0f);
-    //    Vector2 size = new Vector2(width, height);
-
-    //    ModifyRect(position, size.x, size.y, rect);
-
-    //}
-    //private void ModifyRect(Vector2 position, float width, float height, RectTransform rect)
-    //{
-    //    Vector2 normalizedPosition = new Vector2(position.x / Screen.width, position.y / Screen.height);
-    //    Vector2 normalizedSize = new Vector2(width / Screen.width, height / Screen.height);
-
-    //    // Uses normalized coordinates
-    //    rect.anchorMin = new Vector2(normalizedPosition.x - (normalizedSize.x / 2.0f),
-    //                                          normalizedPosition.y - (normalizedSize.y / 2.0f));
-    //    rect.anchorMax = new Vector2(normalizedPosition.x + (normalizedSize.x / 2.0f),
-    //                                          normalizedPosition.y + (normalizedSize.y / 2.0f));
-
-    //    rect.anchoredPosition = Vector2.zero; // Position is handled by anchors
-    //    rect.sizeDelta = Vector2.zero;        // Size is handled by anchors
-    //}
-
-    private void SetupInteractableHint(string s)
-    {
-        TextMeshProUGUI UGUI = identifierRect.GetComponentInChildren<TextMeshProUGUI>();
-        UGUI.text = s;
-    }
-
-    private void HideInteractableBounds()
-    {
-        identifierRect.gameObject.SetActive(false);
-    }
-
     private bool ContainsAllPoints(HashSet<Vector2> points, Rect bounds)
     {
         foreach(Vector2 point in points)
@@ -244,24 +181,7 @@ public class IntercablesDetect : MonoBehaviour
         return false;
     }
 
-    // Used to only highlight part of the object that is within a certain Rect bounds
-    private void RemoveOutOfBoundPoints(HashSet<Vector2> points, Rect bounds)
-    {
-        HashSet<Vector2> pointsToRemove = new HashSet<Vector2>();
-
-        foreach (Vector2 point in points)
-        {
-            if (!bounds.Contains(point))
-                pointsToRemove.Add(point);
-        }
-
-        foreach (Vector2 point in pointsToRemove)
-        {
-            points.Remove(point);
-        }
-    }
-
-    public Rect GetMagnifyingGlassBounds()
+    public Rect GetMagnifyingGlassRect()
     {
         float scaleFactor = canvas.GetComponent<CanvasScaler>().scaleFactor;
 
