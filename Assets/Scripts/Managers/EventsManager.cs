@@ -197,4 +197,14 @@ public class EventsManager : MonoBehaviour
             onToggleZoom(toggle);
         }
     }
+
+    public event Action<Controls> onShowControls;
+
+    public void ShowControls(Controls controls)
+    {
+        if (onShowControls != null)
+        {
+            onShowControls(controls);
+        }
+    }
 }

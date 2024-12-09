@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,7 @@ public class GameContext : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("Duplicate GameContext found and destroyed.");
-            Destroy(gameObject); // Destroy duplicate instances
+            Destroy(gameObject); 
             return;
         }
 
@@ -36,7 +36,18 @@ public class GameContext : MonoBehaviour
         }
 
         HandleTransition(newState);
+        HandleState(newState);
         state = newState;
+    }
+
+    private void HandleState(ContextState newState)
+    {
+        switch (newState)
+        {
+            case ContextState.FreeRoam:
+                EventsManager.instance.ShowControls(new Controls() { });
+                break;
+        }
     }
 
     // Go back to state before the ui state

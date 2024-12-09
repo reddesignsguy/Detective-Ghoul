@@ -1,32 +1,33 @@
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class IntercablesDetect : MonoBehaviour
 {
     public float detectionRadius = 5f;
     public LayerMask interactableLayer;
-    private GameObject lastDetectedObject;
 
     // Zooming in interactables todo -- refactor
     public Canvas canvas;
     public RectTransform magnifyingGlass;
     public RectTransform identifierRect;
-    public int gridStep = 10; // the smaller, the more raycasts (expensive)
+    public int gridStep = 10; // smaller = more raycasts
 
     public float completelyIdentifiedThreshold = 95f;
     public float partiallyIdentifiedThreshold = 50f;
 
+    public Controls inspectControls;
+    public Controls zoomControls;
+
     private HashSet<Interactee> visitedHiddenInteractees;
+    private GameObject lastDetectedObject;
 
     private void Awake()
     {
         visitedHiddenInteractees = new HashSet<Interactee>();
     }
+
     private void Update()
     {
         if (GameContext.Instance.state == ContextState.FreeRoam || GameContext.Instance.state == ContextState.SittingTutorial || GameContext.Instance.state == ContextState.StandingTutorial)
@@ -74,7 +75,6 @@ public class IntercablesDetect : MonoBehaviour
         Interactee potentialClosest;
         Dictionary<Interactee, HashSet<Vector2>> raycastHitsByInteractee;
         ProcessHits(hits, out potentialClosest, out raycastHitsByInteractee);
-        Debug.Log("Detecting closest: " + potentialClosest);
 
         Rect rect = GetMagnifyingGlassRect();
         if (potentialClosest != null)
@@ -91,23 +91,26 @@ public class IntercablesDetect : MonoBehaviour
                     visitedHiddenInteractees.Add(potentialClosest);
 
                 EventsManager.instance.ZoomInObject(hitPositions, rect, potentialClosest.GetSuggestion());
+                EventsManager.instance.ShowControls(new Controls() { inspectControls});
                 lastDetectedObject = potentialClosest.gameObject;
             }
             else if (percentage > partiallyIdentifiedThreshold && closestObjectInView)
             {
+                EventsManager.instance.ShowControls(new Controls() { });
                 EventsManager.instance.ZoomInObject(hitPositions, rect, "???");
                 lastDetectedObject = null;
             }
             else
             {
-                Debug.Log("This should be calling");
-                EventsManager.instance.ZoomInObject(null, Rect.zero, "???");
+                EventsManager.instance.ShowControls(new Controls() { });
+                EventsManager.instance.ZoomInObject(null, Rect.zero, "");
                 lastDetectedObject = null;
             }
         }
         else
         {
-            EventsManager.instance.ZoomInObject(null, Rect.zero, "???");
+            EventsManager.instance.ShowControls(new Controls() { });
+            EventsManager.instance.ZoomInObject(null, Rect.zero, "");
             lastDetectedObject = null;
         }
     }

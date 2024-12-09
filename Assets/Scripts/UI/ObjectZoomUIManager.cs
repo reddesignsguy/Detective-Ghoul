@@ -11,14 +11,14 @@ public class ObjectZoomUIManager : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.instance.onToggleZoom += HandleToggleZoom;
-        EventsManager.instance.onHighlightArea += OnHandleHighlight;
+        EventsManager.instance.onHighlightArea += HandleHighlightArea;
     }
 
 
     private void OnDisable()
     {
         EventsManager.instance.onToggleZoom -= HandleToggleZoom;
-        EventsManager.instance.onHighlightArea -= OnHandleHighlight;
+        EventsManager.instance.onHighlightArea -= HandleHighlightArea;
 
     }
 
@@ -35,7 +35,7 @@ public class ObjectZoomUIManager : MonoBehaviour
         }
     }
 
-    private void OnHandleHighlight(HashSet<Vector2> points, Rect bounds, string hint)
+    private void HandleHighlightArea(HashSet<Vector2> points, Rect bounds, string hint)
     {
         if (points == null)
         {
@@ -43,12 +43,12 @@ public class ObjectZoomUIManager : MonoBehaviour
         }
         else
         {
-            HighlightArea(points, bounds, hint);
+            ShowHighlightArea(points, bounds, hint);
         }
 
     }
 
-    private void HighlightArea(HashSet<Vector2> points, Rect bounds, string hint)
+    private void ShowHighlightArea(HashSet<Vector2> points, Rect bounds, string hint)
     {
         RemoveOutOfBoundPoints(points, bounds);
         RectHelper.ModifyRect(points, identifierRect);
