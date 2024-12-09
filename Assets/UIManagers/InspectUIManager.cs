@@ -33,7 +33,6 @@ public class InspectUIManager : UIManager
             // pick up
             if ( (Input.GetKeyDown(KeyCode.F)) && Time.time - creationTime > cooldownTime)
             {
-                Debug.Log("Picked up");
                 EventsManager.instance.PickUpInventoryItem(item);
                 Destroy(go);
                 SetUIActive(false);

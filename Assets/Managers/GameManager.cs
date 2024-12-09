@@ -5,7 +5,7 @@ using DS.ScriptableObjects;
 using System;
 using DS.Data;
 
-public class GameManager : MonoBehaviour
+public class TutorialManager : MonoBehaviour
 {
 
     public Camera cameraTutorial1;
@@ -128,7 +128,6 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.instance.onImportantInteraction += HandleImportantInteraction;
-        EventsManager.instance.onImportantDialogue += HandleImportantDialogue;
         DialogueEvents.instance.onDialogueFinished += HandleDialogueFinished;
         DialogueEvents.instance.onExitedOptions += HandleDialogueUIClosed;
     }
@@ -137,7 +136,6 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         EventsManager.instance.onImportantInteraction -= HandleImportantInteraction;
-        EventsManager.instance.onImportantDialogue -= HandleImportantDialogue;
         DialogueEvents.instance.onDialogueFinished -= HandleDialogueFinished;
         DialogueEvents.instance.onExitedOptions -= HandleDialogueUIClosed;
     }
@@ -155,18 +153,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [Obsolete]
-    void HandleImportantDialogue(DialogueTrigger trigger)
-    {
-        if (trigger == dialogueTrigger && GameContext.Instance.state == ContextState.IntroTutorial)
-        {
-            // sitting tutorial 2
-            SetupSittingTutorial();
-        } else if (trigger == dialogueTrigger2 && GameContext.Instance.state == ContextState.SittingTutorial)
-        {
-            SetupStandingTutorial();
-        }
-    }
 
     private void HandleDialogueFinished(DSDialogueSO sO)
     {
