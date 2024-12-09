@@ -7722,7 +7722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4827346912139289156, guid: 951277aa61d7fbe46afe8b275268d600, type: 3}
       propertyPath: field of view
-      value: 13
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 4866160592204669931, guid: 951277aa61d7fbe46afe8b275268d600, type: 3}
       propertyPath: canvas
@@ -9911,7 +9911,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &924677961
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10453,6 +10453,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &961681264 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 58046601736752033, guid: 951277aa61d7fbe46afe8b275268d600, type: 3}
+  m_PrefabInstance: {fileID: 667304349}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961681255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e973a22558474b438052de2a7f06370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &973294921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13285,15 +13296,15 @@ GameObject:
   - component: {fileID: 1356807598}
   - component: {fileID: 1356807589}
   - component: {fileID: 1356807590}
-  - component: {fileID: 1356807591}
   - component: {fileID: 1356807592}
-  - component: {fileID: 1356807593}
   - component: {fileID: 1356807595}
   - component: {fileID: 1356807594}
   - component: {fileID: 1356807596}
   - component: {fileID: 1356807597}
   - component: {fileID: 1356807599}
   - component: {fileID: 1356807600}
+  - component: {fileID: 1356807601}
+  - component: {fileID: 1356807602}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -13344,8 +13355,8 @@ MonoBehaviour:
   cameraTutorial2: {fileID: 1385602677}
   tenseMusic: {fileID: 1356807595}
   rain: {fileID: 1356807594}
-  dialogueTrigger: {fileID: 1356807591}
-  dialogueTrigger2: {fileID: 1356807593}
+  dialogueTrigger: {fileID: 0}
+  dialogueTrigger2: {fileID: 0}
   inventoryBag: {fileID: 376608073}
   detectiveBook: {fileID: 781706686}
   player: {fileID: 961681260}
@@ -13377,29 +13388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2425cf8bbdaec4650b8d396cdf8b4784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1356807591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1356807586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9fdd1c260248174c908956dde0796b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogues:
-  - id: 0
-    DialogueText: 'Girl: (voice shaky) E-E-Excuse me! Are you a detective?'
-    options: []
-  - id: 1
-    DialogueText: 'Detective: Yes, I am. What''s wrong?'
-    options: []
-  - id: 2
-    DialogueText: 'Girl: (wiping her tears) It''s my brother! He''s gone missing.
-      He was supposed to be home an hour ago! '
-    options: []
 --- !u!114 &1356807592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13413,57 +13401,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentIndex: 0
---- !u!114 &1356807593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1356807586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9fdd1c260248174c908956dde0796b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogues:
-  - id: 0
-    DialogueText: 'Detective: Okay, breathe. What''s his name? '
-    options: []
-  - id: 0
-    DialogueText: 'Girl: (sobbing) Alex! He''s only 14. He wouldn''t just disappear
-      like this!'
-    options: []
-  - id: 0
-    DialogueText: 'Detective: Did he say where he was going? Did he meet anyone?'
-    options: []
-  - id: 0
-    DialogueText: 'Girl: (shaking her head) No, he just said he was hanging out with
-      friends. I thought he''d be back by now. Also, they usually hangout at the
-      gas station.'
-    options: []
-  - id: 0
-    DialogueText: 'Detective: Can you tell me the names of his friends?'
-    options: []
-  - id: 0
-    DialogueText: 'Girl: (nervously) There''s Matt and Lily. They live close by.'
-    options: []
-  - id: 0
-    DialogueText: 'Detective: Have you tried looking for them? '
-    options: []
-  - id: 0
-    DialogueText: "Girl: (nodding) Yes, but I couldn\u2019t able to find them, I'm
-      scared! What if something happened to him? "
-    options: []
-  - id: 0
-    DialogueText: 'Detective: We''ll find him. Let''s start by checking their houses.  '
-    options: []
-  - id: 0
-    DialogueText: "Detective: it\u2019s stormy outside. Stay here. I\u2019ll go and
-      look for him and his friends.  "
-    options: []
-  - id: 0
-    DialogueText: 'Girl: (sniffles, nodding) Yes, Please, hurry. '
-    options: []
 --- !u!82 &1356807594
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13721,6 +13658,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb29293fb46c0479e878dd2d2dbbdbc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1356807601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356807586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c62926219c4d42d691beb0e55331bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freeRoamFOV: 38
+--- !u!114 &1356807602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356807586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49c06e7ae4a0443ef9d911c01a4f9a99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputSystem: {fileID: 961681264}
+  zoomSetting1: 15
+  sensitivity: 0.1
+  lerpSpeed: 13
+  zoomSensitivity: 1
 --- !u!1001 &1358191300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18835,7 +18802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5529412}
+  m_Color: {r: 1, g: 0.08018869, b: 0.08018869, a: 0.5529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

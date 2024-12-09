@@ -63,66 +63,15 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
 
-        SetAsMainCamera(cameraTutorial1);
         rain.Play();
-        //dialogueTrigger.TriggerDialogue();
-        DialogueEvents.instance.StartDialogue(firstDialog);
         inventoryBag.SetActive(false);
         detectiveBook.SetActive(false);
-        EventsManager.instance.SetMovement(false);
         detect.enabled = false;
         player.PlayAnimation("Standing");
+        SetAsMainCamera(cameraTutorial1);
+        EventsManager.instance.SetMovement(false);
+        DialogueEvents.instance.StartDialogue(firstDialog);
         GameContext.Instance.SetContextState(ContextState.IntroTutorial);
-
-        // todo: migrate to new dialogue system
-    }
-
-    void SetupSittingTutorial()
-    {
-        SetAsMainCamera(cameraTutorial2);
-        detect.enabled = true;
-        girlChair.transform.SetLocalPositionAndRotation(sittingTutorial_ChairPosition, sittingTutorial_ChairRotation);
-        //dialogueTrigger2.TriggerDialogue();
-        player.transform.position = sittingSpawn;
-        girlSprite.transform.position = girlSittingSpawn;
-        player.PlayAnimation("Sitting");
-        if (girlSprite.TryGetComponent(out Animator animator))
-        {
-            animator.Play("GirlSitting");
-        }
-        GameContext.Instance.SetContextState(ContextState.SittingTutorial);
-
-    }
-
-    void SetupStandingTutorial()
-    {
-        detectiveBook.SetActive(true);
-
-        SetAsMainCamera(player.GetComponentInChildren<Camera>());
-        boyPhotograph.SetActive(true);
-
-        girlChair.transform.SetLocalPositionAndRotation(standingTutorial_ChairPosition, standingTutorial_ChairRotation);
-        girlSprite.transform.position = girlWaiting ;
-
-        if (girlSprite.TryGetComponent(out Animator animator))
-        {
-            animator.Play("GirlStanding");
-        }
-
-        player.PlayAnimation("Idle");
-        player.transform.position = standingSpawn;
-        GameContext.Instance.SetContextState(ContextState.StandingTutorial);
-
-    }
-
-    void SetupFree()
-    {
-        detectiveBook.SetActive(true);
-    }
-
-    void SetupInventoryInvoker()
-    {
-        inventoryBag.SetActive(true);
     }
 
     private void OnEnable()
@@ -138,6 +87,51 @@ public class TutorialManager : MonoBehaviour
         EventsManager.instance.onImportantInteraction -= HandleImportantInteraction;
         DialogueEvents.instance.onDialogueFinished -= HandleDialogueFinished;
         DialogueEvents.instance.onExitedOptions -= HandleDialogueUIClosed;
+    }
+
+    void SetupSittingTutorial()
+    {
+        SetAsMainCamera(cameraTutorial2);
+        detect.enabled = true;
+        girlChair.transform.SetLocalPositionAndRotation(sittingTutorial_ChairPosition, sittingTutorial_ChairRotation);
+        player.transform.position = sittingSpawn;
+        girlSprite.transform.position = girlSittingSpawn;
+        player.PlayAnimation("Sitting");
+        if (girlSprite.TryGetComponent(out Animator animator))
+        {
+            animator.Play("GirlSitting");
+        }
+        GameContext.Instance.SetContextState(ContextState.SittingTutorial);
+
+    }
+
+    void SetupStandingTutorial()
+    {
+        detectiveBook.SetActive(true);
+        SetAsMainCamera(player.GetComponentInChildren<Camera>());
+        boyPhotograph.SetActive(true);
+        girlChair.transform.SetLocalPositionAndRotation(standingTutorial_ChairPosition, standingTutorial_ChairRotation);
+        girlSprite.transform.position = girlWaiting ;
+        if (girlSprite.TryGetComponent(out Animator animator))
+        {
+            animator.Play("GirlStanding");
+        }
+
+        player.PlayAnimation("Idle");
+        player.transform.position = standingSpawn;
+        GameContext.Instance.SetContextState(ContextState.StandingTutorial);
+
+    }
+
+    void SetupFree()
+    {
+        
+        detectiveBook.SetActive(true);
+    }
+
+    void SetupInventoryInvoker()
+    {
+        inventoryBag.SetActive(true);
     }
 
     void HandleImportantInteraction(Interactee interactable)
