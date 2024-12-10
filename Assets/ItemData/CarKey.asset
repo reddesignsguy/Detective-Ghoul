@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CarKey
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: c28cc76faec544ba09bc99447f65039e, type: 3}
-  _name: Car key
-  description: These keys are for opening my car
+  _name: Car Key
+  description: 
   code: Scene1_CarKey
   hint: Crap. Forgot my car keys. I'm gonna need that to investigate the gas station.
+  isClue: 0
