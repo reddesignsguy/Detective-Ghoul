@@ -6,6 +6,7 @@ public class GlobalSettings : MonoBehaviour
     public static GlobalSettings Instance;
 
     public float freeRoamFOV = 38f;
+    public float maxZoomRoamDistance = 5f;
 
 
     private void Awake()

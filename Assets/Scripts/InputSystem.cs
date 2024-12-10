@@ -46,23 +46,18 @@ public class InputSystem : MonoBehaviour
 
     private void Update()
     {
-        if (GameContext.Instance.state == ContextState.Zoomed)
+        Vector2 mouseDelta = inputActions.Player.PanCamera.ReadValue<Vector2>();
+        if (mouseDelta.magnitude != 0)
         {
-            Vector2 mouseDelta = inputActions.Player.PanCamera.ReadValue<Vector2>();
-            if (mouseDelta.magnitude != 0)
-            {
-                CameraTargetEvent?.Invoke(mouseDelta);
-            }
+            CameraTargetEvent?.Invoke(mouseDelta);
+        }
                 
 
-            float z = inputActions.Player.AdjustZoom.ReadValue<float>();
-            if (z != 0)
-            {
-                AdjustZoomEvent?.Invoke(z);
-            }
-
+        float z = inputActions.Player.AdjustZoom.ReadValue<float>();
+        if (z != 0)
+        {
+            AdjustZoomEvent?.Invoke(z);
         }
-        
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -80,8 +75,6 @@ public class InputSystem : MonoBehaviour
         if (GameContext.Instance.state == ContextState.FreeRoam)
         {
             ZoomInEvent?.Invoke(inputActions.Player.Zoom.ReadValue<Vector2>());
-            GameContext.Instance.SetContextState(ContextState.Zoomed);
-
         }
     }
 
@@ -90,8 +83,6 @@ public class InputSystem : MonoBehaviour
         if (GameContext.Instance.state == ContextState.Zoomed)
         {
             ZoomOutEvent?.Invoke();
-            GameContext.Instance.SetContextState(ContextState.FreeRoam);
-
         }
     }
 

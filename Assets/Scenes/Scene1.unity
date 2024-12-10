@@ -10369,8 +10369,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8ec134f1c4d924bcf8d00192587809a6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.6
+  m_Pitch: 1.4
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -13658,6 +13658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb29293fb46c0479e878dd2d2dbbdbc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputSystem: {fileID: 961681264}
 --- !u!114 &1356807601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13671,6 +13672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freeRoamFOV: 38
+  maxZoomRoamDistance: 5
 --- !u!114 &1356807602
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,29 +10,27 @@ public class ObjectZoomUIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.instance.onToggleZoom += HandleToggleZoom;
+        GameContext.Instance.ZoomStartEvent += HandleZoomStart;
+        GameContext.Instance.ZoomEndEvent += HandleZoomEnd;
         EventsManager.instance.onHighlightArea += HandleHighlightArea;
     }
 
 
     private void OnDisable()
     {
-        EventsManager.instance.onToggleZoom -= HandleToggleZoom;
         EventsManager.instance.onHighlightArea -= HandleHighlightArea;
-
     }
 
-    private void HandleToggleZoom(bool toggle)
+    private void HandleZoomStart(Vector3 pos)
     {
-        if (toggle)
-        {
-            identifyBounds.SetActive(true);
-        }
-        else
-        {
-            identifyBounds.SetActive(false);
-            identifierRect.gameObject.SetActive(false);
-        }
+
+        identifyBounds.SetActive(true);
+    }
+
+    private void HandleZoomEnd()
+    {
+        identifyBounds.SetActive(false);
+        identifierRect.gameObject.SetActive(false);
     }
 
     private void HandleHighlightArea(HashSet<Vector2> points, Rect bounds, string hint)

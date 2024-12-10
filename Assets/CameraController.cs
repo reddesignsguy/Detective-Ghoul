@@ -5,25 +5,25 @@ public class CameraController : MonoBehaviour
 {
 
     [SerializeField] private InputSystem inputSystem;
-
     public float zoomSetting1 = 15f;
     public float sensitivity = 0.5f;
     public float lerpSpeed = 5f; // Adjust for how fast it reaches the target
     public float zoomSensitivity = 5f;
 
     private bool zoomedIn = false;
-    private Vector3 freeRoamCameraReturnPos;
+    private Vector3 cameraReturnPosition;
     private Vector3 targetPosition;
+    private float maxZoomRoamDistance;
 
-    void Start()
+    private void Awake()
     {
-        
+        maxZoomRoamDistance = GlobalSettings.Instance.maxZoomRoamDistance;
     }
-
+   
     private void OnEnable()
     {
-        inputSystem.ZoomInEvent += HandleZoomIn;
-        inputSystem.ZoomOutEvent += HandleZoomOut;
+        GameContext.Instance.ZoomStartEvent += HandleZoomStart;
+        GameContext.Instance.ZoomEndEvent += HandleZoomOut;
         inputSystem.AdjustZoomEvent += HandleAdjustZoom;
         inputSystem.CameraTargetEvent += HandleCameraTarget;
     }
@@ -42,33 +42,20 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private void HandleZoomIn(Vector2 mousePos)
+    private void HandleZoomStart(Vector3 newTargetPosition)
     {
         zoomedIn = true;
-        freeRoamCameraReturnPos = Camera.main.transform.position;
-        Ray ray = Camera.main.ScreenPointToRay(mousePos); 
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            targetPosition = new Vector3(hit.point.x, hit.point.y, Camera.main.transform.position.z);
-            Camera.main.transform.position = targetPosition;
-        }
-        else
-        {
-            targetPosition = Camera.main.transform.position;
-        }
-
-
+        targetPosition = newTargetPosition;
+        cameraReturnPosition = Camera.main.transform.position;
+        Camera.main.transform.position = targetPosition;
         Camera.main.fieldOfView = zoomSetting1;
     }
 
     private void HandleZoomOut()
     {
         zoomedIn = false;
-
         Camera.main.fieldOfView = GlobalSettings.Instance.freeRoamFOV;
-        Camera.main.transform.position = freeRoamCameraReturnPos;
+        Camera.main.transform.position = cameraReturnPosition;
     }
 
     private void HandleAdjustZoom(float z)
@@ -87,7 +74,13 @@ public class CameraController : MonoBehaviour
     private void HandleCameraTarget(Vector2 mouseDelta)
     {
         Vector3 cameraDisplacement = new Vector3(mouseDelta.x, mouseDelta.y, 0) * sensitivity;
-        targetPosition += cameraDisplacement;
+        Vector3 newPosition = targetPosition + cameraDisplacement;
+
+        bool withinDistance = Vector3.Distance(cameraReturnPosition, newPosition) <= maxZoomRoamDistance;
+        if (withinDistance)
+        {
+            targetPosition = newPosition;
+        }
     }
 
     private void PositionCamera(Vector3 target)
