@@ -111,18 +111,6 @@ public class GameContext : MonoBehaviour
         {
             stateBeforeLastUI = state;
         }
-
-        //bool anyToZoom = state != ContextState.Zoomed && newState == ContextState.Zoomed;
-        //if (anyToZoom)
-        //{
-        //    EventsManager.instance.ToggleZoom(true);
-        //}
-
-        //bool zoomToAny = state == ContextState.Zoomed && newState != ContextState.Zoomed;
-        //if (zoomToAny)
-        //{
-        //    EventsManager.instance.ToggleZoom(false);
-        //}
     }
 
     private bool inTutorialState()

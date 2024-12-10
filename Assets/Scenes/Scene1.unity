@@ -13690,6 +13690,8 @@ MonoBehaviour:
   sensitivity: 0.1
   lerpSpeed: 13
   zoomSensitivity: 1
+  maxFOV: 15
+  minFOV: 4
 --- !u!1001 &1358191300
 PrefabInstance:
   m_ObjectHideFlags: 0
