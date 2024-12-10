@@ -106,6 +106,15 @@ public class GameContext : MonoBehaviour
 
         switch (newState)
         {
+            case ContextState.IntroTutorial:
+                EventsManager.instance.ShowControls(new Controls() { });
+                break;
+            case ContextState.SittingTutorial:
+                EventsManager.instance.ShowControls(new Controls() { });
+                break;
+            case ContextState.StandingTutorial:
+                EventsManager.instance.ShowControls(new Controls() { });
+                break;
             case ContextState.FreeRoam:
                 EventsManager.instance.ShowControls(new Controls() { });
                 break;

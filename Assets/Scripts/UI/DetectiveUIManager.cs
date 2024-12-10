@@ -8,9 +8,10 @@ using UnityEngine;
 public class DetectiveBookUIManager : UIManager
 {
     public GameObject bulletpointPrefab;
-
     public PicturesPageUI picturesUI;
     public QuestionsPageUI questionsUI;
+
+    [SerializeField] private Controls navigation;
 
     private int numPages = -1;
     private int curPageNum = 0;
@@ -51,6 +52,8 @@ public class DetectiveBookUIManager : UIManager
                     throw new InvalidOperationException($"Unsupported page type: {page.GetType()}");
             }
             base.SetUIActive(open);
+
+            EventsManager.instance.ShowControls(navigation);
         }
         else
         {

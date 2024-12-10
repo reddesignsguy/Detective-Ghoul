@@ -9,9 +9,11 @@ using DS.Data;
 
 public class OptionsDialogUI : UIManager
 {
+    [SerializeField] private Controls escape;
     protected List<DSDialogueChoiceData> dialogues;
     public List<Button> optionPlaceholders;
-    private bool exitable = false;
+    protected bool exitable = false;
+    
 
     private void Awake()
     {
@@ -47,7 +49,11 @@ public class OptionsDialogUI : UIManager
         }
 
         dialogues = options;
-
         exitable = optionsDialogue.IsExitable;
+        if (exitable)
+        {
+            Debug.Log("This is exitable");
+            EventsManager.instance.ShowControls(escape);
+        }
     }
 }

@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DS.ScriptableObjects;
 using DS.Enumerations;
-using System;
-using static UnityEngine.Rendering.DebugUI;
-using DS.Data;
 
 public class DialogueManagerV2 : MonoBehaviour
 {

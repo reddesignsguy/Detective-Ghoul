@@ -8,6 +8,7 @@ public class PuzzleInteractable : MonoBehaviour
     public AudioSource paperSlide;
     public float trashAnimationDuration = 5f;
     public float trashAnimationDistance;
+    [SerializeField] private Controls controls;
 
     /* Used to detect if puzzle pieces within this puzzle are c licked*/
     public event Action<GameObject> OnPuzzleClicked;
@@ -29,7 +30,8 @@ public class PuzzleInteractable : MonoBehaviour
             Button capturedButton = button;
             capturedButton.onClick.AddListener(() => HandlePuzzleClicked(capturedButton.gameObject));
         }
-        Debug.Log("Setting up puzzle");
+
+        EventsManager.instance.ShowControls(controls);
     }
 
     public void HandlePuzzleClicked(GameObject obj)
