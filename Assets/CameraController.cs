@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
         cameraReturnPosition = Camera.main.transform.position;
         Camera.main.transform.position = targetPosition;
         Camera.main.fieldOfView = zoomSetting1;
-        EventsManager.instance.ChangeZoom(1f);
+        EventsManager.instance.ChangeZoom(0f);
     }
 
     private void HandleZoomOut()
@@ -86,7 +86,7 @@ public class CameraController : MonoBehaviour
 
     private float GetFOVPercent(float fov)
     {
-        return (fov - minFOV) / (maxFOV - minFOV);
+        return 1 - (fov - minFOV) / (maxFOV - minFOV);
     }
 
     private void HandleCameraTarget(Vector2 mouseDelta)
