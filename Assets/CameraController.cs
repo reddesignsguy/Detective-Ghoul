@@ -1,4 +1,5 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -9,7 +10,10 @@ public class CameraController : MonoBehaviour
     public float sensitivity = 0.5f;
     public float lerpSpeed = 5f; // Adjust for how fast it reaches the target
     public float zoomSensitivity = 5f;
+    public float maxFOV = 3f;
+    public float minFOV = 15f; 
 
+    
     private bool zoomedIn = false;
     private Vector3 cameraReturnPosition;
     private Vector3 targetPosition;
@@ -31,7 +35,10 @@ public class CameraController : MonoBehaviour
 
     private void OnDisable()
     {
-        
+        GameContext.Instance.ZoomStartEvent -= HandleZoomStart;
+        GameContext.Instance.ZoomEndEvent -= HandleZoomOut;
+        inputSystem.AdjustZoomEvent -= HandleAdjustZoom;
+        inputSystem.CameraTargetEvent -= HandleCameraTarget;
     }
 
     private void FixedUpdate()
@@ -49,6 +56,7 @@ public class CameraController : MonoBehaviour
         cameraReturnPosition = Camera.main.transform.position;
         Camera.main.transform.position = targetPosition;
         Camera.main.fieldOfView = zoomSetting1;
+        EventsManager.instance.ChangeZoom(1f);
     }
 
     private void HandleZoomOut()
@@ -60,15 +68,25 @@ public class CameraController : MonoBehaviour
 
     private void HandleAdjustZoom(float z)
     {
+        float fov = Camera.main.fieldOfView;
         if (z > 0)
         {
-            Camera.main.fieldOfView += zoomSensitivity;
-
+            fov = fov - zoomSensitivity;
+            fov = Mathf.Max(minFOV, fov);
         }
         else if (z < 0)
         {
-            Camera.main.fieldOfView -= zoomSensitivity;
+            fov = fov + zoomSensitivity;
+            fov = Mathf.Min(maxFOV, fov);
         }
+
+        Camera.main.fieldOfView = fov;
+        EventsManager.instance.ChangeZoom(GetFOVPercent(fov));
+    }
+
+    private float GetFOVPercent(float fov)
+    {
+        return (fov - minFOV) / (maxFOV - minFOV);
     }
 
     private void HandleCameraTarget(Vector2 mouseDelta)

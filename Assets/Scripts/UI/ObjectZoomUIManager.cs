@@ -2,28 +2,34 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ObjectZoomUIManager : MonoBehaviour
 {
+    public InputSystem inputSystem;
     public RectTransform identifierRect;
     public GameObject identifyBounds;
+    public Slider slider;
 
     private void OnEnable()
     {
         GameContext.Instance.ZoomStartEvent += HandleZoomStart;
         GameContext.Instance.ZoomEndEvent += HandleZoomEnd;
         EventsManager.instance.onHighlightArea += HandleHighlightArea;
+        EventsManager.instance.onZoomChange += HandleZoomChange;
     }
-
 
     private void OnDisable()
     {
+        GameContext.Instance.ZoomStartEvent -= HandleZoomStart;
+        GameContext.Instance.ZoomEndEvent -= HandleZoomEnd;
         EventsManager.instance.onHighlightArea -= HandleHighlightArea;
+        EventsManager.instance.onZoomChange -= HandleZoomChange;
     }
 
     private void HandleZoomStart(Vector3 pos)
     {
-
         identifyBounds.SetActive(true);
     }
 
@@ -31,6 +37,11 @@ public class ObjectZoomUIManager : MonoBehaviour
     {
         identifyBounds.SetActive(false);
         identifierRect.gameObject.SetActive(false);
+    }
+
+    private void HandleZoomChange(float percent)
+    {
+        slider.value = percent;
     }
 
     private void HandleHighlightArea(HashSet<Vector2> points, Rect bounds, string hint)
@@ -43,7 +54,6 @@ public class ObjectZoomUIManager : MonoBehaviour
         {
             ShowHighlightArea(points, bounds, hint);
         }
-
     }
 
     private void ShowHighlightArea(HashSet<Vector2> points, Rect bounds, string hint)

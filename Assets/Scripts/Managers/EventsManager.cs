@@ -207,4 +207,14 @@ public class EventsManager : MonoBehaviour
             onShowControls(controls);
         }
     }
+
+    public event Action<float> onZoomChange;
+
+    public void ChangeZoom(float z)
+    {
+        if (onZoomChange != null)
+        {
+            onZoomChange(z);
+        }
+    }
 }
