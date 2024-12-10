@@ -7,12 +7,10 @@ using UnityEngine;
 public struct ParsedInventoryItem
 {
     public InventoryItem item;
-    //public string code;
 
     public ParsedInventoryItem(InventoryItem item, string code)
     {
         this.item = item;
-        //this.code = code;
     }
 }
 
@@ -28,16 +26,13 @@ public class InventorySystem : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.instance.onPickUpItem += HandlePickUpItem;
         EventsManager.instance.onPickUpInventoryItem += HandlePickUpInventoryItem;
     }
 
 
     private void OnDisable()
     {
-        EventsManager.instance.onPickUpItem -= HandlePickUpItem;
         EventsManager.instance.onPickUpInventoryItem -= HandlePickUpInventoryItem;
-
     }
 
     private void HandlePickUpInventoryItem(InventoryItem item)
@@ -48,22 +43,6 @@ public class InventorySystem : MonoBehaviour
         ParsedInventoryItem finalData = new ParsedInventoryItem(item, "Obsolete");
 
         items.Add(finalData);
-    }
-
-    [Obsolete]
-    public void HandlePickUpItem (Item item)
-    {
-        if (item == null)
-            return;
-
-        Debug.Log("Picking up");
-        InventoryItem baseData = item.ItemInfo;
-        string unlockCode = item.GetLockID();
-
-        ParsedInventoryItem finalData = new ParsedInventoryItem(baseData, unlockCode);
-
-        items.Add(finalData);
-        Destroy(item.transform.gameObject);
     }
 
     public void Remove(InventoryItem item)

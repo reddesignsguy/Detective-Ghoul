@@ -15,22 +15,12 @@ public class Item : Interactee, InventoryItemHolder
     public bool affectsGameState;
 
     [SerializeField] private InventoryItem itemInfo;
-    [Obsolete] [SerializeField] private GameObject lockReference;
 
     public InventoryItem ItemInfo => itemInfo;
 
     public InventoryItem GetInventoryItem()
     {
         return itemInfo;
-    }
-
-    [Obsolete]
-    public string GetLockID()
-    {
-        if (lockReference == null)
-            return null;
-
-        return lockReference.GetInstanceID().ToString();
     }
 
     public override void Interact()

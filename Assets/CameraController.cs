@@ -68,6 +68,9 @@ public class CameraController : MonoBehaviour
 
     private void HandleAdjustZoom(float z)
     {
+        if (!zoomedIn)
+            return;
+
         float fov = Camera.main.fieldOfView;
         if (z > 0)
         {

@@ -3581,9 +3581,9 @@ RectTransform:
   - {fileID: 1854845753}
   - {fileID: 110777670}
   - {fileID: 385055895}
-  - {fileID: 1791232727}
   - {fileID: 924677961}
   - {fileID: 2144275707}
+  - {fileID: 1791232727}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5104,6 +5104,13 @@ MonoBehaviour:
   image: {fileID: 200281824}
   title: {fileID: 78567453}
   description: {fileID: 118219529}
+  itemControls:
+    keycodes:
+    - F
+    - ESC
+    actions:
+    - Take
+    - Leave
 --- !u!114 &396392654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12387,7 +12394,6 @@ MonoBehaviour:
   isHidden: 0
   affectsGameState: 1
   itemInfo: {fileID: 11400000, guid: d3a96b35cf0624760a68d48dd63eeb41, type: 2}
-  lockReference: {fileID: 0}
 --- !u!224 &1259134544 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5631216412032630112, guid: 7f92730ff1f9342ce9880bf4bcef442d, type: 3}
@@ -18532,7 +18538,6 @@ MonoBehaviour:
   isHidden: 0
   affectsGameState: 1
   itemInfo: {fileID: 11400000, guid: cc4551a9d2c9a4417a50639f5821b149, type: 2}
-  lockReference: {fileID: 0}
 --- !u!1001 &2054446837
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -14,21 +14,21 @@ public class ObjectZoomUIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameContext.Instance.ZoomStartEvent += HandleZoomStart;
-        GameContext.Instance.ZoomEndEvent += HandleZoomEnd;
+        GameContext.Instance.ZoomUIStartEvent += HandleZoomStart;
+        GameContext.Instance.ZoomUIEndEvent += HandleZoomEnd;
         EventsManager.instance.onHighlightArea += HandleHighlightArea;
         EventsManager.instance.onZoomChange += HandleZoomChange;
     }
 
     private void OnDisable()
     {
-        GameContext.Instance.ZoomStartEvent -= HandleZoomStart;
-        GameContext.Instance.ZoomEndEvent -= HandleZoomEnd;
+        GameContext.Instance.ZoomUIStartEvent -= HandleZoomStart;
+        GameContext.Instance.ZoomUIEndEvent -= HandleZoomEnd;
         EventsManager.instance.onHighlightArea -= HandleHighlightArea;
         EventsManager.instance.onZoomChange -= HandleZoomChange;
     }
 
-    private void HandleZoomStart(Vector3 pos)
+    private void HandleZoomStart()
     {
         identifyBounds.SetActive(true);
     }

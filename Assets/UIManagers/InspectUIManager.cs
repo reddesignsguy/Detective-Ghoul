@@ -15,6 +15,8 @@ public class InspectUIManager : UIManager
     public TextMeshProUGUI title;
     public TextMeshProUGUI description;
 
+    public Controls itemControls;
+
     // prevents bug where F automatically closes the UI
     private float creationTime;
     private float cooldownTime = 1f;
@@ -29,7 +31,6 @@ public class InspectUIManager : UIManager
     {
         if (panel.activeSelf)
         {
-
             // pick up
             if ( (Input.GetKeyDown(KeyCode.F)) && Time.time - creationTime > cooldownTime)
             {
@@ -75,5 +76,7 @@ public class InspectUIManager : UIManager
 
         this.go = go;
         this.item = item;
+
+        EventsManager.instance.ShowControls(itemControls);
     }
 }

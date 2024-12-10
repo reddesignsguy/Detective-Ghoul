@@ -12,6 +12,8 @@ public class GameContext : MonoBehaviour
 
     public event Action<Vector3> ZoomStartEvent;
     public event Action ZoomEndEvent;
+    public event Action ZoomUIEndEvent;
+    public event Action ZoomUIStartEvent;
 
     private void Awake()
     {
@@ -53,12 +55,14 @@ public class GameContext : MonoBehaviour
 
         SetContextState(ContextState.Zoomed);
         ZoomStartEvent?.Invoke(targetPosition);
+        ZoomUIStartEvent?.Invoke();
     }
 
     private void HandleZoomOut()
     {
         SetContextState(ContextState.FreeRoam);
         ZoomEndEvent?.Invoke();
+        ZoomUIEndEvent?.Invoke();
     }
 
     public void SetContextState(ContextState newState)
@@ -75,18 +79,7 @@ public class GameContext : MonoBehaviour
         }
 
         HandleTransition(newState);
-        HandleState(newState);
         state = newState;
-    }
-
-    private void HandleState(ContextState newState)
-    {
-        switch (newState)
-        {
-            case ContextState.FreeRoam:
-                EventsManager.instance.ShowControls(new Controls() { });
-                break;
-        }
     }
 
     // Go back to state before the ui state
@@ -100,16 +93,29 @@ public class GameContext : MonoBehaviour
 
         else if (state == ContextState.UI)
         {
-            state = stateBeforeLastUI;
+            SetContextState(stateBeforeLastUI);
         }
     }
 
     private void HandleTransition(ContextState newState)
     {
-        bool anyToUI = state != ContextState.UI && newState == ContextState.UI;
-        if (anyToUI)
+        if (state == newState)
         {
-            stateBeforeLastUI = state;
+            throw new Exception("Expected the inputted new state to be different from current state");
+        }
+
+        switch (newState)
+        {
+            case ContextState.FreeRoam:
+                EventsManager.instance.ShowControls(new Controls() { });
+                break;
+            case ContextState.UI:
+                stateBeforeLastUI = state;
+                ZoomUIEndEvent?.Invoke();
+                break;
+            case ContextState.Zoomed:
+                ZoomUIStartEvent?.Invoke();
+                break;
         }
     }
 
@@ -122,9 +128,6 @@ public class GameContext : MonoBehaviour
     {
         return state == ContextState.StandingTutorial;
     }
-
-
-
 }
 
 public enum ContextState

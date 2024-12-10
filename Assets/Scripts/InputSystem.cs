@@ -97,16 +97,35 @@ public class InputSystem : MonoBehaviour
         {
             hintUIManager.CloseUI();
         }
-        else if (GameContext.Instance.state == ContextState.FreeRoam || GameContext.Instance.state == ContextState.SittingTutorial || GameContext.Instance.state == ContextState.StandingTutorial || GameContext.Instance.state == ContextState.Zoomed)
+        else
         {
-            GameObject closestInteractable = intercablesDetect.GetLastDetectedObject();
-            if (closestInteractable != null)
+            switch ( GameContext.Instance.state)
+             {
+                case ContextState.FreeRoam:
+                    Interact();
+                    break;
+                case ContextState.SittingTutorial:
+                    Interact();
+                    break;
+                case ContextState.StandingTutorial:
+                    Interact();
+                    break;
+                case ContextState.Zoomed:
+                    Interact();
+                    break;
+            }
+        }
+    }
+
+    private void Interact()
+    {
+        GameObject closestInteractable = intercablesDetect.GetLastDetectedObject();
+        if (closestInteractable != null)
+        {
+            Interactable interactable = closestInteractable.GetComponent<Interactable>();
+            if (interactable != null)
             {
-                Interactable interactable = closestInteractable.GetComponent<Interactable>();
-                if (interactable != null)
-                {
-                    interactable.Interact();
-                }
+                interactable.Interact();
             }
         }
     }
