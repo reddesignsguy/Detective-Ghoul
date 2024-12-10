@@ -13358,6 +13358,7 @@ GameObject:
   - component: {fileID: 1356807600}
   - component: {fileID: 1356807601}
   - component: {fileID: 1356807602}
+  - component: {fileID: 1356807603}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -13745,6 +13746,20 @@ MonoBehaviour:
   zoomSensitivity: 1
   maxFOV: 15
   minFOV: 4
+--- !u!114 &1356807603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356807586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0eec19080114035bb402f375a76016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultCursor: {fileID: 0}
+  magnifierCursor: {fileID: 2800000, guid: 906317700641e45a184b561c1a51c69c, type: 3}
 --- !u!1001 &1358191300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17868,15 +17883,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 1941708030}
-  optionPlaceholders:
-  - {fileID: 266373826}
-  - {fileID: 504459487}
-  - {fileID: 535604099}
   escape:
     keycodes:
     - ESC
     actions:
     - Exit
+  optionPlaceholders:
+  - {fileID: 266373826}
+  - {fileID: 504459487}
+  - {fileID: 535604099}
   pageNumPlaceholder: {fileID: 455799344}
   answerPlaceholders:
   - {fileID: 136233317}

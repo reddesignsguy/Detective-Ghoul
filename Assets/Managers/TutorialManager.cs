@@ -150,8 +150,7 @@ public class TutorialManager : MonoBehaviour
 
     private void HandleDialogueFinished(DSDialogueSO sO)
     {
-        Debug.Log(sO);
-        Debug.Log(GameContext.Instance.state);
+
         if (sO == startingScene && GameContext.Instance.state == ContextState.IntroTutorial)
         {
             Debug.Log("sitting tutorial");

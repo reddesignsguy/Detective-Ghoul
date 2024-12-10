@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
         GameContext.Instance.ZoomStartEvent += HandleZoomStart;
         GameContext.Instance.ZoomEndEvent += HandleZoomOut;
         inputSystem.AdjustZoomEvent += HandleAdjustZoom;
-        inputSystem.CameraTargetEvent += HandleCameraTarget;
+        GameContext.Instance.PanCameraEvent += HandlePanCameraEvent;
     }
 
 
@@ -38,7 +38,7 @@ public class CameraController : MonoBehaviour
         GameContext.Instance.ZoomStartEvent -= HandleZoomStart;
         GameContext.Instance.ZoomEndEvent -= HandleZoomOut;
         inputSystem.AdjustZoomEvent -= HandleAdjustZoom;
-        inputSystem.CameraTargetEvent -= HandleCameraTarget;
+        GameContext.Instance.PanCameraEvent -= HandlePanCameraEvent;
     }
 
     private void FixedUpdate()
@@ -92,7 +92,7 @@ public class CameraController : MonoBehaviour
         return 1 - (fov - minFOV) / (maxFOV - minFOV);
     }
 
-    private void HandleCameraTarget(Vector2 mouseDelta)
+    private void HandlePanCameraEvent(Vector2 mouseDelta)
     {
         Vector3 cameraDisplacement = new Vector3(mouseDelta.x, mouseDelta.y, 0) * sensitivity;
         Vector3 newPosition = targetPosition + cameraDisplacement;

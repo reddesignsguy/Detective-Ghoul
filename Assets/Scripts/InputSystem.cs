@@ -15,7 +15,7 @@ public class InputSystem : MonoBehaviour
     public event Action<Vector2> ZoomInEvent;
     public event Action ZoomOutEvent;
     public event Action<float> AdjustZoomEvent;
-    public event Action<Vector2> CameraTargetEvent;
+    public event Action<Vector2> CursorMoveEvent;
 
     private void Awake()
     {
@@ -31,8 +31,8 @@ public class InputSystem : MonoBehaviour
         inputActions.Player.Interact.performed += OnInteract;
         inputActions.Player.Zoom.performed += HandleZoomIn;
         inputActions.Player.ZoomOut.performed += OnZoomOut;
+        inputActions.Player.PanCamera.performed += OnMoveCursor;
     }
-
 
     private void OnDisable()
     {
@@ -41,18 +41,13 @@ public class InputSystem : MonoBehaviour
         inputActions.Player.Move.canceled -= OnMoveCanceled;
         inputActions.Player.Interact.performed -= OnInteract;
         inputActions.Player.Zoom.performed -= HandleZoomIn;
-        inputActions.Player.ZoomOut.canceled += OnZoomOut;
+        inputActions.Player.ZoomOut.canceled -= OnZoomOut;
+        inputActions.Player.PanCamera.performed -= OnMoveCursor;
+
     }
 
     private void Update()
     {
-        Vector2 mouseDelta = inputActions.Player.PanCamera.ReadValue<Vector2>();
-        if (mouseDelta.magnitude != 0)
-        {
-            CameraTargetEvent?.Invoke(mouseDelta);
-        }
-                
-
         float z = inputActions.Player.AdjustZoom.ReadValue<float>();
         if (z != 0)
         {
@@ -83,6 +78,15 @@ public class InputSystem : MonoBehaviour
         if (GameContext.Instance.state == ContextState.Zoomed)
         {
             ZoomOutEvent?.Invoke();
+        }
+    }
+
+    private void OnMoveCursor(InputAction.CallbackContext context)
+    {
+        Vector2 mouseDelta = inputActions.Player.PanCamera.ReadValue<Vector2>();
+        if (mouseDelta.magnitude != 0)
+        {
+            CursorMoveEvent?.Invoke(mouseDelta);
         }
     }
 

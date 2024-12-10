@@ -14,6 +14,9 @@ public class GameContext : MonoBehaviour
     public event Action ZoomEndEvent;
     public event Action ZoomUIEndEvent;
     public event Action ZoomUIStartEvent;
+    public event Action<Vector2> PanCameraEvent;
+    public event Action UpdateCursorEvent;
+    public event Action<ContextState> EnteredNewStateEvent;
 
     private void Awake()
     {
@@ -31,6 +34,12 @@ public class GameContext : MonoBehaviour
     {
         inputSystem.ZoomInEvent += HandleZoomIn;
         inputSystem.ZoomOutEvent += HandleZoomOut;
+        inputSystem.CursorMoveEvent += HandleCursorMove;
+    }
+
+    private void Update()
+    {
+        Debug.Log(state);
     }
 
     private void HandleZoomIn(Vector2 mousePos)
@@ -63,6 +72,19 @@ public class GameContext : MonoBehaviour
         SetContextState(ContextState.FreeRoam);
         ZoomEndEvent?.Invoke();
         ZoomUIEndEvent?.Invoke();
+    }
+
+    private void HandleCursorMove(Vector2 mouseDelta)
+    {
+        switch (state)
+        {
+            case ContextState.Zoomed:
+                PanCameraEvent?.Invoke(mouseDelta);
+                break;
+            case ContextState.FreeRoam:
+                UpdateCursorEvent?.Invoke();
+                break;
+        }
     }
 
     public void SetContextState(ContextState newState)
@@ -126,6 +148,8 @@ public class GameContext : MonoBehaviour
                 ZoomUIStartEvent?.Invoke();
                 break;
         }
+
+        EnteredNewStateEvent?.Invoke(newState);
     }
 
     private bool inTutorialState()
