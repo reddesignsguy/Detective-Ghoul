@@ -43,12 +43,16 @@ public class CursorController : MonoBehaviour
             return;
         }
 
-        Cursor.visible = false;
+        SetSelectionCursor();
     }
 
     private void HandleNewState(ContextState state)
     {
-        if (state != ContextState.FreeRoam)
+        
+        if (state == ContextState.Zoomed)
+        {
+            DisableCursor();
+        } else if (state != ContextState.FreeRoam)
         {
             SetDefaultCursor();
         }
@@ -56,7 +60,19 @@ public class CursorController : MonoBehaviour
 
     private void SetDefaultCursor()
     {
+        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
         Cursor.visible = true;
-        Cursor.SetCursor(magnifierCursor, Vector2.zero, CursorMode.ForceSoftware);
+    }
+
+    private void SetSelectionCursor()
+    {
+        Vector2 hotspot = new Vector2(magnifierCursor.width / 2f, magnifierCursor.height / 2f);
+        Cursor.SetCursor(magnifierCursor, hotspot, CursorMode.ForceSoftware);
+        Cursor.visible = true;
+    }
+
+    private void DisableCursor()
+    {
+        Cursor.visible = false;
     }
 }

@@ -13758,8 +13758,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0eec19080114035bb402f375a76016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultCursor: {fileID: 0}
-  magnifierCursor: {fileID: 2800000, guid: 906317700641e45a184b561c1a51c69c, type: 3}
+  defaultCursor: {fileID: 2800000, guid: eecdcbac3bf774f24b05b2503bd73e01, type: 3}
+  magnifierCursor: {fileID: 2800000, guid: 338cdb9a079064316bdcef75676d6909, type: 3}
 --- !u!1001 &1358191300
 PrefabInstance:
   m_ObjectHideFlags: 0
