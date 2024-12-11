@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
@@ -23,19 +24,62 @@ public class IntercablesDetect : MonoBehaviour
     private HashSet<Interactee> visitedHiddenInteractees;
     private GameObject lastDetectedObject;
 
+    private DetectState state = DetectState.GetClosest;
+
+    enum DetectState
+    {
+        GetClosest,
+        GetHidden
+    }
+
     private void Awake()
     {
         visitedHiddenInteractees = new HashSet<Interactee>();
     }
 
+    private void OnEnable()
+    {
+        GameContext.Instance.EnteredNewStateEvent += HandleEnteredNewState;
+    }
+
+    private void OnDisable()
+    {
+        GameContext.Instance.EnteredNewStateEvent -= HandleEnteredNewState;
+    }
+
     private void Update()
     {
-        if (GameContext.Instance.state == ContextState.FreeRoam || GameContext.Instance.state == ContextState.SittingTutorial || GameContext.Instance.state == ContextState.StandingTutorial)
+        switch (state)
         {
-            DetectClosestInteractable();
+            case DetectState.GetClosest:
+                DetectClosestInteractable();
+                break;
+            case DetectState.GetHidden:
+                DetectClosestHiddenInteractable();
+                break;
         }
-        else if (GameContext.Instance.state == ContextState.Zoomed)
-            DetectClosestHiddenInteractable();
+    }
+
+    private void HandleEnteredNewState(ContextState gameState)
+    {
+        switch (gameState)
+        {
+            case ContextState.FreeRoam:
+            case ContextState.SittingTutorial:
+            case ContextState.StandingTutorial:
+                state = DetectState.GetClosest;
+                break;
+
+            case ContextState.Zoomed:
+                state = DetectState.GetHidden;
+                break;
+
+            default:
+                state = DetectState.GetClosest;
+                break;
+        }
+
+        ResetLastDetectedObject();
     }
 
     private void DetectClosestInteractable()
@@ -217,6 +261,12 @@ public class IntercablesDetect : MonoBehaviour
     public GameObject GetLastDetectedObject()
     {
         return lastDetectedObject;
+    }
+
+    private void ResetLastDetectedObject()
+    {
+        lastDetectedObject = null;
+        EventsManager.instance.ToggleableDetect(null);
     }
 
     public struct FrustrumRaycastInfo

@@ -25,6 +25,8 @@ public class DialogueUIManager : UIManager
         dialogueText.text = "";
         StopFillingOut();
         fillOutcoroutine = StartCoroutine(FillOutTextCoroutine());
+
+        EventsManager.instance.ShowControls(new Controls { });
     }
 
     private IEnumerator FillOutTextCoroutine()

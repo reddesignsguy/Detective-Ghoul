@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class HintUIManager : MonoBehaviour
+public class HintUIManager : UIManager
 {
-    public GameObject hintUIPanel;
     public TextMeshProUGUI tmp; 
     public Animator animator;
 
+    private void Update()
+    {
+        if (panel.activeSelf)
+        {
+            if ((Input.GetKeyDown(KeyCode.F)) && isCooledDown())
+            {
+                CloseUI();
+            }
+
+        }
+    }
     private void OnEnable()
     {
         EventsManager.instance.onHint += OnHandleHint;
     }
-
 
     private void OnDisable()
     {
@@ -22,24 +31,13 @@ public class HintUIManager : MonoBehaviour
 
     private void OnHandleHint(string hint)
     {
-        hintUIPanel.SetActive(true);
+        SetUIActive(true);
 
         tmp.text = hint;
-        //animator.SetTrigger("Show");
-
-        
-        EventsManager.instance.SetMovement(false);
     }
 
     public void CloseUI()
     {
-        hintUIPanel.SetActive(false);
-        EventsManager.instance.SetMovement(true);
-
-    }
-
-    public bool IsEnabled()
-    {
-        return hintUIPanel.activeSelf;
+        SetUIActive(false);
     }
 }

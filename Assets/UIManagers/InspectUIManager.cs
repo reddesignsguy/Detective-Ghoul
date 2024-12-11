@@ -17,10 +17,6 @@ public class InspectUIManager : UIManager
 
     public Controls itemControls;
 
-    // prevents bug where F automatically closes the UI
-    private float creationTime;
-    private float cooldownTime = 1f;
-
     private void Awake()
     {
         animator = panel.GetComponent<Animator>();
@@ -32,7 +28,7 @@ public class InspectUIManager : UIManager
         if (panel.activeSelf)
         {
             // pick up
-            if ( (Input.GetKeyDown(KeyCode.F)) && Time.time - creationTime > cooldownTime)
+            if ( (Input.GetKeyDown(KeyCode.F)) && isCooledDown())
             {
                 EventsManager.instance.PickUpInventoryItem(item);
                 Destroy(go);
@@ -67,7 +63,6 @@ public class InspectUIManager : UIManager
     private void SetUp(InventoryItem item, GameObject go)
     {
         SetUIActive(true);
-        creationTime = Time.time;
 
         // set up photo, name, and description
         image.sprite = item.image;

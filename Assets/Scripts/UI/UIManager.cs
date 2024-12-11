@@ -7,6 +7,11 @@ public class UIManager : MonoBehaviour
     public GameObject panel;
     private static HashSet<GameObject> openPanels;
 
+    // prevents bug where F automatically closes the UI
+    private float creationTime;
+    private float cooldownTime = 0.05f;
+
+
     private void Awake()
     {
         if (openPanels == null)
@@ -21,6 +26,8 @@ public class UIManager : MonoBehaviour
 
             if (open)
             {
+                creationTime = Time.time;
+
                 // disable interactable detect
                 openPanels.Add(panel);
                 GameContext.Instance.SetContextState(ContextState.UI);
@@ -37,7 +44,10 @@ public class UIManager : MonoBehaviour
 
         foreach (GameObject panel in openPanels)
             print(panel);
+    }
 
-
+    protected bool isCooledDown()
+    {
+        return Time.time - creationTime > cooldownTime;
     }
 }

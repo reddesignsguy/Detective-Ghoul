@@ -97,27 +97,20 @@ public class InputSystem : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        if (hintUIManager.IsEnabled())
-        {
-            hintUIManager.CloseUI();
-        }
-        else
-        {
-            switch ( GameContext.Instance.state)
-             {
-                case ContextState.FreeRoam:
-                    Interact();
-                    break;
-                case ContextState.SittingTutorial:
-                    Interact();
-                    break;
-                case ContextState.StandingTutorial:
-                    Interact();
-                    break;
-                case ContextState.Zoomed:
-                    Interact();
-                    break;
-            }
+        switch ( GameContext.Instance.state)
+            {
+            case ContextState.FreeRoam:
+                Interact();
+                break;
+            case ContextState.SittingTutorial:
+                Interact();
+                break;
+            case ContextState.StandingTutorial:
+                Interact();
+                break;
+            case ContextState.Zoomed:
+                Interact();
+                break;
         }
     }
 
