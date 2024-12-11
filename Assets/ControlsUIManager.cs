@@ -33,6 +33,15 @@ public class ControlsUIManager : MonoBehaviour
         }
 
         _controlsBar.text = text;
+
+        if (text == "")
+        {
+            _controlsBar.gameObject.SetActive(false);
+        }
+        else
+        {
+            _controlsBar.gameObject.SetActive(true);
+        }
     }
 
     private string GetControlText(KeyValuePair<string, string> c)
