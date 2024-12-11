@@ -45,9 +45,6 @@ public class PuzzleInteractable : MonoBehaviour
         {
             Item item = obj.GetComponent<Item>();
             item?.Interact();
-
-            Destroy(obj);
-            Debug.Log("key!");
         }
     }
 
