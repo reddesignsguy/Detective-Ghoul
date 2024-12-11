@@ -22,9 +22,16 @@ public class CursorController : MonoBehaviour
         GameContext.Instance.EnteredNewStateEvent -= HandleNewState;
     }
 
-    private void HandleUpdateCursor()
+    private void HandleUpdateCursor(bool pointerOverUI)
     {
+        if (pointerOverUI)
+        {
+            SetDefaultCursor();
+            return;
+        }
+
         Vector2 mousePos = Mouse.current.position.value;
+        
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
 

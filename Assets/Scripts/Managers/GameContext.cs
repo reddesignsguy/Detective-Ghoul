@@ -15,7 +15,7 @@ public class GameContext : MonoBehaviour
     public event Action ZoomUIEndEvent;
     public event Action ZoomUIStartEvent;
     public event Action<Vector2> PanCameraEvent;
-    public event Action UpdateCursorEvent;
+    public event Action<bool> UpdateCursorEvent;
     public event Action<ContextState> EnteredNewStateEvent;
 
     private void Awake()
@@ -37,15 +37,17 @@ public class GameContext : MonoBehaviour
         inputSystem.CursorMoveEvent += HandleCursorMove;
     }
 
-    private void Update()
-    {
-        Debug.Log(state);
-    }
-
     private void HandleZoomIn(Vector2 mousePos)
     {
-        if (state == ContextState.Zoomed)
+        if (inputSystem.IsPointerOverUIElement())
+        {
             return;
+        }
+
+        if (state == ContextState.Zoomed)
+        {
+            return;
+        }
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
@@ -82,7 +84,8 @@ public class GameContext : MonoBehaviour
                 PanCameraEvent?.Invoke(mouseDelta);
                 break;
             case ContextState.FreeRoam:
-                UpdateCursorEvent?.Invoke();
+                bool hoveringOverUI = inputSystem.IsPointerOverUIElement();
+                UpdateCursorEvent?.Invoke(hoveringOverUI);
                 break;
         }
     }

@@ -7501,6 +7501,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1057488862}
     - target: {fileID: 58046601736752033, guid: 951277aa61d7fbe46afe8b275268d600, type: 3}
+      propertyPath: uiLayer.m_Bits
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 58046601736752033, guid: 951277aa61d7fbe46afe8b275268d600, type: 3}
       propertyPath: zoomSensitivity
       value: 0.5
       objectReference: {fileID: 0}
