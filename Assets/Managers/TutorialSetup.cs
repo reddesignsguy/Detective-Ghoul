@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using DS.ScriptableObjects;
 using UnityEngine;
 using static TutorialManager;
 
@@ -34,12 +31,6 @@ public class TutorialSetup : MonoBehaviour
 
     public Vector3 girlSittingSpawn = new Vector3(-18.8799992f, -13.8900003f, 38.3699989f);
     public Vector3 girlWaiting = new Vector3(-12.5100002f, -13.5699997f, 41.0200005f);
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void Setup(TutorialState state)
     {
