@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using DS.ScriptableObjects;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DetectiveBookUIManager : UIManager
 {
     public GameObject bulletpointPrefab;
     public PicturesPageUI picturesUI;
     public QuestionsPageUI questionsUI;
+    public Image animatedItemForInvoker;
+    public Animator bookInvokerAnimator;
 
     [SerializeField] private Controls navigation;
 
@@ -30,6 +33,42 @@ public class DetectiveBookUIManager : UIManager
             }
 
             bulletPoint.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnEnable()
+    {
+        DetectiveBook.Instance.PickedUpClueEvent += HandlePickedUpClue;
+    }
+
+    private void OnDisable()
+    {
+        DetectiveBook.Instance.PickedUpClueEvent -= HandlePickedUpClue;
+    }
+
+
+    private void Update()
+    {
+        if (!isOpen)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
+        else if (Input.GetKeyDown(KeyCode.Q) && curPageNum > 0)
+        {
+            Close();
+            turnPage(goToRightPage: false);
+            Open();
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && curPageNum < numPages - 1)
+        {
+            Close();
+            turnPage(goToRightPage: true);
+            Open();
         }
     }
 
@@ -104,31 +143,6 @@ public class DetectiveBookUIManager : UIManager
         questionsUI.SetQuestionsClickable(false);
     }
 
-    private void Update()
-    {
-        if (!isOpen)
-        {
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Close();
-        }
-        else if (Input.GetKeyDown(KeyCode.Q) && curPageNum > 0)
-        {
-            Close();
-            turnPage(goToRightPage: false);
-            Open();
-        }
-        else if (Input.GetKeyDown(KeyCode.E) && curPageNum < numPages - 1)
-        {
-            Close();
-            turnPage(goToRightPage: true);
-            Open();
-        }
-    }
-
     private void turnPage(bool goToRightPage)
     {
         List<BulletPoint> bulletPoints = new List<BulletPoint>(GetComponentsInChildren<BulletPoint>(true));
@@ -174,4 +188,11 @@ public class DetectiveBookUIManager : UIManager
                 point.gameObject.SetActive(false);
         }
     }
+
+    private void HandlePickedUpClue(Sprite sprite)
+    {
+        animatedItemForInvoker.sprite = sprite;
+        bookInvokerAnimator.SetTrigger("PickedUp");
+    }
+
 }

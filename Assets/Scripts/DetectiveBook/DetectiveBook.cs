@@ -18,6 +18,7 @@ public class DetectiveBook : MonoBehaviour
 
     public static DetectiveBook Instance { get; private set; }
 
+    public event Action<Sprite> PickedUpClueEvent;
 
     private void Awake()
     {
@@ -86,6 +87,7 @@ public class DetectiveBook : MonoBehaviour
                     if (item == needed)
                     {
                         pickupedItemClues.Add(item);
+                        PickedUpClueEvent?.Invoke(item.image);
                         return;
                     }
                 }
