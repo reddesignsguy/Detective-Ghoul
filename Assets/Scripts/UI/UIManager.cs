@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
                 // disable interactable detect
                 openPanels.Add(panel);
                 GameContext.Instance.SetContextState(ContextState.UI);
+                Debug.Log("State should be UI: " + GameContext.Instance.state);
             }
             else
             {
@@ -42,8 +43,12 @@ public class UIManager : MonoBehaviour
         if (openPanels.Count == 0)
             GameContext.Instance.BackOutOfUI();
 
+        print("Panels open during " + GameContext.Instance.state + " state: ");
+
         foreach (GameObject panel in openPanels)
             print(panel);
+
+        print("----------------");
     }
 
     protected bool isCooledDown()

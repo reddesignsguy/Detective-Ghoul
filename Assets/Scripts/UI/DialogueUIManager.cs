@@ -78,6 +78,7 @@ public class DialogueUIManager : UIManager
 
     private void Update()
     {
+
         if (panel.activeSelf && Input.GetKeyDown(KeyCode.F))
         {
             if (!FillingOutFinished())
@@ -89,6 +90,7 @@ public class DialogueUIManager : UIManager
             {
                 Skip();
             }
+
         }
     }
 

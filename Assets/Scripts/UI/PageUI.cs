@@ -7,8 +7,6 @@ using DS.Enumerations;
 
 using UnityEngine.UI;
 using DS.Data;
-using UnityEngine.EventSystems;
-using System;
 
 public class QuestionsPageUI : OptionsDialogUI
 {
@@ -29,7 +27,6 @@ public class QuestionsPageUI : OptionsDialogUI
         DialogueEvents.instance.onSingleDialogueFocused += HandleSingleDialogueFocused;
         DialogueEvents.instance.onMultipleChoiceFocused += HandleMultipleChoiceFocused;
     }
-
 
     private void OnDisable()
     {

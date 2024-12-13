@@ -7,8 +7,8 @@ public class GameContext : MonoBehaviour
 {
     [SerializeField] private InputSystem inputSystem;
     public static GameContext Instance { get; private set; }
-    public ContextState state { get; private set; } = ContextState.UI;
-    private ContextState stateBeforeLastUI = ContextState.UI;
+    public ContextState state { get; private set; } = ContextState.Tutorial;
+    private ContextState stateBeforeLastUI = ContextState.Tutorial;
 
     public event Action<Vector3> ZoomStartEvent;
     public event Action ZoomEndEvent;
@@ -35,6 +35,20 @@ public class GameContext : MonoBehaviour
         inputSystem.ZoomInEvent += HandleZoomIn;
         inputSystem.ZoomOutEvent += HandleZoomOut;
         inputSystem.CursorMoveEvent += HandleCursorMove;
+        EventsManager.instance.onTutorialFinished += HandleTutorialFinished;
+    }
+
+    private void OnDisable()
+    {
+        inputSystem.ZoomInEvent -= HandleZoomIn;
+        inputSystem.ZoomOutEvent -= HandleZoomOut;
+        inputSystem.CursorMoveEvent -= HandleCursorMove;
+        EventsManager.instance.onTutorialFinished -= HandleTutorialFinished;
+    }
+
+    private void HandleTutorialFinished()
+    {
+        SetContextState(ContextState.FreeRoam);
     }
 
     private void HandleZoomIn(Vector2 mousePos)
@@ -92,12 +106,6 @@ public class GameContext : MonoBehaviour
 
     public void SetContextState(ContextState newState)
     {
-        bool tryingToExitTutorial = newState == ContextState.FreeRoam || newState == ContextState.UI;
-        if (tryingToExitTutorial && inTutorialState() && !inFinalTutorialState())
-        {
-            return;
-        }
-
         if (newState == state)
         {
             return;
@@ -111,12 +119,7 @@ public class GameContext : MonoBehaviour
     // except if in tutorial
     public void BackOutOfUI()
     {
-        if (stateBeforeLastUI == ContextState.StandingTutorial)
-        {
-            SetContextState(ContextState.FreeRoam);
-        }
-
-        else if (state == ContextState.UI)
+        if (state == ContextState.UI)
         {
             SetContextState(stateBeforeLastUI);
         }
@@ -131,15 +134,15 @@ public class GameContext : MonoBehaviour
 
         switch (newState)
         {
-            case ContextState.IntroTutorial:
+            case ContextState.Tutorial:
                 EventsManager.instance.ShowControls(new Controls() { });
                 break;
-            case ContextState.SittingTutorial:
-                EventsManager.instance.ShowControls(new Controls() { });
-                break;
-            case ContextState.StandingTutorial:
-                EventsManager.instance.ShowControls(new Controls() { });
-                break;
+            //case ContextState.SittingTutorial:
+            //    EventsManager.instance.ShowControls(new Controls() { });
+            //    break;
+            //case ContextState.StandingTutorial:
+            //    EventsManager.instance.ShowControls(new Controls() { });
+            //    break;
             case ContextState.FreeRoam:
                 EventsManager.instance.ShowControls(new Controls() { });
                 break;
@@ -155,22 +158,20 @@ public class GameContext : MonoBehaviour
         EnteredNewStateEvent?.Invoke(newState);
     }
 
-    private bool inTutorialState()
-    {
-        return state == ContextState.IntroTutorial || state == ContextState.SittingTutorial || state == ContextState.StandingTutorial; 
-    }
+    //private bool inTutorialState()
+    //{
+    //    return state == ContextState.IntroTutorial || state == ContextState.SittingTutorial || state == ContextState.StandingTutorial; 
+    //}
 
-    private bool inFinalTutorialState()
-    {
-        return state == ContextState.StandingTutorial;
-    }
+    //private bool inFinalTutorialState()
+    //{
+    //    return state == ContextState.StandingTutorial;
+    //}
 }
 
 public enum ContextState
 {
-    IntroTutorial,
-    SittingTutorial,
-    StandingTutorial,
+    Tutorial,
     FreeRoam,
     UI,
     Zoomed

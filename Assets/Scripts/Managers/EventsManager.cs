@@ -178,6 +178,16 @@ public class EventsManager : MonoBehaviour
         }
     }
 
+    public event Action<InventoryItem> onLeftInventoryItem;
+
+    public void LeftInventoryItem(InventoryItem item)
+    {
+        if (onLeftInventoryItem != null)
+        {
+            onLeftInventoryItem(item);
+        }
+    }
+
     public event Action<HashSet<Vector2>, Rect, string> onHighlightArea;
 
     public void ZoomInObject(HashSet<Vector2> points, Rect bounds, string hint)
@@ -215,6 +225,16 @@ public class EventsManager : MonoBehaviour
         if (onZoomChange != null)
         {
             onZoomChange(z);
+        }
+    }
+
+    public event Action onTutorialFinished;
+
+    public void FinishTutorial()
+    {
+        if (onTutorialFinished != null)
+        {
+            onTutorialFinished();
         }
     }
 }

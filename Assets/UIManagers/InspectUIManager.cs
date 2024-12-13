@@ -37,6 +37,7 @@ public class InspectUIManager : UIManager
             // put down
             else if (Input.GetKeyDown(KeyCode.Escape))
             {
+                EventsManager.instance.LeftInventoryItem(item);
                 SetUIActive(false);
             }
 
@@ -58,7 +59,6 @@ public class InspectUIManager : UIManager
         SetUp(item, go);
         animator.SetBool("Open", true);
     }
-
 
     private void SetUp(InventoryItem item, GameObject go)
     {

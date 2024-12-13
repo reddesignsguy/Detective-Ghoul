@@ -100,15 +100,13 @@ public class InputSystem : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
+        Debug.Log(GameContext.Instance.state);
         switch ( GameContext.Instance.state)
             {
             case ContextState.FreeRoam:
                 Interact();
                 break;
-            case ContextState.SittingTutorial:
-                Interact();
-                break;
-            case ContextState.StandingTutorial:
+            case ContextState.Tutorial:
                 Interact();
                 break;
             case ContextState.Zoomed:

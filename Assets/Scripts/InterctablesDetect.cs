@@ -65,8 +65,7 @@ public class IntercablesDetect : MonoBehaviour
         switch (gameState)
         {
             case ContextState.FreeRoam:
-            case ContextState.SittingTutorial:
-            case ContextState.StandingTutorial:
+            case ContextState.Tutorial:
                 state = DetectState.GetClosest;
                 break;
 

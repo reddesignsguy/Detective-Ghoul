@@ -4,9 +4,18 @@ using UnityEngine;
 using DS.ScriptableObjects;
 using System;
 using DS.Data;
+using static UnityEditor.Progress;
 
 public class TutorialManager : MonoBehaviour
 {
+    public enum TutorialState
+    {
+        Intro,
+        Sitting,
+        Standing,
+        Finished
+    }
+    private TutorialState state = TutorialState.Intro;
 
     public Camera cameraTutorial1;
     public Camera cameraTutorial2;
@@ -32,17 +41,6 @@ public class TutorialManager : MonoBehaviour
 
     public DSDialogueSO startingScene;
 
-    //public enum GameState
-    //{
-    //    SittingTutorial,
-    //    SittingTutorial2,
-    //    StandingTutorial,
-    //    Free
-    //}
-
-    //private GameState state;
-
-
     public Vector3 sittingSpawn = new Vector3(-18.5f, -13.69f, 48.38f);
     public Vector3 standingSpawn = new Vector3(-18.85f, -13.4f, 41.29f);
 
@@ -58,11 +56,11 @@ public class TutorialManager : MonoBehaviour
 
     public DSDialogueSO firstDialog;
     public DSDialogueSO questionsDialog;
+    public InventoryItem firstInspectable;
 
     // Start is called before the first frame update
     void Start()
     {
-
         rain.Play();
         inventoryBag.SetActive(false);
         detectiveBook.SetActive(false);
@@ -71,22 +69,54 @@ public class TutorialManager : MonoBehaviour
         SetAsMainCamera(cameraTutorial1);
         EventsManager.instance.SetMovement(false);
         DialogueEvents.instance.StartDialogue(firstDialog);
-        GameContext.Instance.SetContextState(ContextState.IntroTutorial);
+
+        state = TutorialState.Intro;
     }
 
     private void OnEnable()
     {
         EventsManager.instance.onImportantInteraction += HandleImportantInteraction;
+        EventsManager.instance.onPickUpInventoryItem += HandlePickedupInventoryItem;
+        EventsManager.instance.onLeftInventoryItem += HandleLeftInventoryItem;
         DialogueEvents.instance.onDialogueFinished += HandleDialogueFinished;
         DialogueEvents.instance.onExitedOptions += HandleDialogueUIClosed;
     }
 
-
     private void OnDisable()
     {
         EventsManager.instance.onImportantInteraction -= HandleImportantInteraction;
+        EventsManager.instance.onPickUpInventoryItem -= HandlePickedupInventoryItem;
+        EventsManager.instance.onLeftInventoryItem -= HandleLeftInventoryItem;
         DialogueEvents.instance.onDialogueFinished -= HandleDialogueFinished;
         DialogueEvents.instance.onExitedOptions -= HandleDialogueUIClosed;
+    }
+
+    private void HandleLeftInventoryItem(InventoryItem item)
+    {
+        CheckForFirstInspection(item);
+    }
+
+    private void HandlePickedupInventoryItem(InventoryItem item)
+    {
+        CheckForFirstInspection(item);
+    }
+
+    void HandleImportantInteraction(Interactee interactable)
+    {
+        CheckForFirstItemToGoInInventory(interactable);
+    }
+
+    private void HandleDialogueFinished(DSDialogueSO sO)
+    {
+        CheckForFirstDialogueFinished(sO);
+    }
+
+    private void HandleDialogueUIClosed()
+    {
+        if (state == TutorialState.Sitting)
+        {
+            CheckForImportantQuestionAsked();
+        }
     }
 
     void SetupSittingTutorial()
@@ -101,7 +131,7 @@ public class TutorialManager : MonoBehaviour
         {
             animator.Play("GirlSitting");
         }
-        GameContext.Instance.SetContextState(ContextState.SittingTutorial);
+        state = TutorialState.Sitting;
 
     }
 
@@ -119,14 +149,15 @@ public class TutorialManager : MonoBehaviour
 
         player.PlayAnimation("Idle");
         player.transform.position = standingSpawn;
-        GameContext.Instance.SetContextState(ContextState.StandingTutorial);
+        state = TutorialState.Standing;
 
     }
 
     void SetupFree()
     {
-        
+        state = TutorialState.Finished;
         detectiveBook.SetActive(true);
+        EventsManager.instance.FinishTutorial();
     }
 
     void SetupInventoryInvoker()
@@ -134,61 +165,39 @@ public class TutorialManager : MonoBehaviour
         inventoryBag.SetActive(true);
     }
 
-    void HandleImportantInteraction(Interactee interactable)
-    {
-        if (interactable.gameObject == boyPhotograph && GameContext.Instance.state == ContextState.StandingTutorial)
 
+    private void CheckForFirstInspection(InventoryItem item)
+    {
+        if (item == firstInspectable && state == TutorialState.Standing)
         {
             SetupFree();
         }
-        else if (interactable.gameObject == carKey || interactable.gameObject == doorKey)
+    }
+
+    private void CheckForFirstItemToGoInInventory(Interactee interactable)
+    {
+        if (interactable.gameObject == carKey || interactable.gameObject == doorKey)
         {
             SetupInventoryInvoker();
         }
     }
 
-
-    private void HandleDialogueFinished(DSDialogueSO sO)
+    private void CheckForFirstDialogueFinished(DSDialogueSO sO)
     {
-
-        if (sO == startingScene && GameContext.Instance.state == ContextState.IntroTutorial)
+        if (sO == startingScene && state == TutorialState.Intro)
         {
-            Debug.Log("sitting tutorial");
             SetupSittingTutorial();
         }
-
     }
 
-    private void HandleDialogueUIClosed()
+    private void CheckForImportantQuestionAsked()
     {
-        if (GameContext.Instance.state == ContextState.SittingTutorial)
+        List<DSDialogueChoiceData> dialogues = questionsDialog.Choices;
+        DSDialogueChoiceData choice = dialogues[2];
+        bool tutorialQuestionsAnswered = DialogHistory.Instance.HasVisited(choice.NextDialogue);
+        if (tutorialQuestionsAnswered)
         {
-            List<DSDialogueChoiceData> dialogues = questionsDialog.Choices;
-            DSDialogueChoiceData choice = dialogues[2];
-            bool tutorialQuestionsAnswered = DialogHistory.Instance.HasVisited(choice.NextDialogue);
-            if (tutorialQuestionsAnswered)
-            {
-                SetupStandingTutorial();
-            }
-        }
-    }
-
-
-    private void Update()
-    {
-        // Debugging scene progression
-        if (Debug.isDebugBuild)
-        {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                switch (GameContext.Instance.state)
-                {
-                    case ContextState.IntroTutorial:
-                        SetupStandingTutorial();
-                        break;
-                }
-            }
-        
+            SetupStandingTutorial();
         }
     }
 
