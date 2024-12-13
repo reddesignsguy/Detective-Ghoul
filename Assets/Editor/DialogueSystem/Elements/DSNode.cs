@@ -9,6 +9,7 @@ namespace DS.Elements
 {
     using Data.Save;
     using Enumerations;
+    using UnityEditor.UIElements;
     using Utilities;
     using Windows;
 
@@ -20,6 +21,8 @@ namespace DS.Elements
         public string Text { get; set; }
         public DSDialogueType DialogueType { get; set; }
         public bool IsExitable { get; set; }
+        public Sprite Sprite { get; set; }
+        public bool SpriteLeftSide { get; set; }
         public DSGroup Group { get; set; }
 
         protected DSGraphView graphView;
@@ -41,6 +44,8 @@ namespace DS.Elements
             Choices = new List<DSChoiceSaveData>();
             Text = "Dialogue text.";
             IsExitable = false;
+            Sprite = null;
+            SpriteLeftSide = true;
 
             SetPosition(new Rect(position, Vector2.zero));
 
@@ -122,6 +127,10 @@ namespace DS.Elements
 
             Toggle toggleField = DSElementUtility.CreateCheckbox(IsExitable, "isExitable", callback => IsExitable = callback.newValue);
 
+            ObjectField spriteField = DSElementUtility.CreateSpriteSelector(Sprite, "NPC Sprite (Optional)", callback => Sprite = callback.newValue as Sprite);
+
+            Toggle spriteToggleField = DSElementUtility.CreateCheckbox(SpriteLeftSide, "NPC Sprite On Left Side ?", callback => SpriteLeftSide = callback.newValue);
+
             textTextField.AddClasses(
                 "ds-node__text-field",
                 "ds-node__quote-text-field"
@@ -131,6 +140,8 @@ namespace DS.Elements
             customDataContainer.Add(textFoldout);
 
             customDataContainer.Add(toggleField);
+            customDataContainer.Add(spriteField);
+            customDataContainer.Add(spriteToggleField);
 
             extensionContainer.Add(customDataContainer);
         }

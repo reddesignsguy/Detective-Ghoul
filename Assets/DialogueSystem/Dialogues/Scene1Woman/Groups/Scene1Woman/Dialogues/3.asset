@@ -21,3 +21,5 @@ MonoBehaviour:
   <DialogueType>k__BackingField: 0
   <IsStartingDialogue>k__BackingField: 0
   <IsExitable>k__BackingField: 0
+  <Sprite>k__BackingField: {fileID: 436858809, guid: 8e16968a197904e968582d24fc116dd1, type: 3}
+  <SpriteLeftSide>k__BackingField: 0

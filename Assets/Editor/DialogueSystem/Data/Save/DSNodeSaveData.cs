@@ -17,5 +17,7 @@ namespace DS.Data.Save
         [field: SerializeField] public DSDialogueType DialogueType { get; set; }
         [field: SerializeField] public Vector2 Position { get; set; }
         [field: SerializeField] public bool IsExitable { get; set; }
+        [field: SerializeField] public Sprite Sprite { get; set; }
+        [field: SerializeField] public bool SpriteLeftSide { get; set; }
     }
 }

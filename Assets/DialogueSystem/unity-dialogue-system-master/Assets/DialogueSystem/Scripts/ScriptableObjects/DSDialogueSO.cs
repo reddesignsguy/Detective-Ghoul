@@ -14,8 +14,11 @@ namespace DS.ScriptableObjects
         [field: SerializeField] public DSDialogueType DialogueType { get; set; }
         [field: SerializeField] public bool IsStartingDialogue { get; set; }
         [field: SerializeField] public bool IsExitable { get; set; }
+        [field: SerializeField] public Sprite Sprite { get; set; }
+        [field: SerializeField] public bool SpriteLeftSide { get; set; }
 
-        public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices, DSDialogueType dialogueType, bool isStartingDialogue, bool isExitable = false)
+
+        public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices, DSDialogueType dialogueType, bool isStartingDialogue, bool isExitable = false, Sprite sprite = null, bool spriteLeftSide = true)
         {
             DialogueName = dialogueName;
             Text = text;
@@ -23,6 +26,8 @@ namespace DS.ScriptableObjects
             DialogueType = dialogueType;
             IsStartingDialogue = isStartingDialogue;
             IsExitable = isExitable;
+            Sprite = sprite;
+            SpriteLeftSide = spriteLeftSide;
         }
     }
 }

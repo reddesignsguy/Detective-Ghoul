@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 namespace DS.Utilities
 {
     using Elements;
+    using UnityEditor.UIElements;
+    using UnityEngine;
 
     public static class DSElementUtility
     {
@@ -77,6 +79,26 @@ namespace DS.Utilities
             }
 
             return toggle;
+        }
+
+        public static ObjectField CreateSpriteSelector(Sprite selectedSprite = null, string label = null, EventCallback<ChangeEvent<Object>> onValueChanged = null)
+        {
+            // Create the ObjectField
+            ObjectField spriteSelector = new ObjectField()
+            {
+                label = label,
+                value = selectedSprite,
+                objectType = typeof(Sprite), // Restrict to Sprite assets
+                allowSceneObjects = false    // Prevent selecting scene objects
+            };
+
+            // Register a callback for when the value changes
+            if (onValueChanged != null)
+            {
+                spriteSelector.RegisterValueChangedCallback(onValueChanged);
+            }
+
+            return spriteSelector;
         }
     }
 }
