@@ -13507,31 +13507,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12863f6fa16f74be09253dfdc45247a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTutorial1: {fileID: 368225539}
-  cameraTutorial2: {fileID: 1385602677}
-  tenseMusic: {fileID: 1356807595}
-  rain: {fileID: 1356807594}
-  dialogueTrigger: {fileID: 0}
-  dialogueTrigger2: {fileID: 0}
-  inventoryBag: {fileID: 376608073}
-  detectiveBook: {fileID: 781706686}
-  player: {fileID: 961681260}
-  detect: {fileID: 961681256}
-  girlSprite: {fileID: 1796969892}
-  girlChair: {fileID: 899938378}
-  boyPhotograph: {fileID: 2044825715}
   carKey: {fileID: 130340183}
   doorKey: {fileID: 1243850840}
   startingScene: {fileID: 11400000, guid: 695182cc1e2524a81aff9e6b1bef2246, type: 2}
-  sittingSpawn: {x: -20.84, y: -13.69, z: 48.38}
-  standingSpawn: {x: -18.85, y: -13.4, z: 41.29}
-  sittingTutorial_ChairPosition: {x: -10, y: 0, z: -46}
-  standingTutorial_ChairPosition: {x: 20.34, y: -0.04, z: -11.22}
-  standingTutorial_ChairRotation: {x: 0, y: 0.60042024, z: 0, w: 0.79968464}
-  girlSittingSpawn: {x: -18.88, y: -13.89, z: 38.37}
-  girlWaiting: {x: -12.51, y: -13.57, z: 41.02}
   firstDialog: {fileID: 11400000, guid: 0a9f15ada2bed4764882d2bf76bee54f, type: 2}
   questionsDialog: {fileID: 11400000, guid: fdf09e8719fa0434eb12736e50406c38, type: 2}
+  firstInspectable: {fileID: 11400000, guid: cc4551a9d2c9a4417a50639f5821b149, type: 2}
+  tutorialScene: {fileID: 1359746998}
 --- !u!114 &1356807590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13940,6 +13922,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1c35866a02cb045b7a5c18c15098f140, type: 3}
   m_PrefabInstance: {fileID: 1358191300}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1359746997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1359746999}
+  - component: {fileID: 1359746998}
+  m_Layer: 0
+  m_Name: TutorialSetup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1359746998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359746997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926b4a9dcc68545cb8179a3d26540520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boyPhotograph: {fileID: 2044825715}
+  cameraTutorial1: {fileID: 368225539}
+  cameraTutorial2: {fileID: 1385602677}
+  tenseMusic: {fileID: 1356807595}
+  rain: {fileID: 1356807594}
+  inventoryBag: {fileID: 376608073}
+  detectiveBook: {fileID: 781706686}
+  player: {fileID: 961681260}
+  detect: {fileID: 961681256}
+  girlSprite: {fileID: 1796969892}
+  girlChair: {fileID: 899938378}
+  sittingSpawn: {x: -18.5, y: -13.69, z: 48.38}
+  standingSpawn: {x: -18.85, y: -13.4, z: 41.29}
+  sittingTutorial_ChairPosition: {x: -9.758, y: 0.047, z: -45.962}
+  standingTutorial_ChairPosition: {x: 20.19, y: -0.06, z: -16.25}
+  standingTutorial_ChairRotation: {x: 0, y: 0.6, z: 0, w: 0.79}
+  girlSittingSpawn: {x: -18.88, y: -13.89, z: 38.37}
+  girlWaiting: {x: -12.51, y: -13.57, z: 41.02}
+--- !u!4 &1359746999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359746997}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 398.0195, y: 244.12558, z: -8.11459}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1367292196
 GameObject:
   m_ObjectHideFlags: 0
@@ -20620,6 +20664,7 @@ SceneRoots:
   - {fileID: 1432233901}
   - {fileID: 667304349}
   - {fileID: 1356807587}
+  - {fileID: 1359746999}
   - {fileID: 396392651}
   - {fileID: 1425646010}
   - {fileID: 1796969895}
