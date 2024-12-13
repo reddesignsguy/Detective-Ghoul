@@ -5,6 +5,7 @@ namespace DS.ScriptableObjects
 {
     using Data;
     using Enumerations;
+    using Unity.Burst.CompilerServices;
 
     public class DSDialogueSO : ScriptableObject
     {
@@ -26,6 +27,26 @@ namespace DS.ScriptableObjects
             DialogueType = dialogueType;
             IsStartingDialogue = isStartingDialogue;
             IsExitable = isExitable;
+            Sprite = sprite;
+            SpriteLeftSide = spriteLeftSide;
+        }
+
+        public void InitialiazeDisconnectedDialogue(string dialogueName, string text,  Sprite sprite = null, bool spriteLeftSide = true)
+        {
+            DSDialogueChoiceData nextChoice = new DSDialogueChoiceData();
+            nextChoice.NextDialogue = null;
+
+            List<DSDialogueChoiceData> choices = new List<DSDialogueChoiceData>
+            {
+                nextChoice
+            };
+
+            DialogueName = dialogueName;
+            Text = text;
+            Choices = choices;
+            DialogueType = DSDialogueType.SingleChoice;
+            IsStartingDialogue = true;
+            IsExitable = false;
             Sprite = sprite;
             SpriteLeftSide = spriteLeftSide;
         }

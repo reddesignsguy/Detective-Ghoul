@@ -34,7 +34,7 @@ MonoBehaviour:
     <GroupID>k__BackingField: e37428b3-0f68-4df5-89a7-fcef8c96665f
     <DialogueType>k__BackingField: 1
     <Position>k__BackingField: {x: 83, y: 293}
-    <IsExitable>k__BackingField: 0
+    <IsExitable>k__BackingField: 1
     <Sprite>k__BackingField: {fileID: 0}
     <SpriteLeftSide>k__BackingField: 1
   - <ID>k__BackingField: 1b9b1419-ba98-43e9-a94f-c73166ba41d7

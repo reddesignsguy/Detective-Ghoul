@@ -69,8 +69,6 @@ public class DetectiveBook : MonoBehaviour
 
     private void HandlePickupInventoryItem(InventoryItem item)
     {
-        Debug.Log("Detective book received: " + item);
-        Debug.Log("Checking if clue: " + item.isClue);
         if (item == null || !item.isClue)
         {
             return;
