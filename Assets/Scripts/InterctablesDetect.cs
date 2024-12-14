@@ -166,7 +166,7 @@ public class IntercablesDetect : MonoBehaviour
         float closestDistance = Mathf.Infinity;
         foreach (FrustrumRaycastInfo info in hits)
         {
-            Vector2 centerOfScreen = new Vector2(Screen.width, Screen.height);
+            Vector2 centerOfScreen = new Vector2(Screen.width / 2f, Screen.height / 2f);
             float distance = Vector2.Distance(centerOfScreen, info.screenPoint);
             GameObject hitObject = info.hit.collider.gameObject;
             Interactee interactee = hitObject.GetComponent<Interactee>();

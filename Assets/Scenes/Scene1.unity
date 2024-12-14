@@ -4890,7 +4890,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -155.4195, y: 0, z: -156.53362, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -10068,7 +10068,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &924677961
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19115,19 +19115,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0037695572
+      value: -0.7114515
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0005620822
+      value: -0.0039948435
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.005076629
+      value: -0.0031826606
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.9999799
+      value: 0.7027167
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -19139,8 +19139,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180.432
+      value: 270.707
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5015e4bb92b0946168e8e3919c5b562b, type: 2}
     - target: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_Name
       value: Paper1 (10)
@@ -19428,19 +19432,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0037695572
+      value: -0.69995695
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0005620822
+      value: -0.003942682
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.005076629
+      value: -0.003247054
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.9999799
+      value: 0.7141668
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -19452,8 +19456,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180.432
+      value: 268.848
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1c1a722a7be0f41be80c3020938276f5, type: 2}
     - target: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_Name
       value: Paper1 (9)
