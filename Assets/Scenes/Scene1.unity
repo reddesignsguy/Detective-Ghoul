@@ -5075,13 +5075,9 @@ MonoBehaviour:
   image: {fileID: 200281824}
   title: {fileID: 78567453}
   description: {fileID: 118219529}
-  itemControls:
-    keycodes:
-    - F
-    - ESC
-    actions:
-    - Take
-    - Leave
+  escControls:
+    keycodes: []
+    actions: []
 --- !u!114 &396392654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8669,6 +8665,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &802867314 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
+  m_PrefabInstance: {fileID: 2116576278}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &814744025
 GameObject:
   m_ObjectHideFlags: 0
@@ -9222,6 +9223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c01977029ef426f81f10d37721d3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affectsGameState: 0
   suggestionTransform: {fileID: 490864573}
   suggestion: Open
   isHidden: 0
@@ -12366,10 +12368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b69afa8f12e4b5aa047e919195538d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affectsGameState: 1
   suggestionTransform: {fileID: 0}
   suggestion: 
   isHidden: 0
-  affectsGameState: 1
   itemInfo: {fileID: 11400000, guid: d3a96b35cf0624760a68d48dd63eeb41, type: 2}
 --- !u!224 &1259134544 stripped
 RectTransform:
@@ -13316,6 +13318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e088c57bb30466689df68a9ac58678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affectsGameState: 0
   suggestionTransform: {fileID: 0}
   suggestion: Trash
   isHidden: 0
@@ -16572,6 +16575,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772610923}
   m_CullTransparentMesh: 1
+--- !u!1 &1773754210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
+  m_PrefabInstance: {fileID: 2065393898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1773754213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773754210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3566729e6d9c4db792f12400e568119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  affectsGameState: 0
+  suggestionTransform: {fileID: 0}
+  suggestion: Newspaper
+  isHidden: 1
+  itemInfo: {fileID: 11400000, guid: c6369ff8548ff430491aa12fd6d7c077, type: 2}
+--- !u!65 &1773754214
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773754210}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.004320001, y: 0.005580003, z: 0.00044139035}
+  m_Center: {x: 2.4546539e-14, y: -0.0000000037249142, z: 0.00021948045}
 --- !u!1 &1791232726
 GameObject:
   m_ObjectHideFlags: 0
@@ -16992,6 +17038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae995f357ea34bd292ca65609989941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affectsGameState: 0
   suggestionTransform: {fileID: 656952621}
   suggestion: Talk
   isHidden: 0
@@ -18364,6 +18411,44 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
   m_PrefabInstance: {fileID: 2116576278}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1988104256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802867314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3566729e6d9c4db792f12400e568119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  affectsGameState: 0
+  suggestionTransform: {fileID: 0}
+  suggestion: Newspaper
+  isHidden: 1
+  itemInfo: {fileID: 11400000, guid: 4a2ca2977eb8443639ab0779d1139178, type: 2}
+--- !u!65 &1988104257
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802867314}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0043200017, y: 0.0055800034, z: 0.00044139035}
+  m_Center: {x: 0.0000000018626725, y: -0.0000000037248915, z: 0.00021945065}
 --- !u!1 &2009781667
 GameObject:
   m_ObjectHideFlags: 0
@@ -18783,10 +18868,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b69afa8f12e4b5aa047e919195538d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affectsGameState: 1
   suggestionTransform: {fileID: 0}
   suggestion: Boy Photograph
   isHidden: 0
-  affectsGameState: 1
   itemInfo: {fileID: 11400000, guid: cc4551a9d2c9a4417a50639f5821b149, type: 2}
 --- !u!1001 &2054446837
 PrefabInstance:
@@ -19061,13 +19146,23 @@ PrefabInstance:
       value: Paper1 (10)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1773754213}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1773754214}
   m_SourcePrefab: {fileID: 100100000, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
 --- !u!1 &2083714554
 GameObject:
@@ -19364,13 +19459,23 @@ PrefabInstance:
       value: Paper1 (9)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1988104256}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1988104257}
   m_SourcePrefab: {fileID: 100100000, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
 --- !u!1 &2119639030
 GameObject:

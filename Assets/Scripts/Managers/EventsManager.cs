@@ -96,16 +96,6 @@ public class EventsManager : MonoBehaviour
         }
     }
 
-    public event Action<Clue> onPickUpClue;
-
-    public void PickupClue(Clue clue)
-    {
-        if (onPickUpClue != null)
-        {
-            onPickUpClue(clue);
-        }
-    }
-
     public event Action<Interactee> onImportantInteraction;
 
     public void NotifyImportantInteraction(Interactee Interactable)
@@ -158,13 +148,13 @@ public class EventsManager : MonoBehaviour
         }
     }
 
-    public event Action<InventoryItem, GameObject> onInspect;
+    public event Action<Inspectable, GameObject> onInspect;
 
-    public void Inspect(InventoryItem inventoryItem, GameObject obj)
+    public void Inspect(Inspectable i, GameObject obj)
     {
         if (onInspect != null)
         {
-            onInspect(inventoryItem, obj);
+            onInspect(i, obj);
         }
     }
 

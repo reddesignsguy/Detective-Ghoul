@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -8,14 +5,15 @@ using TMPro;
 public class InspectUIManager : UIManager
 {
     private Animator animator;
-    private InventoryItem item = null;
+    //private InventoryItem item = null;
     private GameObject go = null;
 
     public Image image;
     public TextMeshProUGUI title;
     public TextMeshProUGUI description;
 
-    public Controls itemControls;
+    private Inspectable inspecting;
+    public Controls escControls;
 
     private void Awake()
     {
@@ -27,20 +25,16 @@ public class InspectUIManager : UIManager
     {
         if (panel.activeSelf)
         {
-            // pick up
-            if ( (Input.GetKeyDown(KeyCode.F)) && isCooledDown())
+            if ( Input.GetKeyDown(KeyCode.F) && isCooledDown())
             {
-                EventsManager.instance.PickUpInventoryItem(item);
-                Destroy(go);
+                inspecting.HandlePressedKeycode(KeyCode.F);
                 SetUIActive(false);
             }
-            // put down
             else if (Input.GetKeyDown(KeyCode.Escape))
             {
-                EventsManager.instance.LeftInventoryItem(item);
+                inspecting.HandlePressedKeycode(KeyCode.Escape);
                 SetUIActive(false);
             }
-
         }
     }
 
@@ -54,24 +48,25 @@ public class InspectUIManager : UIManager
         EventsManager.instance.onInspect -= HandleInspect;
     }
 
-    private void HandleInspect(InventoryItem item, GameObject go)
+    private void HandleInspect(Inspectable inspect, GameObject go)
     {
-        SetUp(item, go);
+        SetUp(inspect, go);
         animator.SetBool("Open", true);
     }
 
-    private void SetUp(InventoryItem item, GameObject go)
+    private void SetUp(Inspectable inspect, GameObject go)
     {
         SetUIActive(true);
 
-        // set up photo, name, and description
-        image.sprite = item.image;
-        title.text = item.name;
-        description.text = item.description;
-
         this.go = go;
-        this.item = item;
+        inspecting = inspect;
 
-        EventsManager.instance.ShowControls(itemControls);
+        // set up photo, name, and description
+        InspectableInfo info = inspect.GetInfo();
+        image.sprite = info.Image;
+        title.text = info.Name;
+        description.text = info.Description;
+
+        EventsManager.instance.ShowControls(new Controls() { info.Controls});
     }
 }

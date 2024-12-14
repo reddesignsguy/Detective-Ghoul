@@ -27,6 +27,12 @@ public class Controls : IEnumerable<KeyValuePair<string, string>>
         actions = new List<string>();
     }
 
+    public Controls(List<string> keycodes, List<string> actions)
+    {
+        this.keycodes = keycodes;
+        this.actions = actions;
+    }
+
     public IEnumerable<KeyValuePair<string, string>> GetControls()
     {
         return keycodes.Zip(actions, (key, value) => new KeyValuePair<string, string>(key, value));
