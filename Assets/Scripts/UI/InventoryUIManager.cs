@@ -43,7 +43,6 @@ public class InventoryUIManager : UIManager
         SetupButtons();
 
         defaultColor = GetDefaultHolderColor();
-        EventsManager.instance.onAddedToInventory += HandleAddedToInventory;
 
         insertItems = new Queue<InventoryItem>();
     }
@@ -52,18 +51,41 @@ public class InventoryUIManager : UIManager
     {
         SetupToolbar();
         SelectItem(refs.viewedItemIndex);
+        EventsManager.instance.onAddedToInventory += HandleAddedToInventory;
+        EventsManager.instance.onNoUIManagersDisplayed += HandleNoUIManagersDisplayed;
     }
 
     private void OnDisable()
     {
+        EventsManager.instance.onNoUIManagersDisplayed -= HandleNoUIManagersDisplayed;
         EventsManager.instance.onAddedToInventory -= HandleAddedToInventory;
     }
 
+    private void HandleNoUIManagersDisplayed()
+    {
+        if (insertItems.Count != 0)
+        {
+            InventoryItem item = insertItems.Dequeue();
+            SetupAnimation(item);
+        }
+
+        insertItems.Clear();
+    }
+
+
     private void HandleAddedToInventory(InventoryItem item)
     {
-        Debug.Log("Receiving added to inventory event");
-
         insertItems.Enqueue(item);
+    }
+
+    public override void SetUIActive(bool open)
+    {
+        base.SetUIActive(open);
+        if (open)
+        {
+            SetupToolbar();
+            SelectItem(refs.viewedItemIndex);
+        }
     }
 
     private void SetupAnimation(InventoryItem item)

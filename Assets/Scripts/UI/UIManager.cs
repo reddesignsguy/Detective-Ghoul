@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
         if (openPanels.Count == 0)
         {
             GameContext.Instance.BackOutOfUI();
+            EventsManager.instance.NotifyNoUIManagersDisplayed();
         }
 
         print("Panels open during " + GameContext.Instance.state + " state: ");

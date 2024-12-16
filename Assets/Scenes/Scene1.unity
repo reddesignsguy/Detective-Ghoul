@@ -4744,7 +4744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475b0e27165384c5b8a9af8967d4648a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManager: {fileID: 0}
+  uiManager: {fileID: 396392657}
   animator: {fileID: 376608075}
 --- !u!114 &376608077
 MonoBehaviour:
@@ -11195,8 +11195,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 138.75, y: -99.850006}
-  m_SizeDelta: {x: 257.5, y: 79.16}
+  m_AnchoredPosition: {x: 138.75, y: -30}
+  m_SizeDelta: {x: 257.5, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &978964156
 MonoBehaviour:
@@ -11218,8 +11218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: blah blah balhblah blah balhblah blah balhblah blah balhblah blah balhblah
-    blah balh
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 16257549970db461a9792e6e621ce3ad, type: 2}
   m_sharedMaterial: {fileID: 5419584032224724628, guid: 16257549970db461a9792e6e621ce3ad, type: 2}
@@ -12595,7 +12594,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1208959708}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -16365,8 +16364,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 138.75, y: -40.135002}
-  m_SizeDelta: {x: 257.5, y: 30.27}
+  m_AnchoredPosition: {x: 138.75, y: -25}
+  m_SizeDelta: {x: 257.5, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1689687859
 MonoBehaviour:
@@ -16388,7 +16387,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Title
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 16257549970db461a9792e6e621ce3ad, type: 2}
   m_sharedMaterial: {fileID: 5419584032224724628, guid: 16257549970db461a9792e6e621ce3ad, type: 2}
