@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +21,10 @@ public class InventoryUIManager : UIManager
     public Image viewedItemImage;
     public TextMeshProUGUI title;
     public TextMeshProUGUI description;
+    [SerializeField] private Color selectedColor = Color.black;
+    public GameObject defaultHolder;
+
+    private Color defaultColor;
 
     private InventoryUIReferences refs;
 
@@ -34,6 +36,8 @@ public class InventoryUIManager : UIManager
         refs.buttons = GetButtons();
         refs.viewedItemIndex = 0;
         SetupButtons();
+
+        defaultColor = GetDefaultHolderColor();
     }
 
     private void OnEnable()
@@ -41,7 +45,6 @@ public class InventoryUIManager : UIManager
         SetupToolbar();
         SelectItem(refs.viewedItemIndex);
     }
-
 
     private void SetupToolbar()
     {
@@ -73,7 +76,6 @@ public class InventoryUIManager : UIManager
         {
             return;
         }
-        Debug.Log("Should be selecting item");
 
         GameObject placeholder = refs.placeholderImages[index].gameObject;
         SetShadow(refs.viewedItemPlaceholder, false);
@@ -87,9 +89,18 @@ public class InventoryUIManager : UIManager
 
     private void SetShadow(GameObject placeholder, bool set)
     {
-        Shadow shadow = placeholder?.GetComponent<Shadow>();
-        if (shadow)
-            shadow.enabled = set;
+        Image img = placeholder?.GetComponent<Image>();
+        if (img)
+        {
+            if (set)
+            {
+                img.color = selectedColor;
+            }
+            else
+            {
+                img.color = GetDefaultHolderColor();
+            }
+        }
     }
 
     private void ViewItem(InventoryItem item)
@@ -141,5 +152,17 @@ public class InventoryUIManager : UIManager
         }
 
         return inventory.items[index].item;
+    }
+
+    private Color GetDefaultHolderColor()
+    {
+        if (defaultColor == null)
+        {
+            defaultColor = 
+                defaultHolder.GetComponent<Image>().color;
+        }
+
+        Debug.Log(defaultColor);
+        return defaultColor;
     }
 }

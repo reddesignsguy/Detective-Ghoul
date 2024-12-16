@@ -8,11 +8,13 @@ using UnityEngine.UI;
 
 public class DetectiveBookUIManager : UIManager
 {
+    public GameObject bulletPointsFolder;
     public GameObject bulletpointPrefab;
     public PicturesPageUI picturesUI;
     public QuestionsPageUI questionsUI;
     public Image animatedItemForInvoker;
     public Animator bookInvokerAnimator;
+    public GameObject title;
 
     [SerializeField] private Controls navigation;
 
@@ -25,7 +27,7 @@ public class DetectiveBookUIManager : UIManager
         numPages = DetectiveBook.Instance.pages.Count;
         for (int i = 0; i < numPages; i ++)
         {
-            GameObject bulletPoint = Instantiate(bulletpointPrefab, transform);
+            GameObject bulletPoint = Instantiate(bulletpointPrefab, bulletPointsFolder.transform);
 
             if(i == 0 && bulletPoint.TryGetComponent(out BulletPoint point))
             {
@@ -76,30 +78,41 @@ public class DetectiveBookUIManager : UIManager
     {
         if (open)
         {
-            isOpen = true;
-            SetBulletPointsEnabled(true);
-            Page page = SetupPage(curPageNum);
-            switch (page)
-            {
-                case PicturesPage:
-                    panel = picturesUI.gameObject;
-                    break;
-                case QuestionsPage:
-                    panel = questionsUI.gameObject;
-                    break;
-                default:
-                    throw new InvalidOperationException($"Unsupported page type: {page.GetType()}");
-            }
-            base.SetUIActive(open);
-
+            TurnOn(open);
             EventsManager.instance.ShowControls(navigation);
         }
         else
         {
-            isOpen = false;
-            SetBulletPointsEnabled(false);
-            base.SetUIActive(false);
+            TurnOff();
         }
+    }
+
+    private void TurnOn(bool open)
+    {
+        isOpen = true;
+        SetBulletPointsEnabled(true);
+        Page page = SetupPage(curPageNum);
+        switch (page)
+        {
+            case PicturesPage:
+                panel = picturesUI.gameObject;
+                break;
+            case QuestionsPage:
+                panel = questionsUI.gameObject;
+                break;
+            default:
+                throw new InvalidOperationException($"Unsupported page type: {page.GetType()}");
+        }
+        base.SetUIActive(open);
+        title.SetActive(true);
+    }
+
+    private void TurnOff()
+    {
+        isOpen = false;
+        SetBulletPointsEnabled(false);
+        base.SetUIActive(false);
+        title.SetActive(false);
     }
 
     private Page SetupPage(int pageNum) // 0 indexed
