@@ -158,23 +158,37 @@ public class EventsManager : MonoBehaviour
         }
     }
 
-    public event Action<InventoryItem> onPickUpInventoryItem;
+    public event Action<InventoryItem> onPickupItem;
 
     public void PickUpInventoryItem(InventoryItem item)
     {
-        if (onPickUpInventoryItem != null)
+        if (onPickupItem != null)
         {
-            onPickUpInventoryItem(item);
+            onPickupItem(item);
         }
     }
 
-    public event Action<InventoryItem> onLeftInventoryItem;
+    public event Action<InventoryItem> OnLeftItem;
 
     public void LeftInventoryItem(InventoryItem item)
     {
-        if (onLeftInventoryItem != null)
+        if (OnLeftItem != null)
         {
-            onLeftInventoryItem(item);
+            OnLeftItem(item);
+        }
+    }
+
+    public event Action<InventoryItem> onAddedToInventory;
+
+    public void AddToInventory(InventoryItem item)
+    {
+        Debug.Log("Adding to inventoy event called but event is null");
+
+        if (onAddedToInventory != null)
+        {
+            Debug.Log("Adding to inventoy event called");
+
+            onAddedToInventory(item);
         }
     }
 
@@ -225,6 +239,16 @@ public class EventsManager : MonoBehaviour
         if (onTutorialFinished != null)
         {
             onTutorialFinished();
+        }
+    }
+
+    public event Action onNoUIManagersDisplayed;
+
+    public void NotifyNoUIManagersDisplayed()
+    {
+        if (onNoUIManagersDisplayed != null)
+        {
+            onNoUIManagersDisplayed();
         }
     }
 }

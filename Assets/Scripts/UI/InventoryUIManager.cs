@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public struct InventoryUIReferences
 {
@@ -23,10 +24,14 @@ public class InventoryUIManager : UIManager
     public TextMeshProUGUI description;
     [SerializeField] private Color selectedColor = Color.black;
     public GameObject defaultHolder;
+    public Animator animator;
+    public Image animationObject;
 
     private Color defaultColor;
 
     private InventoryUIReferences refs;
+
+    private Queue<InventoryItem> insertItems;
 
     private void Awake()
     {
@@ -38,12 +43,33 @@ public class InventoryUIManager : UIManager
         SetupButtons();
 
         defaultColor = GetDefaultHolderColor();
+        EventsManager.instance.onAddedToInventory += HandleAddedToInventory;
+
+        insertItems = new Queue<InventoryItem>();
     }
 
     private void OnEnable()
     {
         SetupToolbar();
         SelectItem(refs.viewedItemIndex);
+    }
+
+    private void OnDisable()
+    {
+        EventsManager.instance.onAddedToInventory -= HandleAddedToInventory;
+    }
+
+    private void HandleAddedToInventory(InventoryItem item)
+    {
+        Debug.Log("Receiving added to inventory event");
+
+        insertItems.Enqueue(item);
+    }
+
+    private void SetupAnimation(InventoryItem item)
+    {
+        animationObject.sprite = item.image;
+        animator.SetTrigger("PickedUp");
     }
 
     private void SetupToolbar()

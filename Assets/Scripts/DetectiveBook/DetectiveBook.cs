@@ -38,13 +38,13 @@ public class DetectiveBook : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.instance.onPickUpInventoryItem += HandlePickupInventoryItem;
+        EventsManager.instance.onPickupItem += HandlePickupInventoryItem;
 
     }
 
     private void OnDisable()
     {
-        EventsManager.instance.onPickUpInventoryItem -= HandlePickupInventoryItem;
+        EventsManager.instance.onPickupItem -= HandlePickupInventoryItem;
     }
 
 

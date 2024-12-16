@@ -26,13 +26,13 @@ public class InventorySystem : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.instance.onPickUpInventoryItem += HandlePickUpInventoryItem;
+        EventsManager.instance.onPickupItem += HandlePickUpInventoryItem;
     }
 
 
     private void OnDisable()
     {
-        EventsManager.instance.onPickUpInventoryItem -= HandlePickUpInventoryItem;
+        EventsManager.instance.onPickupItem -= HandlePickUpInventoryItem;
     }
 
     private void HandlePickUpInventoryItem(InventoryItem item)
@@ -43,6 +43,10 @@ public class InventorySystem : MonoBehaviour
         ParsedInventoryItem finalData = new ParsedInventoryItem(item, "Obsolete");
 
         items.Add(finalData);
+
+        EventsManager.instance.AddToInventory(item);
+        Debug.Log("Sending added to inventory event");
+
     }
 
     public void Remove(InventoryItem item)

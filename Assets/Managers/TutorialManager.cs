@@ -33,8 +33,8 @@ public class TutorialManager : MonoBehaviour
     private void OnEnable()
     {
         EventsManager.instance.onImportantInteraction += HandleImportantInteraction;
-        EventsManager.instance.onPickUpInventoryItem += HandlePickedupInventoryItem;
-        EventsManager.instance.onLeftInventoryItem += HandleLeftInventoryItem;
+        EventsManager.instance.onPickupItem += HandlePickedupInventoryItem;
+        EventsManager.instance.OnLeftItem += HandleLeftInventoryItem;
         DialogueEvents.instance.onDialogueFinished += HandleDialogueFinished;
         DialogueEvents.instance.onExitedOptions += HandleDialogueUIClosed;
     }
@@ -42,8 +42,8 @@ public class TutorialManager : MonoBehaviour
     private void OnDisable()
     {
         EventsManager.instance.onImportantInteraction -= HandleImportantInteraction;
-        EventsManager.instance.onPickUpInventoryItem -= HandlePickedupInventoryItem;
-        EventsManager.instance.onLeftInventoryItem -= HandleLeftInventoryItem;
+        EventsManager.instance.onPickupItem -= HandlePickedupInventoryItem;
+        EventsManager.instance.OnLeftItem -= HandleLeftInventoryItem;
         DialogueEvents.instance.onDialogueFinished -= HandleDialogueFinished;
         DialogueEvents.instance.onExitedOptions -= HandleDialogueUIClosed;
     }
