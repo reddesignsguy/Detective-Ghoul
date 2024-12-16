@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: 7ef881ad77df84ea7865f9b85d38f4fe, type: 3}
   _name: Missing Boy Photograph
-  description: This is the missing boy huh?
+  description: Photo of the woman's missing brother.
   code: Scene1_MissingBoy
   hint: Gotta bring the photo of that boy with me if I'mma look for him..
   isClue: 1

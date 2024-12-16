@@ -5308,7 +5308,8 @@ MonoBehaviour:
   viewedItemImage: {fileID: 1208959710}
   title: {fileID: 1689687859}
   description: {fileID: 978964156}
-  selectedColor: {r: 0.007843138, g: 0.007843138, b: 0.007843138, a: 0.5254902}
+  selectedColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
+  unselectedColor: {r: 0.19, g: 0.19, b: 0.19, a: 1}
   defaultHolder: {fileID: 2955047077241925185, guid: 606a0977efca5400fa18d2be80cd1563, type: 3}
   animator: {fileID: 376608075}
   animationObject: {fileID: 552957827}
@@ -12607,7 +12608,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c28cc76faec544ba09bc99447f65039e, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

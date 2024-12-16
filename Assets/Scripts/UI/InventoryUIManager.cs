@@ -9,6 +9,7 @@ public struct InventoryUIReferences
     public List<Image> itemImages;
     public List<Image> placeholderImages;
     public List<Button> buttons;
+    public List<Image> basePlaceholderImages;
 
     public int viewedItemIndex;
     public GameObject viewedItemPlaceholder;
@@ -23,6 +24,7 @@ public class InventoryUIManager : UIManager
     public TextMeshProUGUI title;
     public TextMeshProUGUI description;
     [SerializeField] private Color selectedColor = Color.black;
+    [SerializeField] private Color unselectedColor;
     public GameObject defaultHolder;
     public Animator animator;
     public Image animationObject;
@@ -39,6 +41,7 @@ public class InventoryUIManager : UIManager
         refs.itemImages = GetItemImages();
         refs.placeholderImages = GetItemPlaceholders();
         refs.buttons = GetButtons();
+        refs.basePlaceholderImages = GetItemBasePlaceholders();
         refs.viewedItemIndex = 0;
         SetupButtons();
 
@@ -125,7 +128,7 @@ public class InventoryUIManager : UIManager
             return;
         }
 
-        GameObject placeholder = refs.placeholderImages[index].gameObject;
+        GameObject placeholder = refs.basePlaceholderImages[index].gameObject;
         SetShadow(refs.viewedItemPlaceholder, false);
         refs.viewedItemPlaceholder = placeholder;
         refs.viewedItemIndex = index;
@@ -135,6 +138,7 @@ public class InventoryUIManager : UIManager
         SetShadow(placeholder, true);
     }
 
+    // assumes that the slot has an item
     private void SetShadow(GameObject placeholder, bool set)
     {
         Image img = placeholder?.GetComponent<Image>();
@@ -146,16 +150,26 @@ public class InventoryUIManager : UIManager
             }
             else
             {
-                img.color = GetDefaultHolderColor();
+                img.color = unselectedColor;
             }
         }
     }
 
     private void ViewItem(InventoryItem item)
     {
+        if (item == null)
+        {
+            title.text = "";
+            description.text = "";
+            viewedItemImage.enabled = false;
+            return;
+        }
+
+
         title.text = item.name;
         description.text = item.description;
         viewedItemImage.sprite = item.image;
+        viewedItemImage.enabled = true;
     }
 
     private void SetupButtons()
@@ -178,6 +192,13 @@ public class InventoryUIManager : UIManager
     {
         List<Image> images = new List<Image>(toolbar.GetComponentsInChildren<Image>());
         images = images.FindAll(image => image.gameObject.name == "Holder");
+        return images;
+    }
+
+    private List<Image> GetItemBasePlaceholders()
+    {
+        List<Image> images = new List<Image>(toolbar.GetComponentsInChildren<Image>());
+        images = images.FindAll(image => image.gameObject.name == "Base");
         return images;
     }
 
