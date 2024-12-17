@@ -10,20 +10,6 @@ public class UIInvoker : MonoBehaviour
 
     private bool on = false;
 
-    //private void OnEnable()
-    //{
-    //    EventsManager.instance.onExclusiveUIOpened += HandleExclusiveUIOpen;
-
-    //}
-
-    //private void HandleExclusiveUIOpen(GameObject go)
-    //{
-    //    if (go != gameObject)
-    //    {
-    //        gameObject.
-    //    }
-    //}
-
     public void OnInvoke(bool onlyTurnOn = false)
     {
         if (onlyTurnOn)

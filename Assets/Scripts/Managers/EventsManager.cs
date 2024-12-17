@@ -96,16 +96,6 @@ public class EventsManager : MonoBehaviour
         }
     }
 
-    public event Action<Clue> onPickUpClue;
-
-    public void PickupClue(Clue clue)
-    {
-        if (onPickUpClue != null)
-        {
-            onPickUpClue(clue);
-        }
-    }
-
     public event Action<Interactee> onImportantInteraction;
 
     public void NotifyImportantInteraction(Interactee Interactable)
@@ -158,23 +148,47 @@ public class EventsManager : MonoBehaviour
         }
     }
 
-    public event Action<InventoryItem, GameObject> onInspect;
+    public event Action<Inspectable, GameObject> onInspect;
 
-    public void Inspect(InventoryItem inventoryItem, GameObject obj)
+    public void Inspect(Inspectable i, GameObject obj)
     {
         if (onInspect != null)
         {
-            onInspect(inventoryItem, obj);
+            onInspect(i, obj);
         }
     }
 
-    public event Action<InventoryItem> onPickUpInventoryItem;
+    public event Action<InventoryItem> onPickupItem;
 
     public void PickUpInventoryItem(InventoryItem item)
     {
-        if (onPickUpInventoryItem != null)
+        if (onPickupItem != null)
         {
-            onPickUpInventoryItem(item);
+            onPickupItem(item);
+        }
+    }
+
+    public event Action<InventoryItem> OnLeftItem;
+
+    public void LeftInventoryItem(InventoryItem item)
+    {
+        if (OnLeftItem != null)
+        {
+            OnLeftItem(item);
+        }
+    }
+
+    public event Action<InventoryItem> onAddedToInventory;
+
+    public void AddToInventory(InventoryItem item)
+    {
+        Debug.Log("Adding to inventoy event called but event is null");
+
+        if (onAddedToInventory != null)
+        {
+            Debug.Log("Adding to inventoy event called");
+
+            onAddedToInventory(item);
         }
     }
 
@@ -195,6 +209,46 @@ public class EventsManager : MonoBehaviour
         if (onToggleZoom != null)
         {
             onToggleZoom(toggle);
+        }
+    }
+
+    public event Action<Controls> onShowControls;
+
+    public void ShowControls(Controls controls)
+    {
+        if (onShowControls != null)
+        {
+            onShowControls(controls);
+        }
+    }
+
+    public event Action<float> onZoomChange;
+
+    public void ChangeZoom(float z)
+    {
+        if (onZoomChange != null)
+        {
+            onZoomChange(z);
+        }
+    }
+
+    public event Action onTutorialFinished;
+
+    public void FinishTutorial()
+    {
+        if (onTutorialFinished != null)
+        {
+            onTutorialFinished();
+        }
+    }
+
+    public event Action onNoUIManagersDisplayed;
+
+    public void NotifyNoUIManagersDisplayed()
+    {
+        if (onNoUIManagersDisplayed != null)
+        {
+            onNoUIManagersDisplayed();
         }
     }
 }

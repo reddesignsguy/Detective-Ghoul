@@ -1,27 +1,24 @@
 using System;
+using System.Collections.Generic;
 using DS.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+
 
 public class InputSystem : MonoBehaviour
 {
     private PlayerInputActions inputActions;
     public Vector2 moveInput { get; private set; }
 
-    private float interactRange = 1f;
-
     public LayerMask interactableLayer;
     private IntercablesDetect intercablesDetect;
     public HintUIManager hintUIManager;
-    private Vector2 mouseDelta = Vector2.zero;
 
-    // Smooth panning
-    private Vector3 freeRoamCameraReturnPos;
-    private Vector3 targetPosition;
-    public float zoomSetting1 = 15f;
-    public float sensitivity = 0.5f;
-    public float lerpSpeed = 5f; // Adjust for how fast it reaches the target
-    public float zoomSensitivity = 5f;
+    public event Action<Vector2> ZoomInEvent;
+    public event Action ZoomOutEvent;
+    public event Action<float> AdjustZoomEvent;
+    public event Action<Vector2> CursorMoveEvent;
 
     private void Awake()
     {
@@ -35,10 +32,10 @@ public class InputSystem : MonoBehaviour
         inputActions.Player.Move.performed += OnMovePerformed;
         inputActions.Player.Move.canceled += OnMoveCanceled;
         inputActions.Player.Interact.performed += OnInteract;
-        inputActions.Player.Zoom.performed += OnZoomIn;
+        inputActions.Player.Zoom.performed += HandleZoomIn;
         inputActions.Player.ZoomOut.performed += OnZoomOut;
+        inputActions.Player.PanCamera.performed += OnMoveCursor;
     }
-
 
     private void OnDisable()
     {
@@ -46,43 +43,19 @@ public class InputSystem : MonoBehaviour
         inputActions.Player.Move.performed -= OnMovePerformed;
         inputActions.Player.Move.canceled -= OnMoveCanceled;
         inputActions.Player.Interact.performed -= OnInteract;
-        inputActions.Player.Zoom.performed -= OnZoomIn;
-        inputActions.Player.ZoomOut.canceled += OnZoomOut;
-
+        inputActions.Player.Zoom.performed -= HandleZoomIn;
+        inputActions.Player.ZoomOut.canceled -= OnZoomOut;
+        inputActions.Player.PanCamera.performed -= OnMoveCursor;
 
     }
 
-    private void FixedUpdate()
-    {
-        if (GameContext.Instance.state == ContextState.Zoomed)
-        {
-            // Update the target position based on mouse delta
-            Vector3 cameraDisplacement = new Vector3(mouseDelta.x, mouseDelta.y, 0) * sensitivity;
-            targetPosition += cameraDisplacement;
-
-            // Smoothly move the camera towards the target position with easing
-            Camera.main.transform.position = SmoothLerp(Camera.main.transform.position, targetPosition, Time.deltaTime * lerpSpeed);
-        }
-    }
     private void Update()
     {
-        mouseDelta = inputActions.Player.PanCamera.ReadValue<Vector2>();
-
-        if (GameContext.Instance.state == ContextState.Zoomed)
+        float z = inputActions.Player.AdjustZoom.ReadValue<float>();
+        if (z != 0)
         {
-            float z = inputActions.Player.AdjustZoom.ReadValue<float>();
-            if (z > 0)
-            {
-                Camera.main.fieldOfView += zoomSensitivity;
-
-            }
-            else if (z < 0)
-            {
-                Camera.main.fieldOfView -= zoomSensitivity;
-            }
-
+            AdjustZoomEvent?.Invoke(z);
         }
-        
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
@@ -95,31 +68,11 @@ public class InputSystem : MonoBehaviour
             moveInput = Vector2.zero;
     }
 
-    private void OnZoomIn(InputAction.CallbackContext context)
+    private void HandleZoomIn(InputAction.CallbackContext context)
     {
         if (GameContext.Instance.state == ContextState.FreeRoam)
         {
-            freeRoamCameraReturnPos = Camera.main.transform.position;
-            Vector2 mousePos = inputActions.Player.Zoom.ReadValue<Vector2>();
-            Ray ray = Camera.main.ScreenPointToRay(mousePos); // Create a ray from the camera to the mouse position
-            RaycastHit hit;
-
-            // Perform the raycast
-            if (Physics.Raycast(ray, out hit))
-            {
-                targetPosition = new Vector3(hit.point.x, hit.point.y, Camera.main.transform.position.z);
-                Camera.main.transform.position = targetPosition;
-            }
-            else
-            {
-                targetPosition = Camera.main.transform.position;
-            }
-           
-
-            Camera.main.fieldOfView = zoomSetting1;
-            
-            GameContext.Instance.SetContextState(ContextState.Zoomed);
-            
+            ZoomInEvent?.Invoke(inputActions.Player.Zoom.ReadValue<Vector2>());
         }
     }
 
@@ -127,9 +80,16 @@ public class InputSystem : MonoBehaviour
     {
         if (GameContext.Instance.state == ContextState.Zoomed)
         {
-            Camera.main.fieldOfView = 38;
-            GameContext.Instance.SetContextState(ContextState.FreeRoam);
-            Camera.main.transform.position = freeRoamCameraReturnPos;
+            ZoomOutEvent?.Invoke();
+        }
+    }
+
+    private void OnMoveCursor(InputAction.CallbackContext context)
+    {
+        Vector2 mouseDelta = inputActions.Player.PanCamera.ReadValue<Vector2>();
+        if (mouseDelta.magnitude != 0)
+        {
+            CursorMoveEvent?.Invoke(mouseDelta);
         }
     }
 
@@ -140,30 +100,60 @@ public class InputSystem : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        if (hintUIManager.IsEnabled())
-        {
-            hintUIManager.CloseUI();
-        }
-        else if (GameContext.Instance.state == ContextState.FreeRoam || GameContext.Instance.state == ContextState.SittingTutorial || GameContext.Instance.state == ContextState.StandingTutorial || GameContext.Instance.state == ContextState.Zoomed)
-        {
-            GameObject closestInteractable = intercablesDetect.GetLastDetectedObject();
-            if (closestInteractable != null)
+        Debug.Log(GameContext.Instance.state);
+        switch ( GameContext.Instance.state)
             {
-                Interactable interactable = closestInteractable.GetComponent<Interactable>();
-                if (interactable != null)
-                {
-                    interactable.Interact();
-                }
+            case ContextState.FreeRoam:
+                Interact();
+                break;
+            case ContextState.Tutorial:
+                Interact();
+                break;
+            case ContextState.Zoomed:
+                Interact();
+                break;
+        }
+    }
+
+    private void Interact()
+    {
+        GameObject closestInteractable = intercablesDetect.GetLastDetectedObject();
+        if (closestInteractable != null)
+        {
+            Interactable interactable = closestInteractable.GetComponent<Interactable>();
+            if (interactable != null)
+            {
+                interactable.Interact();
             }
         }
     }
 
-
-    // Custom Lerp with ease-in/ease-out
-    private Vector3 SmoothLerp(Vector3 start, Vector3 end, float t)
+    public bool IsPointerOverUIElement()
     {
-        t = Mathf.Clamp01(t); // Ensure t is between 0 and 1
-        t = t * t * (3f - 2f * t); // Smoothstep easing
-        return Vector3.Lerp(start, end, t);
+        return IsPointerOverUIElement(GetEventSystemRaycastResults());
     }
+
+    private bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaysastResults)
+    {
+        for (int index = 0; index < eventSystemRaysastResults.Count; index++)
+        {
+            RaycastResult curRaysastResult = eventSystemRaysastResults[index];
+            if (curRaysastResult.gameObject.layer == LayerMask.NameToLayer("UI"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Gets all event system raycast results of current mouse or touch position.
+    static List<RaycastResult> GetEventSystemRaycastResults()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        List<RaycastResult> raysastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, raysastResults);
+        return raysastResults;
+    }
+
 }

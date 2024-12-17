@@ -17,29 +17,6 @@ public class LockedToggleable : Toggleable
         return unlocked ? "" : "Unlock";
     }
 
-    //private void Awake()
-    //{
-    //    code = "";
-    //}
-
-    //private void OnEnable()
-    //{
-    //    EventsManager.instance.onUnlockAttempt += OnHandleUnlockAttempt;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    EventsManager.instance.onUnlockAttempt -= OnHandleUnlockAttempt;
-    //}
-
-    //private void OnHandleUnlockAttempt (string code)
-    //{
-    //    if (this.code == code)
-    //    {
-    //        Toggle();
-    //    }
-    //}
-
 
     public override void Interact()
     {

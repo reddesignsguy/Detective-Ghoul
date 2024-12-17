@@ -1,40 +1,84 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class IntercablesDetect : MonoBehaviour
 {
     public float detectionRadius = 5f;
     public LayerMask interactableLayer;
-    private GameObject lastDetectedObject;
 
     // Zooming in interactables todo -- refactor
     public Canvas canvas;
     public RectTransform magnifyingGlass;
     public RectTransform identifierRect;
-    public int gridStep = 10; // the smaller, the more raycasts (expensive)
+    public int gridStep = 10; // smaller = more raycasts
 
     public float completelyIdentifiedThreshold = 95f;
     public float partiallyIdentifiedThreshold = 50f;
 
+    public Controls inspectControls;
+    public Controls zoomControls;
+
     private HashSet<Interactee> visitedHiddenInteractees;
+    private GameObject lastDetectedObject;
+
+    private DetectState state = DetectState.GetClosest;
+
+    enum DetectState
+    {
+        GetClosest,
+        GetHidden
+    }
 
     private void Awake()
     {
         visitedHiddenInteractees = new HashSet<Interactee>();
     }
+
+    private void OnEnable()
+    {
+        GameContext.Instance.EnteredNewStateEvent += HandleEnteredNewState;
+    }
+
+    private void OnDisable()
+    {
+        GameContext.Instance.EnteredNewStateEvent -= HandleEnteredNewState;
+    }
+
     private void Update()
     {
-        if (GameContext.Instance.state == ContextState.FreeRoam || GameContext.Instance.state == ContextState.SittingTutorial || GameContext.Instance.state == ContextState.StandingTutorial)
+        switch (state)
         {
-            DetectClosestInteractable();
+            case DetectState.GetClosest:
+                DetectClosestInteractable();
+                break;
+            case DetectState.GetHidden:
+                DetectClosestHiddenInteractable();
+                break;
         }
-        else if (GameContext.Instance.state == ContextState.Zoomed)
-            DetectClosestHiddenInteractable();
+    }
+
+    private void HandleEnteredNewState(ContextState gameState)
+    {
+        switch (gameState)
+        {
+            case ContextState.FreeRoam:
+            case ContextState.Tutorial:
+                state = DetectState.GetClosest;
+                break;
+
+            case ContextState.Zoomed:
+                state = DetectState.GetHidden;
+                break;
+
+            default:
+                state = DetectState.GetClosest;
+                break;
+        }
+
+        ResetLastDetectedObject();
     }
 
     private void DetectClosestInteractable()
@@ -74,7 +118,6 @@ public class IntercablesDetect : MonoBehaviour
         Interactee potentialClosest;
         Dictionary<Interactee, HashSet<Vector2>> raycastHitsByInteractee;
         ProcessHits(hits, out potentialClosest, out raycastHitsByInteractee);
-        Debug.Log("Detecting closest: " + potentialClosest);
 
         Rect rect = GetMagnifyingGlassRect();
         if (potentialClosest != null)
@@ -91,23 +134,26 @@ public class IntercablesDetect : MonoBehaviour
                     visitedHiddenInteractees.Add(potentialClosest);
 
                 EventsManager.instance.ZoomInObject(hitPositions, rect, potentialClosest.GetSuggestion());
+                EventsManager.instance.ShowControls(new Controls() { inspectControls});
                 lastDetectedObject = potentialClosest.gameObject;
             }
             else if (percentage > partiallyIdentifiedThreshold && closestObjectInView)
             {
+                EventsManager.instance.ShowControls(new Controls() { });
                 EventsManager.instance.ZoomInObject(hitPositions, rect, "???");
                 lastDetectedObject = null;
             }
             else
             {
-                Debug.Log("This should be calling");
-                EventsManager.instance.ZoomInObject(null, Rect.zero, "???");
+                EventsManager.instance.ShowControls(new Controls() { });
+                EventsManager.instance.ZoomInObject(null, Rect.zero, "");
                 lastDetectedObject = null;
             }
         }
         else
         {
-            EventsManager.instance.ZoomInObject(null, Rect.zero, "???");
+            EventsManager.instance.ShowControls(new Controls() { });
+            EventsManager.instance.ZoomInObject(null, Rect.zero, "");
             lastDetectedObject = null;
         }
     }
@@ -120,7 +166,7 @@ public class IntercablesDetect : MonoBehaviour
         float closestDistance = Mathf.Infinity;
         foreach (FrustrumRaycastInfo info in hits)
         {
-            Vector2 centerOfScreen = new Vector2(Screen.width, Screen.height);
+            Vector2 centerOfScreen = new Vector2(Screen.width / 2f, Screen.height / 2f);
             float distance = Vector2.Distance(centerOfScreen, info.screenPoint);
             GameObject hitObject = info.hit.collider.gameObject;
             Interactee interactee = hitObject.GetComponent<Interactee>();
@@ -214,6 +260,12 @@ public class IntercablesDetect : MonoBehaviour
     public GameObject GetLastDetectedObject()
     {
         return lastDetectedObject;
+    }
+
+    private void ResetLastDetectedObject()
+    {
+        lastDetectedObject = null;
+        EventsManager.instance.ToggleableDetect(null);
     }
 
     public struct FrustrumRaycastInfo

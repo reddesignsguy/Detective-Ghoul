@@ -5,6 +5,7 @@ namespace DS.ScriptableObjects
 {
     using Data;
     using Enumerations;
+    using Unity.Burst.CompilerServices;
 
     public class DSDialogueSO : ScriptableObject
     {
@@ -14,8 +15,11 @@ namespace DS.ScriptableObjects
         [field: SerializeField] public DSDialogueType DialogueType { get; set; }
         [field: SerializeField] public bool IsStartingDialogue { get; set; }
         [field: SerializeField] public bool IsExitable { get; set; }
+        [field: SerializeField] public Sprite Sprite { get; set; }
+        [field: SerializeField] public bool SpriteLeftSide { get; set; }
 
-        public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices, DSDialogueType dialogueType, bool isStartingDialogue, bool isExitable = false)
+
+        public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices, DSDialogueType dialogueType, bool isStartingDialogue, bool isExitable = false, Sprite sprite = null, bool spriteLeftSide = true)
         {
             DialogueName = dialogueName;
             Text = text;
@@ -23,6 +27,28 @@ namespace DS.ScriptableObjects
             DialogueType = dialogueType;
             IsStartingDialogue = isStartingDialogue;
             IsExitable = isExitable;
+            Sprite = sprite;
+            SpriteLeftSide = spriteLeftSide;
+        }
+
+        public void InitialiazeDisconnectedDialogue(string dialogueName, string text,  Sprite sprite = null, bool spriteLeftSide = true)
+        {
+            DSDialogueChoiceData nextChoice = new DSDialogueChoiceData();
+            nextChoice.NextDialogue = null;
+
+            List<DSDialogueChoiceData> choices = new List<DSDialogueChoiceData>
+            {
+                nextChoice
+            };
+
+            DialogueName = dialogueName;
+            Text = text;
+            Choices = choices;
+            DialogueType = DSDialogueType.SingleChoice;
+            IsStartingDialogue = true;
+            IsExitable = false;
+            Sprite = sprite;
+            SpriteLeftSide = spriteLeftSide;
         }
     }
 }

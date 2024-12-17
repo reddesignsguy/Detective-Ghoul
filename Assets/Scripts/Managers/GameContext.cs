@@ -1,20 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameContext : MonoBehaviour
 {
-
+    [SerializeField] private InputSystem inputSystem;
     public static GameContext Instance { get; private set; }
-    public ContextState state { get; private set; } = ContextState.UI;
-    private ContextState stateBeforeLastUI = ContextState.UI;
-    
+    public ContextState state { get; private set; } = ContextState.Tutorial;
+    private ContextState stateBeforeLastUI = ContextState.Tutorial;
+
+    public event Action<Vector3> ZoomStartEvent;
+    public event Action ZoomEndEvent;
+    public event Action ZoomUIEndEvent;
+    public event Action ZoomUIStartEvent;
+    public event Action<Vector2> PanCameraEvent;
+    public event Action<bool> UpdateCursorEvent;
+    public event Action<ContextState> EnteredNewStateEvent;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("Duplicate GameContext found and destroyed.");
-            Destroy(gameObject); // Destroy duplicate instances
+            Destroy(gameObject); 
             return;
         }
 
@@ -22,14 +30,82 @@ public class GameContext : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void SetContextState(ContextState newState)
+    private void OnEnable()
     {
-        bool tryingToExitTutorial = newState == ContextState.FreeRoam || newState == ContextState.UI;
-        if (tryingToExitTutorial && inTutorialState() && !inFinalTutorialState())
+        inputSystem.ZoomInEvent += HandleZoomIn;
+        inputSystem.ZoomOutEvent += HandleZoomOut;
+        inputSystem.CursorMoveEvent += HandleCursorMove;
+        EventsManager.instance.onTutorialFinished += HandleTutorialFinished;
+    }
+
+    private void OnDisable()
+    {
+        inputSystem.ZoomInEvent -= HandleZoomIn;
+        inputSystem.ZoomOutEvent -= HandleZoomOut;
+        inputSystem.CursorMoveEvent -= HandleCursorMove;
+        EventsManager.instance.onTutorialFinished -= HandleTutorialFinished;
+    }
+
+    private void HandleTutorialFinished()
+    {
+        SetContextState(ContextState.FreeRoam);
+    }
+
+    private void HandleZoomIn(Vector2 mousePos)
+    {
+        if (inputSystem.IsPointerOverUIElement())
         {
             return;
         }
 
+        if (state == ContextState.Zoomed)
+        {
+            return;
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+
+        if (!Physics.Raycast(ray, out hit))
+        {
+            return;
+        }
+
+        Vector3 currentPosition = Camera.main.transform.position;
+        Vector3 targetPosition = new Vector3(hit.point.x, hit.point.y, Camera.main.transform.position.z);
+        if (Vector3.Distance(currentPosition, targetPosition) > GlobalSettings.Instance.maxZoomRoamDistance)
+        {
+            return;
+        }
+
+        SetContextState(ContextState.Zoomed);
+        ZoomStartEvent?.Invoke(targetPosition);
+        ZoomUIStartEvent?.Invoke();
+    }
+
+    private void HandleZoomOut()
+    {
+        SetContextState(ContextState.FreeRoam);
+        ZoomEndEvent?.Invoke();
+        ZoomUIEndEvent?.Invoke();
+    }
+
+    private void HandleCursorMove(Vector2 mouseDelta)
+    {
+        switch (state)
+        {
+            case ContextState.Zoomed:
+                PanCameraEvent?.Invoke(mouseDelta);
+                break;
+            case ContextState.FreeRoam:
+                bool hoveringOverUI = inputSystem.IsPointerOverUIElement();
+                UpdateCursorEvent?.Invoke(hoveringOverUI);
+                break;
+        }
+    }
+
+    public void SetContextState(ContextState newState)
+    {
         if (newState == state)
         {
             return;
@@ -43,56 +119,59 @@ public class GameContext : MonoBehaviour
     // except if in tutorial
     public void BackOutOfUI()
     {
-        Debug.Log("State before last UI" + stateBeforeLastUI);
-        if (stateBeforeLastUI == ContextState.StandingTutorial)
+        if (state == ContextState.UI)
         {
-            SetContextState(ContextState.FreeRoam);
-        }
-
-        else if (state == ContextState.UI)
-        {
-            state = stateBeforeLastUI;
+            SetContextState(stateBeforeLastUI);
         }
     }
 
     private void HandleTransition(ContextState newState)
     {
-        bool anyToUI = state != ContextState.UI && newState == ContextState.UI;
-        if (anyToUI)
+        if (state == newState)
         {
-            stateBeforeLastUI = state;
+            throw new Exception("Expected the inputted new state to be different from current state");
         }
 
-        bool anyToZoom = state != ContextState.Zoomed && newState == ContextState.Zoomed;
-        if (anyToZoom)
+        switch (newState)
         {
-            EventsManager.instance.ToggleZoom(true);
+            case ContextState.Tutorial:
+                EventsManager.instance.ShowControls(new Controls() { });
+                break;
+            //case ContextState.SittingTutorial:
+            //    EventsManager.instance.ShowControls(new Controls() { });
+            //    break;
+            //case ContextState.StandingTutorial:
+            //    EventsManager.instance.ShowControls(new Controls() { });
+            //    break;
+            case ContextState.FreeRoam:
+                EventsManager.instance.ShowControls(new Controls() { });
+                break;
+            case ContextState.UI:
+                stateBeforeLastUI = state;
+                ZoomUIEndEvent?.Invoke();
+                break;
+            case ContextState.Zoomed:
+                ZoomUIStartEvent?.Invoke();
+                break;
         }
 
-        bool zoomToAny = state == ContextState.Zoomed && newState != ContextState.Zoomed;
-        if (zoomToAny)
-        {
-            EventsManager.instance.ToggleZoom(false);
-        }
+        EnteredNewStateEvent?.Invoke(newState);
     }
 
-    private bool inTutorialState()
-    {
-        return state == ContextState.IntroTutorial || state == ContextState.SittingTutorial || state == ContextState.StandingTutorial; 
-    }
+    //private bool inTutorialState()
+    //{
+    //    return state == ContextState.IntroTutorial || state == ContextState.SittingTutorial || state == ContextState.StandingTutorial; 
+    //}
 
-    private bool inFinalTutorialState()
-    {
-        return state == ContextState.StandingTutorial;
-    }
-
+    //private bool inFinalTutorialState()
+    //{
+    //    return state == ContextState.StandingTutorial;
+    //}
 }
 
 public enum ContextState
 {
-    IntroTutorial,
-    SittingTutorial,
-    StandingTutorial,
+    Tutorial,
     FreeRoam,
     UI,
     Zoomed

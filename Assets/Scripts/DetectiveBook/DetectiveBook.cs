@@ -18,6 +18,7 @@ public class DetectiveBook : MonoBehaviour
 
     public static DetectiveBook Instance { get; private set; }
 
+    public event Action<Sprite> PickedUpClueEvent;
 
     private void Awake()
     {
@@ -37,13 +38,13 @@ public class DetectiveBook : MonoBehaviour
 
     private void OnEnable()
     {
-        EventsManager.instance.onPickUpInventoryItem += HandlePickupInventoryItem;
+        EventsManager.instance.onPickupItem += HandlePickupInventoryItem;
 
     }
 
     private void OnDisable()
     {
-        EventsManager.instance.onPickUpInventoryItem -= HandlePickupInventoryItem;
+        EventsManager.instance.onPickupItem -= HandlePickupInventoryItem;
     }
 
 
@@ -69,8 +70,6 @@ public class DetectiveBook : MonoBehaviour
 
     private void HandlePickupInventoryItem(InventoryItem item)
     {
-        Debug.Log("Detective book received: " + item);
-        Debug.Log("Checking if clue: " + item.isClue);
         if (item == null || !item.isClue)
         {
             return;
@@ -88,6 +87,7 @@ public class DetectiveBook : MonoBehaviour
                     if (item == needed)
                     {
                         pickupedItemClues.Add(item);
+                        PickedUpClueEvent?.Invoke(item.image);
                         return;
                     }
                 }

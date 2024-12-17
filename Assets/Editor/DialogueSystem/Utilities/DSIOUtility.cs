@@ -167,7 +167,9 @@ namespace DS.Utilities
                 GroupID = node.Group?.ID,
                 DialogueType = node.DialogueType,
                 Position = node.GetPosition().position,
-                IsExitable = node.IsExitable
+                IsExitable = node.IsExitable,
+                Sprite = node.Sprite,
+                SpriteLeftSide = node.SpriteLeftSide
             };
 
             graphData.Nodes.Add(nodeData);
@@ -196,7 +198,9 @@ namespace DS.Utilities
                 ConvertNodeChoicesToDialogueChoices(node.Choices),
                 node.DialogueType,
                 node.IsStartingNode(),
-                node.IsExitable
+                node.IsExitable,
+                node.Sprite,
+                node.SpriteLeftSide
             );
 
             createdDialogues.Add(node.ID, dialogue);
@@ -331,6 +335,9 @@ namespace DS.Utilities
 
                 Debug.Log(nodeData.IsExitable);
                 node.IsExitable = nodeData.IsExitable;
+                node.Sprite = nodeData.Sprite;
+                node.SpriteLeftSide = nodeData.SpriteLeftSide;
+
 
 
                 node.Draw();

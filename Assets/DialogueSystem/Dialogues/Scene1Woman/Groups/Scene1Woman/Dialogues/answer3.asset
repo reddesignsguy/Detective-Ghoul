@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: answer3
   m_EditorClassIdentifier: 
   <DialogueName>k__BackingField: answer3
-  <Text>k__BackingField: I dorpped him and his friends off at the junkyard.
+  <Text>k__BackingField: I dropped him and his friends off at the junkyard.
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Dialogue
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: fdf09e8719fa0434eb12736e50406c38, type: 2}
   <DialogueType>k__BackingField: 0
   <IsStartingDialogue>k__BackingField: 0
   <IsExitable>k__BackingField: 0
+  <Sprite>k__BackingField: {fileID: 436858809, guid: 8e16968a197904e968582d24fc116dd1, type: 3}
+  <SpriteLeftSide>k__BackingField: 0

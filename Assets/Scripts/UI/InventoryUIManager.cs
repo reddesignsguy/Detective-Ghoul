@@ -1,15 +1,15 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public struct InventoryUIReferences
 {
     public List<Image> itemImages;
     public List<Image> placeholderImages;
     public List<Button> buttons;
+    public List<Image> basePlaceholderImages;
 
     public int viewedItemIndex;
     public GameObject viewedItemPlaceholder;
@@ -23,8 +23,17 @@ public class InventoryUIManager : UIManager
     public Image viewedItemImage;
     public TextMeshProUGUI title;
     public TextMeshProUGUI description;
+    [SerializeField] private Color selectedColor = Color.black;
+    [SerializeField] private Color unselectedColor;
+    public GameObject defaultHolder;
+    public Animator animator;
+    public Image animationObject;
+
+    private Color defaultColor;
 
     private InventoryUIReferences refs;
+
+    private Queue<InventoryItem> insertItems;
 
     private void Awake()
     {
@@ -32,16 +41,61 @@ public class InventoryUIManager : UIManager
         refs.itemImages = GetItemImages();
         refs.placeholderImages = GetItemPlaceholders();
         refs.buttons = GetButtons();
+        refs.basePlaceholderImages = GetItemBasePlaceholders();
         refs.viewedItemIndex = 0;
         SetupButtons();
+
+        defaultColor = GetDefaultHolderColor();
+
+        insertItems = new Queue<InventoryItem>();
     }
 
     private void OnEnable()
     {
         SetupToolbar();
         SelectItem(refs.viewedItemIndex);
+        EventsManager.instance.onAddedToInventory += HandleAddedToInventory;
+        EventsManager.instance.onNoUIManagersDisplayed += HandleNoUIManagersDisplayed;
     }
 
+    private void OnDisable()
+    {
+        EventsManager.instance.onNoUIManagersDisplayed -= HandleNoUIManagersDisplayed;
+        EventsManager.instance.onAddedToInventory -= HandleAddedToInventory;
+    }
+
+    private void HandleNoUIManagersDisplayed()
+    {
+        if (insertItems.Count != 0)
+        {
+            InventoryItem item = insertItems.Dequeue();
+            SetupAnimation(item);
+        }
+
+        insertItems.Clear();
+    }
+
+
+    private void HandleAddedToInventory(InventoryItem item)
+    {
+        insertItems.Enqueue(item);
+    }
+
+    public override void SetUIActive(bool open)
+    {
+        base.SetUIActive(open);
+        if (open)
+        {
+            SetupToolbar();
+            SelectItem(refs.viewedItemIndex);
+        }
+    }
+
+    private void SetupAnimation(InventoryItem item)
+    {
+        animationObject.sprite = item.image;
+        animator.SetTrigger("PickedUp");
+    }
 
     private void SetupToolbar()
     {
@@ -73,9 +127,8 @@ public class InventoryUIManager : UIManager
         {
             return;
         }
-        Debug.Log("Should be selecting item");
 
-        GameObject placeholder = refs.placeholderImages[index].gameObject;
+        GameObject placeholder = refs.basePlaceholderImages[index].gameObject;
         SetShadow(refs.viewedItemPlaceholder, false);
         refs.viewedItemPlaceholder = placeholder;
         refs.viewedItemIndex = index;
@@ -85,18 +138,38 @@ public class InventoryUIManager : UIManager
         SetShadow(placeholder, true);
     }
 
+    // assumes that the slot has an item
     private void SetShadow(GameObject placeholder, bool set)
     {
-        Shadow shadow = placeholder?.GetComponent<Shadow>();
-        if (shadow)
-            shadow.enabled = set;
+        Image img = placeholder?.GetComponent<Image>();
+        if (img)
+        {
+            if (set)
+            {
+                img.color = selectedColor;
+            }
+            else
+            {
+                img.color = unselectedColor;
+            }
+        }
     }
 
     private void ViewItem(InventoryItem item)
     {
+        if (item == null)
+        {
+            title.text = "";
+            description.text = "";
+            viewedItemImage.enabled = false;
+            return;
+        }
+
+
         title.text = item.name;
         description.text = item.description;
         viewedItemImage.sprite = item.image;
+        viewedItemImage.enabled = true;
     }
 
     private void SetupButtons()
@@ -122,6 +195,13 @@ public class InventoryUIManager : UIManager
         return images;
     }
 
+    private List<Image> GetItemBasePlaceholders()
+    {
+        List<Image> images = new List<Image>(toolbar.GetComponentsInChildren<Image>());
+        images = images.FindAll(image => image.gameObject.name == "Base");
+        return images;
+    }
+
     private List<Button> GetButtons()
     {
         List<Button> buttons = new List<Button>(toolbar.GetComponentsInChildren<Button>());
@@ -141,5 +221,17 @@ public class InventoryUIManager : UIManager
         }
 
         return inventory.items[index].item;
+    }
+
+    private Color GetDefaultHolderColor()
+    {
+        if (defaultColor == null)
+        {
+            defaultColor = 
+                defaultHolder.GetComponent<Image>().color;
+        }
+
+        Debug.Log(defaultColor);
+        return defaultColor;
     }
 }

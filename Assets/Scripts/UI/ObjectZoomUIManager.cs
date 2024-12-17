@@ -2,40 +2,49 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ObjectZoomUIManager : MonoBehaviour
 {
+    public InputSystem inputSystem;
     public RectTransform identifierRect;
     public GameObject identifyBounds;
+    public Slider slider;
 
     private void OnEnable()
     {
-        EventsManager.instance.onToggleZoom += HandleToggleZoom;
-        EventsManager.instance.onHighlightArea += OnHandleHighlight;
+        GameContext.Instance.ZoomUIStartEvent += HandleZoomStart;
+        GameContext.Instance.ZoomUIEndEvent += HandleZoomEnd;
+        EventsManager.instance.onHighlightArea += HandleHighlightArea;
+        EventsManager.instance.onZoomChange += HandleZoomChange;
     }
-
 
     private void OnDisable()
     {
-        EventsManager.instance.onToggleZoom -= HandleToggleZoom;
-        EventsManager.instance.onHighlightArea -= OnHandleHighlight;
-
+        GameContext.Instance.ZoomUIStartEvent -= HandleZoomStart;
+        GameContext.Instance.ZoomUIEndEvent -= HandleZoomEnd;
+        EventsManager.instance.onHighlightArea -= HandleHighlightArea;
+        EventsManager.instance.onZoomChange -= HandleZoomChange;
     }
 
-    private void HandleToggleZoom(bool toggle)
+    private void HandleZoomStart()
     {
-        if (toggle)
-        {
-            identifyBounds.SetActive(true);
-        }
-        else
-        {
-            identifyBounds.SetActive(false);
-            identifierRect.gameObject.SetActive(false);
-        }
+        identifyBounds.SetActive(true);
     }
 
-    private void OnHandleHighlight(HashSet<Vector2> points, Rect bounds, string hint)
+    private void HandleZoomEnd()
+    {
+        identifyBounds.SetActive(false);
+        identifierRect.gameObject.SetActive(false);
+    }
+
+    private void HandleZoomChange(float percent)
+    {
+        slider.value = percent;
+    }
+
+    private void HandleHighlightArea(HashSet<Vector2> points, Rect bounds, string hint)
     {
         if (points == null)
         {
@@ -43,12 +52,11 @@ public class ObjectZoomUIManager : MonoBehaviour
         }
         else
         {
-            HighlightArea(points, bounds, hint);
+            ShowHighlightArea(points, bounds, hint);
         }
-
     }
 
-    private void HighlightArea(HashSet<Vector2> points, Rect bounds, string hint)
+    private void ShowHighlightArea(HashSet<Vector2> points, Rect bounds, string hint)
     {
         RemoveOutOfBoundPoints(points, bounds);
         RectHelper.ModifyRect(points, identifierRect);

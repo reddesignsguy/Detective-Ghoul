@@ -4,13 +4,19 @@ using System.Collections.Generic;
 using DS.ScriptableObjects;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DetectiveBookUIManager : UIManager
 {
+    public GameObject bulletPointsFolder;
     public GameObject bulletpointPrefab;
-
     public PicturesPageUI picturesUI;
     public QuestionsPageUI questionsUI;
+    public Image animatedItemForInvoker;
+    public Animator bookInvokerAnimator;
+    public GameObject title;
+
+    [SerializeField] private Controls navigation;
 
     private int numPages = -1;
     private int curPageNum = 0;
@@ -21,7 +27,7 @@ public class DetectiveBookUIManager : UIManager
         numPages = DetectiveBook.Instance.pages.Count;
         for (int i = 0; i < numPages; i ++)
         {
-            GameObject bulletPoint = Instantiate(bulletpointPrefab, transform);
+            GameObject bulletPoint = Instantiate(bulletpointPrefab, bulletPointsFolder.transform);
 
             if(i == 0 && bulletPoint.TryGetComponent(out BulletPoint point))
             {
@@ -32,32 +38,81 @@ public class DetectiveBookUIManager : UIManager
         }
     }
 
+    private void OnEnable()
+    {
+        DetectiveBook.Instance.PickedUpClueEvent += HandlePickedUpClue;
+    }
+
+    private void OnDisable()
+    {
+        DetectiveBook.Instance.PickedUpClueEvent -= HandlePickedUpClue;
+    }
+
+
+    private void Update()
+    {
+        if (!isOpen)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
+        else if (Input.GetKeyDown(KeyCode.Q) && curPageNum > 0)
+        {
+            Close();
+            turnPage(goToRightPage: false);
+            Open();
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && curPageNum < numPages - 1)
+        {
+            Close();
+            turnPage(goToRightPage: true);
+            Open();
+        }
+    }
+
     public override void SetUIActive(bool open)
     {
         if (open)
         {
-            isOpen = true;
-            SetBulletPointsEnabled(true);
-            Page page = SetupPage(curPageNum);
-            switch (page)
-            {
-                case PicturesPage:
-                    panel = picturesUI.gameObject;
-                    break;
-                case QuestionsPage:
-                    panel = questionsUI.gameObject;
-                    break;
-                default:
-                    throw new InvalidOperationException($"Unsupported page type: {page.GetType()}");
-            }
-            base.SetUIActive(open);
+            TurnOn(open);
+            EventsManager.instance.ShowControls(navigation);
         }
         else
         {
-            isOpen = false;
-            SetBulletPointsEnabled(false);
-            base.SetUIActive(false);
+            TurnOff();
         }
+    }
+
+    private void TurnOn(bool open)
+    {
+        isOpen = true;
+        SetBulletPointsEnabled(true);
+        Page page = SetupPage(curPageNum);
+        switch (page)
+        {
+            case PicturesPage:
+                panel = picturesUI.gameObject;
+                break;
+            case QuestionsPage:
+                panel = questionsUI.gameObject;
+                break;
+            default:
+                throw new InvalidOperationException($"Unsupported page type: {page.GetType()}");
+        }
+        base.SetUIActive(open);
+        title.SetActive(true);
+    }
+
+    private void TurnOff()
+    {
+        isOpen = false;
+        SetBulletPointsEnabled(false);
+        base.SetUIActive(false);
+        title.SetActive(false);
     }
 
     private Page SetupPage(int pageNum) // 0 indexed
@@ -99,31 +154,6 @@ public class DetectiveBookUIManager : UIManager
         DSDialogueSO dialogue = page.optionsDialogue;
         questionsUI.SetUp(dialogue);
         questionsUI.SetQuestionsClickable(false);
-    }
-
-    private void Update()
-    {
-        if (!isOpen)
-        {
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Close();
-        }
-        else if (Input.GetKeyDown(KeyCode.Q) && curPageNum > 0)
-        {
-            Close();
-            turnPage(goToRightPage: false);
-            Open();
-        }
-        else if (Input.GetKeyDown(KeyCode.E) && curPageNum < numPages - 1)
-        {
-            Close();
-            turnPage(goToRightPage: true);
-            Open();
-        }
     }
 
     private void turnPage(bool goToRightPage)
@@ -171,4 +201,11 @@ public class DetectiveBookUIManager : UIManager
                 point.gameObject.SetActive(false);
         }
     }
+
+    private void HandlePickedUpClue(Sprite sprite)
+    {
+        animatedItemForInvoker.sprite = sprite;
+        bookInvokerAnimator.SetTrigger("PickedUp");
+    }
+
 }

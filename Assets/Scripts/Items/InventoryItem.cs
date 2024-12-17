@@ -11,3 +11,5 @@ public class InventoryItem : ScriptableObject
     public string hint;
     public bool isClue = false;
 }
+
+// todo - extend from ItemData?
