@@ -4412,6 +4412,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04df6151775f34237952327123963a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls:
+    keycodes: []
+    actions: []
   panel: {fileID: 0}
   bulletPointsFolder: {fileID: 686931435}
   bulletpointPrefab: {fileID: 6353606692075985903, guid: b43a10d577dd84eff822e7a38e54aedf, type: 3}
@@ -5169,10 +5172,10 @@ GameObject:
   - component: {fileID: 396392650}
   - component: {fileID: 396392652}
   - component: {fileID: 396392653}
-  - component: {fileID: 396392654}
   - component: {fileID: 396392655}
   - component: {fileID: 396392656}
   - component: {fileID: 396392657}
+  - component: {fileID: 396392658}
   m_Layer: 0
   m_Name: UIManagers
   m_TagString: Untagged
@@ -5192,6 +5195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a86d69a01674bbeacacf5e89b0438e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls:
+    keycodes: []
+    actions: []
   panel: {fileID: 0}
   interactableUIPrefab: {fileID: 4495021590022346152, guid: 2d60c99d700112c4392b46b3460e81af, type: 3}
 --- !u!4 &396392651
@@ -5221,6 +5227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3231f617094c493990a6ec0cfd0952a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls:
+    keycodes: []
+    actions: []
   panel: {fileID: 142032571}
   dialogueText: {fileID: 1115433577}
   fillOutRate: 50
@@ -5240,6 +5249,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c1005b4e8d142c892f5f822c3b3812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls:
+    keycodes: []
+    actions: []
   panel: {fileID: 385055894}
   image: {fileID: 200281824}
   title: {fileID: 78567453}
@@ -5247,19 +5259,6 @@ MonoBehaviour:
   escControls:
     keycodes: []
     actions: []
---- !u!114 &396392654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396392649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21af2e0b94063467cbe8f1be4703d72e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 111954614}
 --- !u!114 &396392655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5302,6 +5301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a9ec623d365456d9bfaf1cdb39b018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls:
+    keycodes: []
+    actions: []
   panel: {fileID: 1433412381}
   inventory: {fileID: 1356807590}
   toolbar: {fileID: 240226727}
@@ -5313,6 +5315,26 @@ MonoBehaviour:
   defaultHolder: {fileID: 2955047077241925185, guid: 606a0977efca5400fa18d2be80cd1563, type: 3}
   animator: {fileID: 376608075}
   animationObject: {fileID: 552957827}
+--- !u!114 &396392658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396392649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 366ae1771823645bcaaa067b19b7d9ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls:
+    keycodes:
+    - LEFT CLICK
+    - ESC
+    actions:
+    - Interact
+    - Leave
+  panel: {fileID: 111954614}
 --- !u!1001 &411087741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7253,152 +7275,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 467e3ad184eb845dea8e2b06837251c5, type: 3}
   m_PrefabInstance: {fileID: 1496695087}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &552109404
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 552109405}
-  - component: {fileID: 552109407}
-  - component: {fileID: 552109406}
-  - component: {fileID: 552109408}
-  - component: {fileID: 552109409}
-  m_Layer: 5
-  m_Name: Close
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &552109405
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 552109404}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1259134544}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -29.9, y: 23}
-  m_SizeDelta: {x: 40.6601, y: 40.660095}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &552109406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 552109404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4e963d85640844c719591d9f6ba8f5f3, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &552109407
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 552109404}
-  m_CullTransparentMesh: 1
---- !u!114 &552109408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 552109404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 552109406}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 552109409}
-        m_TargetAssemblyTypeName: CloseButton, Assembly-CSharp
-        m_MethodName: onClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &552109409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 552109404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbd9cefaa1ab44863ad428b96ebb634f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 396392654}
 --- !u!1 &552957825
 GameObject:
   m_ObjectHideFlags: 0
@@ -11726,6 +11602,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953dde7f72005426db8672cc17846a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls:
+    keycodes: []
+    actions: []
   panel: {fileID: 1407402888}
   tmp: {fileID: 34936046}
   animator: {fileID: 1057488863}
@@ -12835,11 +12714,6 @@ MonoBehaviour:
   suggestion: 
   isHidden: 0
   itemInfo: {fileID: 11400000, guid: d3a96b35cf0624760a68d48dd63eeb41, type: 2}
---- !u!224 &1259134544 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5631216412032630112, guid: 7f92730ff1f9342ce9880bf4bcef442d, type: 3}
-  m_PrefabInstance: {fileID: 2976664699807865875}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1264067986 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6563021917794831702, guid: 951277aa61d7fbe46afe8b275268d600, type: 3}
@@ -13784,7 +13658,7 @@ MonoBehaviour:
   suggestionTransform: {fileID: 0}
   suggestion: Trash
   isHidden: 0
-  manager: {fileID: 396392654}
+  manager: {fileID: 396392658}
 --- !u!65 &1342129176
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18733,6 +18607,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6342294e5ded4426880b325b54498541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls:
+    keycodes:
+    - ESC
+    actions:
+    - Exit
   panel: {fileID: 1941708030}
   escape:
     keycodes:
@@ -20159,6 +20038,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db3789559158408a912934b40147a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls:
+    keycodes: []
+    actions: []
   panel: {fileID: 2119639030}
   layoutGroup: {fileID: 814744028}
   numPlaceholder: {fileID: 1931684768}
@@ -20747,9 +20629,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1568690159813399372, guid: 7f92730ff1f9342ce9880bf4bcef442d, type: 3}
       insertIndex: 0
       addedObject: {fileID: 623194112}
-    - targetCorrespondingSourceObject: {fileID: 5631216412032630112, guid: 7f92730ff1f9342ce9880bf4bcef442d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 552109405}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3135068381967592965, guid: 7f92730ff1f9342ce9880bf4bcef442d, type: 3}
       insertIndex: -1
